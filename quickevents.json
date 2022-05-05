@@ -1,0 +1,26 @@
+[
+  {
+    "ID": 1,
+    "Time": "0900PM",
+    "Day": "Sunday",
+    "Location": "Kroc",
+    "Cost": "30",
+    "TotalPlayers": "22"
+  },
+    {
+      "ID": 2,
+    "Time": "1030PM",
+      "Day": "Tuesday",
+    "Location": "UTC",
+    "Cost": "30",
+    "TotalPlayers": "22"
+  },
+    {
+      "ID": 3,
+    "Time": "0945PM",
+      "Day": "Friday",
+    "Location": "Poway",
+    "Cost": "30",
+    "TotalPlayers": "22"
+  }
+]

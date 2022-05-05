@@ -1,0 +1,11 @@
+[
+  {
+    "TuesdayReg" : "Hello Hockey Family & Friends,\n\nThis is your BAH Commish - Chad Hosegood.\n\nPlease let me know if you are IN OR OUT for our next skate on Tuesday.\n\nSend me a Text or Email by Sunday ... my cell is @860-977-0538.\n\nDate: insert_date\nTime: 1030p\nLocation: UTC"
+  },
+  {
+    "TuesdaySub": "Hello Hockey Friends,\n\nThis is your BAH Commish - Chad Hosegood.\n\nPlease let me know if you are available to sub  for our next skate on Tuesday.\n\nSend me an email or preferably a text ASAP @860-977-0538.\n\nI will confirm and send you communication on your approved status once finalized.\n\nDate: insert_date\nTime: 1030p\nLocation: UTC"
+  },
+  {
+    "TuesdayFin": "<html><head></head><body>Good evening BAH Hockey Friends and Family! <br><br>It's time for our insert_day BAH Skate! Let's have a clean fun night of amazing hockey! <br><br>insert_runner will be running the buzzer and collecting cash for BAH. <br><br>Game Details below: <br><br>Lineups below for a wonderful matchup!<br><br>Please Text me @ 860-977-0538 if any changes. <br><br>Chad - The BAH Commish<br><br>Date: insert_date (Insert # of Skate - BAH Tuesday Skate!)<br>Time: insert_time<br>Location: insert_location<br><br>insert_table</body></html>"
+  }
+]

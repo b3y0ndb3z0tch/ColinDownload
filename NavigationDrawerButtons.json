@@ -1,0 +1,19 @@
+[
+ {
+
+   "Button Name": "Create Event",
+   "Button Function": "self.create_event"
+ },
+  {
+   "Button Name": "Find Event",
+   "Button Function": "self.find_event"
+  },
+  {
+     "Button Name": "Create Player",
+    "Button Function": "self.create_player"
+    },
+    {
+     "Button Name": "Find Player",
+    "Button Function": "self.find_player"
+    }
+]
