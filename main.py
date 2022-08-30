@@ -32,8 +32,9 @@ from kivymd.uix.menu import MDDropdownMenu
 from kivymd.uix.screen import MDScreen
 from kivymd.uix.tab import MDTabsBase
 from kivymd.uix.textfield import MDTextField
-import TestingIndiviualLogicCode.testingfunctions
-import TestingIndiviualLogicCode.alerts
+import TestingIndividualLogicCode.testingfunctions
+import TestingIndividualLogicCode.alerts
+import TestingIndividualLogicCode.makingtable
 from kivy.properties import partial
 from kivymd.uix.list import OneLineListItem
 #when in invite - need to refresh the search for players
@@ -789,11 +790,16 @@ MDScreen:
                 BoxLayout:
                     orientation: 'vertical'
                     MDToolbar:
-                        title: "Specific Event"
+                        title: "Invited Guests"
                         elevation: 10
                         pos_hint: {"top": 1}
                         left_action_items: [['home', lambda x: app.change_home_screen()]]
-                        right_action_items: [['face-profile', lambda x: nav_drawer3.set_state('open')]]
+                        right_action_items: 
+                            [
+                            ['account-alert', lambda x: app.display_assigned_dark()],
+                            ['account-alert-outline', lambda x: app.change_light_assign()],
+                            ['face-profile', lambda x: nav_drawer3.set_state('open')]
+                            ]
                     MDBoxLayout:
                         orientation: 'vertical'
                         MDBoxLayout:
@@ -1004,7 +1010,7 @@ MDScreen:
                     orientation: 'vertical'
                     #spacing: '15dp'
                     MDToolbar:
-                        title: "Display Teams"
+                        title: "Full Teams"
                         elevation: 10
                         pos_hint: {"top": 1}
                         left_action_items: 
@@ -1077,7 +1083,7 @@ MDScreen:
                                 print('Another Drawer Button was pressed')
                                 root.ids.screen_manager.current = "HomeScreen"
                                 nav_drawer.set_state('close')
-                                app.TestingIndiviualLogicCode.alerts.specific_player_info(a,b,c,d)
+                                app.just_testing()
         MDNavigationDrawer:
             id: nav_drawer2
             anchor: 'right'
@@ -1382,84 +1388,24 @@ class DemoApp(MDApp):
         print("coming from the Display Teams page")
         print("nav upper right send email icon pressed")
         print(self.current_event_identify)
-        #need to get all the players currently "assigned" to the event
-        self.players_assigned_to_teams = []
         with open('standardmessages.json') as allstandardmessages:
             all_standard_messages = json.load(allstandardmessages)
-            specific_message = f'{self.current_event_day}Fin'
-            self.txt = str(all_standard_messages[2].get(specific_message))
-            self.txt = self.txt.replace("insert_date", str(self.dict_of_event.get("Date")))
-            self.txt = self.txt.replace("insert_day", str(self.dict_of_event.get("Day")))
-            self.txt = self.txt.replace("insert_time", str(self.dict_of_event.get("Time")))
-            self.txt = self.txt.replace("insert_location", str(self.dict_of_event.get("Location")))
-            print(self.txt)
-            print("just printed txt")
+            self.txt = TestingIndividualLogicCode.makingtable.email_message_body(all_standard_messages
+                ,self.dict_of_event, self.current_event_day)
         with open("ContactInfo.json") as allcontactinfo:
             all_contact_info = json.load(allcontactinfo)
-            with open('myevents.json') as allcurrentevents:
-                all_current_events = json.load(allcurrentevents)
-                self.dict_of_event = all_current_events[self.current_event_identify]
-                self.table_to_insert = ""
-                self.table_to_insert += '<style type="text/css"> .tg  {border-collapse:collapse;border-spacing:0; width:50%; background-color:#3489bb;} .tg td{border-color:black;border-style:solid;border-width:3px;font-family:Arial, sans-serif;font-size:14px; ;  overflow:hidden;padding:10px 5px;word-break:normal;}.tg th{border-color:black;border-style:solid;border-width:3px;font-family:Arial, sans-serif;font-size:14px;  font-weight:heavy;overflow:hidden;padding:10px 5px;word-break:normal;}  .tg th2{border-color:black;border-style:solid;border-width:3px;font-family:Arial, sans-serif;font-size:20px;  font-weight:heavy;overflow:hidden;padding:10px 5px;word-break:normal;}.tg .tg-0pky{border-color:inherit;text-align:center;vertical-align:top}'
-                self.table_to_insert += ' .tg2  {border-collapse:collapse;border-spacing:0; width:50%; background-color:#df5d3b;} .tg2 td{border-color:black;border-style:solid;border-width:3px;font-family:Arial, sans-serif;font-size:14px; ;  overflow:hidden;padding:10px 5px;word-break:normal;}.tg2 th{border-color:black;border-style:solid;border-width:3px;font-family:Arial, sans-serif;font-size:14px;  font-weight:heavy;overflow:hidden;padding:10px 5px;word-break:normal;}  .tg2 th2{border-color:black;border-style:solid;border-width:3px;font-family:Arial, sans-serif;font-size:20px;  font-weight:heavy;overflow:hidden;padding:10px 5px;word-break:normal;}.tg2 .tg2-0pky{border-color:inherit;text-align:center;vertical-align:top}</style>'
-                self.table_to_insert += '<table class="tg"><thead><tr style="background-color:#3489bb;"><th align="center" class="tg-0pky" colspan="4">Dark Team</th></tr><tr style="background-color:#3489bb;">	<th class="tg-0pky">Goalie:</th><td class="tg-0pky" colspan="3">dark_goalie</td></tr><tr style="background-color:#3489bb;">	<th class="tg-0pky" colspan="4">		Line 1	</th></tr><tr style="background-color:#3489bb;">	<th class="tg-0pky">		Forwards:	</th>	<td class="tg-0pky">		insert_dark_forward	</td>	<td class="tg-0pky">		insert_dark_forward	</td>	<td class="tg-0pky">		insert_dark_forward	</td></tr><tr style="background-color:#3489bb;">	<th class="tg-0pky" colspan="2">		Defense:	</th>	<td class="tg-0pky" colspan="1">		insert_dark_defense	</td>	<td class="tg-0pky" colspan="1">		insert_dark_defense	</td></tr><tr style="background-color:#3489bb;">	<th class="tg-0pky" colspan="4">		Line 2	</th></tr><tr style="background-color:#3489bb;">	<th class="tg-0pky">		Forwards:	</th>	<td class="tg-0pky">		insert_dark_forward2	</td>	<td class="tg-0pky">		insert_dark_forward2	</td>	<td class="tg-0pky">		insert_dark_forward2	</td></tr><tr style="background-color:#3489bb;">	<th class="tg-0pky" colspan="2">		Defense:	</th>	<td class="tg-0pky" colspan="1">		insert_dark_defense2	</td>	<td class="tg-0pky" colspan="1">		insert_dark_defense2	</td></tr></thead></table>'
-                self.table_to_insert += '<table class="tg2"><thead><tr>	<th align="center" class="tg2-0pky" colspan="4">		Light Team	</th></tr><tr>	<th class="tg2-0pky">		Goalie:	</th>	<td class="tg2-0pky" colspan="3">		light_goalie	</td></tr><tr>	<th class="tg2-0pky" colspan="4">		Line 1	</th></tr><tr>	<th class="tg2-0pky">		Forwards:	</th>	<td class="tg2-0pky">		insert_light_forward	</td>	<td class="tg2-0pky">		insert_light_forward	</td>	<td class="tg2-0pky">		insert_light_forward	</td></tr><tr>	<th class="tg2-0pky" colspan="2">		Defense:	</th>	<td class="tg2-0pky" colspan="1">		insert_light_defense	</td>	<td class="tg2-0pky" colspan="1">		insert_light_defense	</td></tr><tr>	<th class="tg2-0pky" colspan="4">		Line 2	</th></tr><tr>	<th class="tg2-0pky">		Forwards:	</th>	<td class="tg2-0pky">		insert_light_forward2	</td>	<td class="tg2-0pky">		insert_light_forward2	</td>	<td class="tg2-0pky">		insert_light_forward2	</td></tr><tr>	<th class="tg2-0pky" colspan="2">		Defense:	</th>	<td class="tg2-0pky" colspan="1">		insert_light_defense2	</td>	<td class="tg2-0pky" colspan="1">		insert_light_defense2	</td></tr></thead></table>'
-                for a in self.dict_of_event['Dark'].get('Goalie'):
-                    self.players_assigned_to_teams.append(a)
-                    name = str(all_contact_info[a-1].get("Player First"))
-                    name += " " + str(all_contact_info[a-1].get("Player Last"))
-                    self.table_to_insert = self.table_to_insert.replace("dark_goalie", name)
-                for a in self.dict_of_event['Dark']['Line1'].get('Forward'):
-                    self.players_assigned_to_teams.append(a)
-                    name = str(all_contact_info[a - 1].get("Player First"))
-                    name += " " + str(all_contact_info[a - 1].get("Player Last"))
-                    self.table_to_insert = self.table_to_insert.replace("insert_dark_forward", name, 1)
-                for a in self.dict_of_event['Dark']['Line1'].get('Defense'):
-                    self.players_assigned_to_teams.append(a)
-                    name = str(all_contact_info[a - 1].get("Player First"))
-                    name += " " + str(all_contact_info[a - 1].get("Player Last"))
-                    self.table_to_insert = self.table_to_insert.replace("insert_dark_defense", name, 1)
-                for a in self.dict_of_event['Dark']['Line2'].get('Forward'):
-                    self.players_assigned_to_teams.append(a)
-                    name = str(all_contact_info[a - 1].get("Player First"))
-                    name += " " + str(all_contact_info[a - 1].get("Player Last"))
-                    self.table_to_insert = self.table_to_insert.replace("insert_dark_forward2", name, 1)
-                for a in self.dict_of_event['Dark']['Line2'].get('Defense'):
-                    self.players_assigned_to_teams.append(a)
-                    name = str(all_contact_info[a - 1].get("Player First"))
-                    name += " " + str(all_contact_info[a - 1].get("Player Last"))
-                    self.table_to_insert = self.table_to_insert.replace("insert_dark_defense2", name, 1)
-                for a in self.dict_of_event['Light'].get('Goalie'):
-                    self.players_assigned_to_teams.append(a)
-                    name = str(all_contact_info[a - 1].get("Player First"))
-                    name += " " + str(all_contact_info[a - 1].get("Player Last"))
-                    self.table_to_insert = self.table_to_insert.replace("light_goalie", name)
-                for a in self.dict_of_event['Light']['Line1'].get('Forward'):
-                    self.players_assigned_to_teams.append(a)
-                    name = str(all_contact_info[a - 1].get("Player First"))
-                    name += " " + str(all_contact_info[a - 1].get("Player Last"))
-                    self.table_to_insert = self.table_to_insert.replace("insert_light_forward", name, 1)
-                for a in self.dict_of_event['Light']['Line1'].get('Defense'):
-                    self.players_assigned_to_teams.append(a)
-                    name = str(all_contact_info[a - 1].get("Player First"))
-                    name += " " + str(all_contact_info[a - 1].get("Player Last"))
-                    self.table_to_insert = self.table_to_insert.replace("insert_light_defense", name, 1)
-                for a in self.dict_of_event['Light']['Line2'].get('Forward'):
-                    self.players_assigned_to_teams.append(a)
-                    name = str(all_contact_info[a - 1].get("Player First"))
-                    name += " " + str(all_contact_info[a - 1].get("Player Last"))
-                    self.table_to_insert = self.table_to_insert.replace("insert_light_forward2", name, 1)
-                for a in self.dict_of_event['Light']['Line2'].get('Defense'):
-                    self.players_assigned_to_teams.append(a)
-                    name = str(all_contact_info[a - 1].get("Player First"))
-                    name += " " + str(all_contact_info[a - 1].get("Player Last"))
-                    self.table_to_insert = self.table_to_insert.replace("insert_light_defense2", name, 1)
-            print(self.players_assigned_to_teams)
-            print("Trying to print the table")
-            print(self.table_to_insert)
+            self.players_assigned_to_teams, self.table_to_insert = TestingIndividualLogicCode.makingtable.email_players_and_table(
+                all_contact_info, self.dict_of_event)
+            # print("*" * 50 )
+            # print(self.players_assigned_to_teams)
+            # print("Trying to print the table")
+            # print(self.table_to_insert)
             self.txt = self.txt.replace("insert_table", self.table_to_insert)
-            # need to move this "send email" alert into the for loop to hit all emails of players
-            TestingIndiviualLogicCode.alerts.email_alert_table("adamwilliams86@yahoo.com","Test Email With Table", self.txt)
+            # this is just test sending COMPLETED email context to certain emails
+            TestingIndividualLogicCode.alerts.email_alert_table("adamwilliams86@yahoo.com", "Test Email With Table"
+                , self.txt)
+            # above
+        # need to move this "send email" alert into the for loop to hit all emails of players
         self.emails_players_assigned_to_teams = []
         with open("ContactInfo.json") as allcontactinfo:
             all_contact_info = json.load(allcontactinfo)
@@ -1467,60 +1413,28 @@ class DemoApp(MDApp):
                 print(a)
                 self.emails_players_assigned_to_teams.append(all_contact_info[a-1].get("Email"))
             print(self.emails_players_assigned_to_teams)
+        # above
         self.back_to_current_event()
 
-            # for a in self.emails_players_assigned_to_teams:
-            #     print(self.emails_players_assigned_to_teams.get("Email"))
-
-
     def back_to_current_event(self):
+        print("*" * 250)
         print("back_to_current_event")
-        #print("In on swipe 2 complete: " + str(instance.event_id2))
+        print("*" * 250)
         self.root.ids.currentevents_md_list.clear_widgets()
         self.clear_specific_event()
-        with open('myevents.json') as allcurrentevents:
-            all_current_events = json.load(allcurrentevents)
-            # print(all_current_events)
-            # for singleevent in all_current_events:
-            #     if singleevent == self.current_event_identify:
-            self.dict_of_event = all_current_events[self.current_event_identify]
-            self.current_event_players_invited = self.dict_of_event.get("PlayersInvited")
-            print("TRYING TO PRINT THE LIST OF CURRENT PLAYERS INVITED")
-            print(self.current_event_players_invited)
-            # print(self.dict_of_event)
-            # self.current_event_day = self.dict_of_event.get('Day')
-            labeltext = f" {self.dict_of_event.get('Date')}"
-            labeltext += f" {self.dict_of_event.get('Day')}"
-            labeltext += f" {self.dict_of_event.get('Location')}"
-            labeltext += f" {self.dict_of_event.get('Time')}"
-            labeltext += f"\nInvited: {len(self.dict_of_event.get('PlayersInvited'))}"
-            labeltext += f" ~ Assign: {len(self.dict_of_event.get('PlayersIn'))}"
-            labeltext += f" ~ Goalies: {len(self.dict_of_event['Dark'].get('Goalie')) + len(self.dict_of_event['Light'].get('Goalie'))} \n" \
-                         f"Dark: {len(self.dict_of_event['Dark']['Line1'].get('Forward')) + len(self.dict_of_event['Dark']['Line1'].get('Defense')) + len(self.dict_of_event['Dark']['Line2'].get('Forward')) + len(self.dict_of_event['Dark']['Line2'].get('Defense'))}" \
-                         f" ~ Light: {len(self.dict_of_event['Light']['Line1'].get('Forward')) + len(self.dict_of_event['Light']['Line1'].get('Defense')) + len(self.dict_of_event['Light']['Line2'].get('Forward')) + len(self.dict_of_event['Light']['Line2'].get('Defense'))}"
-            specific_event_heading_label = MDLabel(text=labeltext, halign='center')
-            self.root.ids.specific_event_page_box_layout.add_widget(specific_event_heading_label)
-            with open('ContactInfo.json') as allcontactinfo:
-                all_contact_info = json.load(allcontactinfo)
-                for a in self.dict_of_event.get("PlayersInvited"):
-                    print(all_contact_info[a - 1])
-                    namestring = "Name: "
-                    namestring += f"{all_contact_info[a - 1].get('Player First')}"
-                    namestring += " " + f"{all_contact_info[a - 1].get('Player Last')}"
-                    positionstring = "Pos: "
-                    positionstring += f'{all_contact_info[a - 1].get("position F D G")}'
-                    positionstring += "  Line: "
-                    positionstring += f'{all_contact_info[a - 1].get("LINE")}'
-                    player_id = int(all_contact_info[a - 1].get("playerid"))
-                    print(namestring)
-                    player_card = SwipeToAddPlayerToInList(text=namestring,
-                                                           second_text=positionstring,
-                                                           event_id=self.current_event_identify,
-                                                           player_id=player_id
-                                                           )
-                    self.root.ids.specific_event_label.add_widget(player_card)
-            # for a in str(singleevent.get(["PlayersIn"])):
-            #     print(int(a))
+        labeltext = TestingIndividualLogicCode.makingtable.current_event_title_bar(self.dict_of_event)
+        specific_event_heading_label = MDLabel(text=labeltext, halign='center')
+        self.root.ids.specific_event_page_box_layout.add_widget(specific_event_heading_label)
+        with open('ContactInfo.json') as allcontactinfo:
+            all_contact_info = json.load(allcontactinfo)
+            for a in self.dict_of_event.get("PlayersInvited"):
+                namestring, positionstring, player_id = TestingIndividualLogicCode.makingtable.organize_player_invited_player_card(all_contact_info, self.dict_of_event, a)
+                player_card = SwipeToAddPlayerToInList(text=namestring,
+                                                       second_text=positionstring,
+                                                       event_id=self.current_event_identify,
+                                                       player_id=player_id
+                                                       )
+                self.root.ids.specific_event_label.add_widget(player_card)
         self.root.ids.screen_manager.current = 'SpecificEventPage'
 
     def display_teams(self):
@@ -1868,6 +1782,7 @@ class DemoApp(MDApp):
                         # self.player_card = OrganizeD2Line(text=name, player_id=all_contact_info[single_player - 1].get("playerid"))
                         # self.root.ids.organize_d2_event.add_widget(self.player_card)
     def change_light_assign(self):
+        print("*" * 150 )
         print("now change_light_assign")
         self.root.ids.organize_light_line1.clear_widgets()
         self.root.ids.organize_light_line2.clear_widgets()
@@ -2010,7 +1925,9 @@ class DemoApp(MDApp):
         self.root.ids.screen_manager.current = 'HomeScreen'
 
     def showSpecificEventDrawerPlayersMenuModule(self, root):
+        print("*")
         print("showSpecificEventDrawerPlayersMenuModule")
+        print("*" * 250)
         if self.showSpecificEventDrawerPlayersMenu:
             self.invite = MDRaisedButton(font_style = 'Subtitle2', text='Invite Regulars', on_press= self.inviteregularsbutton, size_hint = (1, None), padding = '10dp',   anchor_x = 'left', md_bg_color = (.87,.36,.24,1))
             root.ids.nav_drawer3_md_list.add_widget(self.invite, 2)
@@ -2020,45 +1937,32 @@ class DemoApp(MDApp):
             root.ids.nav_drawer3_md_list.add_widget(self.invite3, 2)
             self.secondchild = root.ids.nav_drawer3_md_list.children
         else:
+            print(" we are in the showSpecificEventDrawerPlayersMenuModule(self, root): and removing the widgets")
             root.ids.nav_drawer3_md_list.remove_widget(self.invite)
             root.ids.nav_drawer3_md_list.remove_widget(self.invite2)
             root.ids.nav_drawer3_md_list.remove_widget(self.invite3)
 
     def display_organize_event_screen(self):
+        print("*" * 250)
+        print("display_oragnize_event_screen")
         print("time to display the organize event information")
         self.root.ids.organize_event_page_box_layout.clear_widgets()
         self.root.ids.organize_event_label.clear_widgets()
 
         with open('myevents.json') as allcurrentevents:
             all_current_events = json.load(allcurrentevents)
-            self.dict_of_event = all_current_events[self.current_event_identify]
-            labeltext = f" {self.dict_of_event.get('Date')}"
-            labeltext += f" {self.dict_of_event.get('Day')}"
-            labeltext += f" {self.dict_of_event.get('Location')}"
-            labeltext += f" {self.dict_of_event.get('Time')}"
-            labeltext += f"\nDGoalie: {len(self.dict_of_event['Dark'].get('Goalie'))} "
-            labeltext +=f"~ LGoalie: {len(self.dict_of_event['Light'].get('Goalie'))} "
-            labeltext +=f"\nDL1F: {len(self.dict_of_event['Dark']['Line1'].get('Forward'))} ~ DL2F: {len(self.dict_of_event['Dark']['Line2'].get('Forward'))}"
-            labeltext +=f" ~ DL1D: {len(self.dict_of_event['Dark']['Line1'].get('Defense'))} ~ DL2D: {len(self.dict_of_event['Dark']['Line2'].get('Defense'))}"
-            labeltext +=f"\nLL1F: {len(self.dict_of_event['Light']['Line1'].get('Forward'))} ~ LL2F: {len(self.dict_of_event['Light']['Line2'].get('Forward'))}"
-            labeltext +=f" ~ LL1D: {len(self.dict_of_event['Light']['Line1'].get('Defense'))} ~ LL2D: {len(self.dict_of_event['Light']['Line2'].get('Defense'))}"
+            labeltext = TestingIndividualLogicCode.makingtable.organize_attendee_title_bar(self.dict_of_event)
             specific_event_heading_label = MDLabel(text=labeltext, halign='center')
             self.root.ids.organize_event_page_box_layout.add_widget(specific_event_heading_label)
             with open('ContactInfo.json') as allcontactinfo:
                 all_contact_info = json.load(allcontactinfo)
                 for a in all_current_events[self.current_event_identify].get("PlayersIn"):
-                    print(a)
-                    name = all_contact_info[a-1].get("Player First")
-                    name += " " + all_contact_info[a-1].get("Player Last")
-                    positionstring = "Pos: "
-                    positionstring += f'{all_contact_info[a - 1].get("position F D G")}'
-                    positionstring += "  Line: "
-                    positionstring += f'{all_contact_info[a - 1].get("LINE")}'
-                    randomtext = "Random Text for third line"
+                    name, positionstring, randomtext = TestingIndividualLogicCode.makingtable.organize_attendee_player_card(all_current_events,all_contact_info, self.current_event_identify,a)
                     self.player_card = OrganizePlayerToTeam(text=name, second_text=positionstring, third_text=randomtext, player_id=a)
                     self.root.ids.organize_event_label.add_widget(self.player_card)
 
     def add_under_player_card(self, instance):
+        print("*" * 250)
         print("in add_under_player_card module")
         print(self.root.ids.organize_event_label)
         print(self.root.ids.organize_event_label.children)
@@ -2324,9 +2228,12 @@ class DemoApp(MDApp):
     #             self.root.ids.organize_l2_event.add_widget(self.player_card)
 
     def inviteindividualplayer(self, root):
+        print("*" * 250)
+        print(" in the inviteindividualplayer(self, root) functin")
+        print("*" * 250)
         self.showSpecificEventDrawerPlayersMenu = not self.showSpecificEventDrawerPlayersMenu
         self.root.ids.nav_drawer3.set_state('close')
-        TestingIndiviualLogicCode.testingfunctions.remove_nav_drawer_3_widgets(self)
+        TestingIndividualLogicCode.testingfunctions.remove_nav_drawer_3_widgets(self)
         self.root.ids.screen_manager.current = 'SearchInviteIndividualPlayer'
         for md_text_field in self.root.ids.search_fields2.children:
             md_text_field.text =""
@@ -2398,15 +2305,19 @@ class DemoApp(MDApp):
         self.showSpecificEventDrawerPlayersMenu = not self.showSpecificEventDrawerPlayersMenu
         self.root.ids.nav_drawer3.set_state('close')
         self.root.ids.list_of_regulars_display.clear_widgets()
-        TestingIndiviualLogicCode.testingfunctions.remove_nav_drawer_3_widgets(self)
+        TestingIndividualLogicCode.testingfunctions.remove_nav_drawer_3_widgets(self)
         print("inviteregularsbutton MODULE")
         self.current_event_regular_list = []
         self.ids_of_new_invites = []
         with open('standardmessages.json') as allstandardmessages:
             all_standard_messages = json.load(allstandardmessages)
+            print("*" * 300)
+            print(self.current_event_day)
+            print("*" * 300)
             specific_message = f'{self.current_event_day}Reg'
             print(specific_message)
-            txt = str(all_standard_messages[0].get(specific_message))
+            txt = str(all_standard_messages[specific_message])
+            print(txt)
             txt = txt.replace("insert_date", str(self.dict_of_event.get("Date")))
             print(txt)
             #print(all_standard_messages[0].get(specific_message))
@@ -2436,7 +2347,7 @@ class DemoApp(MDApp):
         self.showSpecificEventDrawerPlayersMenu = not self.showSpecificEventDrawerPlayersMenu
         self.root.ids.nav_drawer3.set_state('close')
         self.root.ids.list_of_subs_display.clear_widgets()
-        TestingIndiviualLogicCode.testingfunctions.remove_nav_drawer_3_widgets(self)
+        TestingIndividualLogicCode.testingfunctions.remove_nav_drawer_3_widgets(self)
         print("invitesubsbutton MODULE")
         self.current_event_sub_list = []
         self.ids_of_new_sub_invites = []
@@ -2490,8 +2401,8 @@ class DemoApp(MDApp):
                             and a not in all_current_events[int(self.current_event_identify)].get("L2") \
                             and a not in all_current_events[int(self.current_event_identify)].get("PlayersIn"):
                         all_current_events[int(self.current_event_identify)].get("PlayersInvited").append(a)
-                        TestingIndiviualLogicCode.alerts.email_alert(self.email_dict_of_player.get("Email"), "Test Email",
-                                                                     self.root.ids.quick_event_text.text)
+                        TestingIndividualLogicCode.alerts.email_alert(self.email_dict_of_player.get("Email"), "Test Email",
+                                                                      self.root.ids.quick_event_text.text)
                         with open('myevents.json', 'w') as json_file:
                             json.dump(all_current_events, json_file, indent=4, separators=(',', ':'))
                             print("Just dumped the info")
@@ -2541,8 +2452,8 @@ class DemoApp(MDApp):
                             and a not in all_current_events[int(self.current_event_identify)].get("L2") \
                             and a not in all_current_events[int(self.current_event_identify)].get("PlayersIn"):
                         all_current_events[int(self.current_event_identify)].get("PlayersInvited").append(a)
-                        TestingIndiviualLogicCode.alerts.email_alert(self.email_dict_of_player.get("Email"), "Test Email",
-                                                                     self.root.ids.quick_event_text.text)
+                        TestingIndividualLogicCode.alerts.email_alert(self.email_dict_of_player.get("Email"), "Test Email",
+                                                                      self.root.ids.quick_event_text.text)
                         with open('myevents.json', 'w') as json_file:
                             json.dump(all_current_events, json_file, indent=4, separators=(',', ':'))
                             print("Just dumped the info")
@@ -2591,9 +2502,9 @@ class DemoApp(MDApp):
                             and a not in all_current_events[int(self.current_event_identify)].get("L2") \
                             and a not in all_current_events[int(self.current_event_identify)].get("PlayersIn"):
                         all_current_events[int(self.current_event_identify)].get("PlayersInvited").append(a)
-                        TestingIndiviualLogicCode.alerts.email_alert(self.email_dict_of_player.get("Email"),
+                        TestingIndividualLogicCode.alerts.email_alert(self.email_dict_of_player.get("Email"),
                                                                      "Test Email",
-                                                                     self.root.ids.quick3_event_text.text)
+                                                                      self.root.ids.quick3_event_text.text)
                         with open('myevents.json', 'w') as json_file:
                             json.dump(all_current_events, json_file, indent=4, separators=(',', ':'))
                             print("Just dumped the info")
@@ -2773,7 +2684,6 @@ class DemoApp(MDApp):
 
     def quickevent(self, id):
         print("quickevent MODULE")
-        # print(str(id))
         with open('quickevents.json') as f:
             listobj = json.load(f)
             for quickbutton in listobj:
@@ -2943,7 +2853,7 @@ class DemoApp(MDApp):
     def gotoindividualemail(self):
         print("gotoindividualemail: Now change the screen and populate the top email people and quick3_event_text")
         self.root.ids.list_of_individuals_display.clear_widgets()
-        TestingIndiviualLogicCode.testingfunctions.remove_nav_drawer_3_widgets(self)
+        TestingIndividualLogicCode.testingfunctions.remove_nav_drawer_3_widgets(self)
         with open('standardmessages.json') as allstandardmessages:
             all_standard_messages = json.load(allstandardmessages)
             print(all_standard_messages)
@@ -3040,7 +2950,7 @@ class DemoApp(MDApp):
             all_current_events = json.load(allcurrentevents)
             all_current_events[event_id].get("PlayersInvited").remove(player_id)
             all_current_events[event_id].get("PlayersIn").append(player_id)
-            self.dict_of_event = all_current_events[event_id]
+            #self.dict_of_event = all_current_events[event_id]
             labeltext = f" {self.dict_of_event.get('Date')}"
             labeltext += f" {self.dict_of_event.get('Day')}"
             labeltext += f" {self.dict_of_event.get('Location')}"
@@ -3179,6 +3089,8 @@ class DemoApp(MDApp):
         for md_text_field in self.root.ids.create_player_fields.children:
             md_text_field.text = ""
 
+    def just_testing(self):
+        TestingIndividualLogicCode.makingtable.testing_key_word_args("testing", "self", "printing")
 
     def clear_search_players(self):
         print("clear_search_players MODULE")

@@ -1,5 +1,5 @@
 {
-    "TotalEventCount":1,
+    "TotalEventCount":3,
     "1":{
         "Date":"05/06/22",
         "Day":"Tuesday",
@@ -13,12 +13,14 @@
             16,
             17,
             22,
-            23,
             24,
-            25,
-            26
+            26,
+            101
         ],
-        "PlayersInvited":[],
+        "PlayersInvited":[
+            102,
+            103
+        ],
         "PlayersPaid":[],
         "Dark":{
             "Goalie":[
@@ -30,10 +32,12 @@
                     11,
                     18,
                     19,
-                    12
+                    12,
+                    25
                 ],
                 "Defense":[
-                    3
+                    3,
+                    23
                 ]
             },
             "Line2":{
@@ -65,6 +69,74 @@
                 "Forward":[
                     5
                 ],
+                "Defense":[]
+            }
+        },
+        "Status":"Current"
+    },
+    "2":{
+        "Date":"08/22/22",
+        "Day":"Friday",
+        "Time":"09:45 PM",
+        "Location":"POWAY",
+        "Cost":"$30",
+        "TotalPlayers":"22",
+        "PlayersIn":[],
+        "PlayersInvited":[],
+        "PlayersPaid":[],
+        "Dark":{
+            "Goalie":[],
+            "Line1":{
+                "Forward":[],
+                "Defense":[]
+            },
+            "Line2":{
+                "Forward":[],
+                "Defense":[]
+            }
+        },
+        "Light":{
+            "Goalie":[],
+            "Line1":{
+                "Forward":[],
+                "Defense":[]
+            },
+            "Line2":{
+                "Forward":[],
+                "Defense":[]
+            }
+        },
+        "Status":"Current"
+    },
+    "3":{
+        "Date":"08/21/22",
+        "Day":"Sunday",
+        "Time":"09:00 PM",
+        "Location":"KROC",
+        "Cost":"$30",
+        "TotalPlayers":"22",
+        "PlayersIn":[],
+        "PlayersInvited":[],
+        "PlayersPaid":[],
+        "Dark":{
+            "Goalie":[],
+            "Line1":{
+                "Forward":[],
+                "Defense":[]
+            },
+            "Line2":{
+                "Forward":[],
+                "Defense":[]
+            }
+        },
+        "Light":{
+            "Goalie":[],
+            "Line1":{
+                "Forward":[],
+                "Defense":[]
+            },
+            "Line2":{
+                "Forward":[],
                 "Defense":[]
             }
         },
