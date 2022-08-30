@@ -1,0 +1,33 @@
+Please print this page, write down the Re-entry Number, or enter your email address below.
+Re-entry Number: 26919931
+
+Website: www.ssa.gov/disability/appeal
+
+Select "Return to a Saved Appeal".
+
+If something causes you to exit or you choose to save and return at a later time, you must use this number to continue your saved appeal.
+
+If you lose or forget your Re-entry Number, you can log into your my Social Security account, or register for an account, to check the status of your appeal and view your Re-entry Number. Social Security employees will never ask for your Re-entry Number, nor will they have access to it. This is to protect your privacy.
+
+
+Private subnet 1 - subnet-0c8a1209ba2c088bc
+Private subnet 2 - subnet-0d11cf06b39236157
+
+mysql -u admin -p exampledb --host example.cofrkqjufk90.us-east-1.rds.amazonaws.com < Countrydatadump.sql
+
+bastion ip
+54.162.166.34
+mysql -u admin -p --host example.cofrkqjufk90.us-east-1.rds.amazonaws.com
+end point
+example.cofrkqjufk90.us-east-1.rds.amazonaws.com
+example.cofrkqjufk90.us-east-1.rds.amazonaws.com
+
+php file
+https://aws-tc-largeobjects.s3.us-west-2.amazonaws.com/ILT-TF-200-ACACAD-20-EN/capstone-project/Example.zip
+
+sql dump
+https://aws-tc-largeobjects.s3.us-west-2.amazonaws.com/ILT-TF-200-ACACAD-20-EN/capstone-project/Countrydatadump.sql
+sudo yum install -y httpd mariadb-server
+sudo systemctl start httpd
+sudo systemctl enable httpd
+sudo systemctl is-enabled httpd
