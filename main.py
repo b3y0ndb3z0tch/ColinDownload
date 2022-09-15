@@ -1,9 +1,16 @@
 #Add SCROLL function on CREATEEVENTSCREEN for the quick_event_buttons
 #Lines 2660 show the iteration through a dictionary into dictionary
 #need to work on line 2807 to edit from reading from list to reading from dict
+#
+#
+#
+#NEED TO WORK ON THE TEXTFIELDS TO INCLUDE AND HAVE THE QUICKEVENTS FOR ADDING / EDITING PLAYERS
+
 import json
 
 from kivy.properties import StringProperty, BooleanProperty, ObjectProperty, NumericProperty
+from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.scrollview import ScrollView
 from kivy.utils import get_color_from_hex
 from kivymd.material_resources import dp
 from kivymd.uix.behaviors import RoundedRectangularElevationBehavior
@@ -21,6 +28,7 @@ from kivymd.uix.label import MDLabel
 from kivymd.uix.list import IconLeftWidget, OneLineAvatarIconListItem, IRightBodyTouch, ILeftBodyTouch, \
     ThreeLineAvatarIconListItem, TwoLineAvatarIconListItem
 from kivymd.uix.menu import MDDropdownMenu
+from kivymd.uix.navigationdrawer import MDNavigationLayout
 from kivymd.uix.screen import MDScreen
 from kivymd.uix.tab import MDTabsBase
 from kivymd.uix.textfield import MDTextField
@@ -30,6 +38,9 @@ import TestingIndividualLogicCode.makingtable
 #import TestingIndividualLogicCode.quickevent
 from kivy.properties import partial
 from kivymd.uix.list import OneLineListItem
+
+from kivymd.uix.list import MDList
+
 #START WITH EDIT AND DELETE QUICK EVENTS
 #SHOULD CREATE ANOTHER SCREEN FOR EDIT / DELETE QUICK EVENTS DEPENDING
 #INSTEAD OF TRYING TO USE THE SAME SCREEN
@@ -158,6 +169,45 @@ navigation_helper = """
             _no_ripple_effect: True
             on_release: 
  
+<SwipeToPayPlayer>:
+    size_hint_y: None
+    height: content.height
+    on_swipe_complete: app.player_paid(root)
+    padding: '8dp'
+    spacing: '20dp'
+    MDCardSwipeLayerBox:
+        # Content under the card.
+    MDCardSwipeFrontBox:
+        md_bg_color: .8,.3,.2,1
+        #Player Content of card.
+        ThreeLineListItem:
+            id: content
+            text: root.text
+            secondary_text: root.second_text
+            player_id: root.player_id
+            _no_ripple_effect: True
+            on_release: 
+
+<SwipeToPayPlayer2>:
+    size_hint_y: None
+    height: content.height
+    on_swipe_complete: app.player_paid(root)
+    padding: '8dp'
+    spacing: '20dp'
+    MDCardSwipeLayerBox:
+        # Content under the card.
+    MDCardSwipeFrontBox:
+        md_bg_color: 0,1,0,1
+        #Player Content of card.
+        ThreeLineListItem:
+            id: content
+            text: root.text
+            secondary_text: root.second_text
+            player_id: root.player_id
+            _no_ripple_effect: True
+            on_release:
+ 
+ 
 <SwipeToRemoveRegularFromEmailList>:
     size_hint_y: None
     height: content.height
@@ -226,40 +276,6 @@ navigation_helper = """
     on_press:
         print("You just clicked the main player card")
         app.add_under_player_card(root)
-    # LeftContainer:
-    #     id: left_container
-    #     MDIconButton:
-    #         icon: "alpha-a-circle"
-    #         on_press:
-    #             print("LEFT PLUS")
-    #             app.organize_event_add_to_d1(root)
-    #     MDIconButton:
-    #         icon: "alpha-b-circle"
-    #         on_press:
-    #             print("LEFT MINUS")
-    #             app.organize_event_add_to_d2(root)
-    #     MDIconButton:
-    #         icon: "alpha-a-circle"
-    #         on_press:
-    #             print("LEFT PLUS")
-    #             app.organize_event_add_to_d1(root)
-    #     MDIconButton:
-    #         icon: "alpha-b-circle"
-    #         on_press:
-    #             print("LEFT MINUS")
-    #             app.organize_event_add_to_d2(root)
-    # RightContainer:
-    #     id: right_container
-    #     MDIconButton:
-    #         icon: "alpha-a-circle-outline"
-    #         on_press:
-    #             print("RIGHT PLUS")
-    #             app.organize_event_add_to_l1(root)
-    #     MDIconButton:
-    #         icon: "alpha-b-circle-outline"
-    #         on_press:
-    #             print("RIGHT MINUS")
-    #             app.organize_event_add_to_l2(root)
                 
 <OrganizeD1Line>:
     text: root.text
@@ -366,7 +382,6 @@ navigation_helper = """
             on_release: 
     
 <OrganizeLight1Team>:
-
     size_hint_y: None
     height: content.height
     on_swipe_complete: print("Swiping")
@@ -418,6 +433,8 @@ navigation_helper = """
     text: root.text
     event_id: root.event_id
 
+
+
 MDScreen:
     MDNavigationLayout:
         ScreenManager:
@@ -443,15 +460,6 @@ MDScreen:
                         left_action_items: [['menu', lambda x: nav_drawer.set_state('open')]]
                         right_action_items: [['face-profile', lambda x: nav_drawer2.set_state('open')]]
                     Widget:
-                    # BoxLayout:
-                    #     id: create_quick_button_layout
-                    #    orientation: 'vertical'
-                    MDTextField:
-                        id: quick_key
-                        hint_text: "Quick Title: Kroc 0900PM"
-                        helper_text: "0900PM"
-                        pos_hint: {"center_x": .5, 'center_y': .7}
-                        size_hint: (1, None)
                     MDTextField:
                         id: quick_time
                         hint_text: "Time: 0900pm"
@@ -526,11 +534,7 @@ MDScreen:
                         ScrollView:
                             scroll_timeout: 100
                             do_x_scroll: True
-                            BoxLayout:
-                            #MDList:
-                            # GridLayout:
-                            #     rows: 2
-                            #     spacing: 20
+                            MDList:
                                 id: grid_for_quick_event_buttons
                                 spacing:5
                         MDTextField:
@@ -800,6 +804,7 @@ MDScreen:
                 name: "SpecificFoundPlayerScreen"
                 BoxLayout:
                     orientation: 'vertical'
+                    id: testing
                     MDToolbar:
                         title: "Edit Player Info"
                         elevation: 10
@@ -1104,7 +1109,32 @@ MDScreen:
                             scroll_timeout: 100
                             MDList:
                                 id: display_light
-                                spacing: '15dp'                   
+                                spacing: '15dp'  
+            MDScreen:
+                name: "PaymentPage"
+                BoxLayout:
+                    orientation: 'vertical'
+                    MDToolbar:
+                        title: "Make Payment"
+                        elevation: 10
+                        pos_hint: {"top": 1}
+                        left_action_items: [['home', lambda x: app.change_home_screen()]]
+                        right_action_items: 
+                            [
+                            ['account-alert', lambda x: app.display_assigned_dark()],
+                            ['account-alert-outline', lambda x: app.change_light_assign()],
+                            ['face-profile', lambda x: nav_drawer3.set_state('open')]
+                            ]
+                    ScrollView:
+                        scroll_timeout: 100
+                        MDList:
+                            id: players_who_need_to_pay
+                            spacing: '8dp'
+                            padding: '8dp'
+                            MDLabel:
+                                text: "NEED TO PAY"
+                                halign: 'center'
+                                spacing: '8dp'                 
         MDNavigationDrawer:
             id: nav_drawer
             ContentNavigationDrawer:
@@ -1257,6 +1287,19 @@ MDScreen:
                                 print('Another RIGHT Drawer Button was pressed')      
                                 nav_drawer3.set_state('close') 
                                 root.ids.screen_manager.current = "SpecificEventPage"
+                        MDRaisedButton:
+                            text: 'PAYMENT'
+                            font_style: 'Subtitle1'
+                            size_hint_x: None
+                            size_x: self.parent.width
+                            pos_hint: {"center_x": .5}
+                            size_hint: (1, None)
+                            on_press:
+                                print('PAYMENT button was pressed from right nav_drawer3')      
+                                nav_drawer3.set_state('close') 
+                                app.load_paymentpage()
+                                root.ids.screen_manager.current = "PaymentPage"
+                                
                
 """
 
@@ -1319,6 +1362,29 @@ class SwipeToAddPlayerToInList(MDCardSwipe):
     type_swipe = 'auto'
     anchor = 'left'
     _no_ripple_effect = True
+
+class SwipeToPayPlayer(MDCardSwipe):
+    text = StringProperty()
+    second_text = StringProperty()
+    third_text = StringProperty()
+    event_id = StringProperty()
+    player_id = NumericProperty()
+    orientation: 'vertical'
+    type_swipe = 'auto'
+    anchor = 'left'
+    _no_ripple_effect = True
+
+class SwipeToPayPlayer2(MDCardSwipe):
+    text = StringProperty()
+    second_text = StringProperty()
+    third_text = StringProperty()
+    event_id = StringProperty()
+    player_id = NumericProperty()
+    orientation: 'vertical'
+    type_swipe = 'auto'
+    anchor = 'left'
+    _no_ripple_effect = True
+
 
 class SwipeToRemoveRegularFromEmailList(MDCardSwipe):
     text = StringProperty()
@@ -1458,6 +1524,7 @@ sm.add_widget(CreatePlayerScreen(name="CreatePlayerScreen"))
 sm.add_widget(CreatePlayerScreen(name="DisplayTeams"))
 sm.add_widget(CreatePlayerScreen(name="CreateQuickEventScreen"))
 sm.add_widget(CreatePlayerScreen(name="EditQuickEventScreen"))
+sm.add_widget(CreatePlayerScreen(name="PaymentPage"))
 
 
 
@@ -1484,10 +1551,6 @@ class DemoApp(MDApp):
             all_contact_info = json.load(allcontactinfo)
             self.players_assigned_to_teams, self.table_to_insert = TestingIndividualLogicCode.makingtable.email_players_and_table(
                 all_contact_info, self.dict_of_event)
-            # print("*" * 50 )
-            # print(self.players_assigned_to_teams)
-            # print("Trying to print the table")
-            # print(self.table_to_insert)
             self.txt = self.txt.replace("insert_table", self.table_to_insert)
             # this is just test sending COMPLETED email context to certain emails
             TestingIndividualLogicCode.alerts.email_alert_table("adamwilliams86@yahoo.com", "Test Email With Table"
@@ -1524,6 +1587,7 @@ class DemoApp(MDApp):
                                                        )
                 self.root.ids.specific_event_label.add_widget(player_card)
         self.root.ids.screen_manager.current = 'SpecificEventPage'
+
 
     def display_teams(self):
         print("now time to display teams")
@@ -1741,7 +1805,7 @@ class DemoApp(MDApp):
         self.root.ids.organize_dark_line1.clear_widgets()
         self.root.ids.organize_dark_line2.clear_widgets()
         #self.root.ids.organize_dark_line1.add_widget(MDLabel(text="Dark:", halign='center'))
-        self.root.ids.organize_dark_line2.add_widget(MDLabel(text="Dark Line 2:", halign='center'))
+        #self.root.ids.organize_dark_line2.add_widget(MDLabel(text="Dark Line 2:", halign='center'))
         dark = True
         with open('myevents.json') as allcurrentevents:
             all_current_events = json.load(allcurrentevents)
@@ -2313,8 +2377,8 @@ class DemoApp(MDApp):
     #     self.root.ids.organize_event_label.remove_widget(instance)
     #     with open('myevents.json') as allcurrentevents:
     #         all_current_events = json.load(allcurrentevents)
-    #         all_current_events[int(self.current_event_identify)]["PlayersIn"].remove(instance.player_id)
-    #         all_current_events[int(self.current_event_identify)]["D2"].append(instance.player_id)
+    #         all_current_events[self.current_event_identify]["PlayersIn"].remove(instance.player_id)
+    #         all_current_events[self.current_event_identify]["D2"].append(instance.player_id)
     #         with open('myevents.json', 'w') as json_file:
     #             json.dump(all_current_events, json_file, indent=4, separators=(',', ':'))
     #         with open('ContactInfo.json') as allcontactinfo:
@@ -2328,8 +2392,8 @@ class DemoApp(MDApp):
     #     self.root.ids.organize_event_label.remove_widget(instance)
     #     with open('myevents.json') as allcurrentevents:
     #         all_current_events = json.load(allcurrentevents)
-    #         all_current_events[int(self.current_event_identify)]["PlayersIn"].remove(instance.player_id)
-    #         all_current_events[int(self.current_event_identify)]["L1"].append(instance.player_id)
+    #         all_current_events[self.current_event_identify]["PlayersIn"].remove(instance.player_id)
+    #         all_current_events[self.current_event_identify]["L1"].append(instance.player_id)
     #         with open('myevents.json', 'w') as json_file:
     #             json.dump(all_current_events, json_file, indent=4, separators=(',', ':'))
     #         with open('ContactInfo.json') as allcontactinfo:
@@ -2343,8 +2407,8 @@ class DemoApp(MDApp):
     #     self.root.ids.organize_event_label.remove_widget(instance)
     #     with open('myevents.json') as allcurrentevents:
     #         all_current_events = json.load(allcurrentevents)
-    #         all_current_events[int(self.current_event_identify)]["PlayersIn"].remove(instance.player_id)
-    #         all_current_events[int(self.current_event_identify)]["L2"].append(instance.player_id)
+    #         all_current_events[self.current_event_identify]["PlayersIn"].remove(instance.player_id)
+    #         all_current_events[self.current_event_identify]["L2"].append(instance.player_id)
     #         with open('myevents.json', 'w') as json_file:
     #             json.dump(all_current_events, json_file, indent=4, separators=(',', ':'))
     #         with open('ContactInfo.json') as allcontactinfo:
@@ -2393,19 +2457,7 @@ class DemoApp(MDApp):
                         player_card = SwipeToAddSearchToEvent(text3=f'SEARCH: {searchhit}',
                                                               second_text3=f'{playerfirst} {playerlast}',
                                                               third_text3=f'{playercell} {playeremail}',
-                                                              search_player_id=str(singlecontact['playerid']),
-                                                              # search_player_first = str(singlecontact['Player First']),
-                                                              # search_player_last = str(singlecontact['Player Last']),
-                                                              # search_player_cell_number = str(singlecontact['Cell Number']),
-                                                              # search_player_email = str(singlecontact['Email']),
-                                                              # search_player_position = str(singlecontact['position F D G']),
-                                                              # search_player_line = str(singlecontact['LINE']),
-                                                              # search_player_tuesday = str(singlecontact['Tuesday']),
-                                                              # search_player_friday = str(singlecontact['Friday']),
-                                                              # search_player_sunday = str(singlecontact['Sunday']),
-                                                              # search_player_monies = str(singlecontact['Monies']),
-                                                              # search_player_out = str(singlecontact['OUT']),
-                                                              # search_player_suspended = str(singlecontact['Suspended']),
+                                                              search_player_id=str(singlecontact['playerid'])
                                                               )
                         self.root.ids.found_event_player_md_list.add_widget(player_card)
                     # print(singlecontact.get(singlekey))
@@ -2449,34 +2501,29 @@ class DemoApp(MDApp):
             all_standard_messages = json.load(allstandardmessages)
             print("*" * 300)
             print(self.current_event_day)
-            print("*" * 300)
-            specific_message = f'{self.current_event_day}Reg'
-            print(specific_message)
+            specific_message = 'Reg'
             txt = str(all_standard_messages[specific_message])
+            txt = TestingIndividualLogicCode.testingfunctions.replace_email_message(self, self.dict_of_event, txt)
             print(txt)
-            txt = txt.replace("insert_date", str(self.dict_of_event.get("Date")))
-            print(txt)
-            #print(all_standard_messages[0].get(specific_message))
-            print("Printing Specific Message")
+            print("*"*300)
             # specific_message = all_standard_messages.get(specific_message)
             self.root.ids.quick_event_text.text = txt
         with open('ContactInfo.json') as allcontactinfo:
             all_contact_info = json.load(allcontactinfo)
             for a in all_contact_info:
-                #print(a)
-                if a["playerid"] in self.current_event_players_invited:
-                    print("already invited")
-                else:
-                    if a[self.current_event_day] == 'Z':
-                        self.current_event_regular_list.append(a["Email"])
-                        self.ids_of_new_invites.append(a["playerid"])
-                        print("ALL TO LIST")
-                        #namestring = a["Player First"] + " " + a["Player Last"]
-                        regular_player_card = SwipeToRemoveRegularFromEmailList(text=a["Player First"] + " " +\
+                print("%"*250)
+                if not(TestingIndividualLogicCode.testingfunctions.check_if_player_invited(self, self.dict_of_event, a["playerid"])) and a[self.current_event_title] == 'Z':
+                    print("999"*100)
+                    print("Need to add to email")
+                    self.current_event_regular_list.append(a["Email"])
+                    self.ids_of_new_invites.append(a["playerid"])
+                    print("ALL TO LIST")
+                    #namestring = a["Player First"] + " " + a["Player Last"]
+                    regular_player_card = SwipeToRemoveRegularFromEmailList(text=a["Player First"] + " " +\
                                                                                      a["Player Last"],
                                                                                 player_id = a["playerid"],
                                                                                 player_email = a["Email"])
-                        self.root.ids.list_of_regulars_display.add_widget(regular_player_card, 2)
+                    self.root.ids.list_of_regulars_display.add_widget(regular_player_card, 2)
         self.root.ids.screen_manager.current = 'InviteRegularsScreen'
         print("Need to send email and text notification and add to INVITED list")
     def invitesubsbutton(self, root):
@@ -2489,10 +2536,10 @@ class DemoApp(MDApp):
         self.ids_of_new_sub_invites = []
         with open('standardmessages.json') as allstandardmessages:
             all_standard_messages = json.load(allstandardmessages)
-            specific_message = f'{self.current_event_day}Sub'
+            specific_message = f'Sub'
             print(specific_message)
-            txt = str(all_standard_messages[1].get(specific_message))
-            txt = txt.replace("insert_date", str(self.dict_of_event.get("Date")))
+            txt = str(all_standard_messages[specific_message])
+            txt = TestingIndividualLogicCode.testingfunctions.replace_email_message(self, self.dict_of_event, txt)
             print(txt)
             #print(all_standard_messages[0].get(specific_message))
             print("Printing Specific Message")
@@ -2505,7 +2552,7 @@ class DemoApp(MDApp):
                 if a["playerid"] in self.current_event_players_invited:
                     print("already invited")
                 else:
-                    if a[self.current_event_day] == 'Z':
+                    if a[self.current_event_title] == 'Z':
                         self.current_event_sub_list.append(a["Email"])
                         self.ids_of_new_sub_invites.append(a["playerid"])
                         print("ALL TO LIST")
@@ -2519,6 +2566,7 @@ class DemoApp(MDApp):
         self.root.ids.screen_manager.current = 'InviteSubsScreen'
         print("Need to send email and text notification and add to INVITED list")
     def inviteregularssendemail(self):
+        print("***   in the inviteregularssendemail MODULE   ***")
         self.root.ids.specific_event_label.clear_widgets()
         print("time to send the emails")
         print(self.current_event_regular_list)
@@ -2530,19 +2578,17 @@ class DemoApp(MDApp):
                 for a in self.ids_of_new_invites:
                     self.email_dict_of_player = all_contact_info[a-1]
                     print(self.email_dict_of_player)
-                    if a not in all_current_events[int(self.current_event_identify)].get("PlayersInvited") \
-                            and a not in all_current_events[int(self.current_event_identify)].get("D1") \
-                            and a not in all_current_events[int(self.current_event_identify)].get("D2") \
-                            and a not in all_current_events[int(self.current_event_identify)].get("L1") \
-                            and a not in all_current_events[int(self.current_event_identify)].get("L2") \
-                            and a not in all_current_events[int(self.current_event_identify)].get("PlayersIn"):
-                        all_current_events[int(self.current_event_identify)].get("PlayersInvited").append(a)
+                    if not (TestingIndividualLogicCode.testingfunctions.check_if_player_invited(self,
+                                                                                                all_current_events[
+                                                                                                    self.current_event_identify],
+                                                                                                a)):
+                        all_current_events[self.current_event_identify].get("PlayersInvited").append(a)
                         TestingIndividualLogicCode.alerts.email_alert(self.email_dict_of_player.get("Email"), "Test Email",
                                                                       self.root.ids.quick_event_text.text)
                         with open('myevents.json', 'w') as json_file:
                             json.dump(all_current_events, json_file, indent=4, separators=(',', ':'))
                             print("Just dumped the info")
-                            print(all_current_events[int(self.current_event_identify)]["PlayersInvited"])
+                            print(all_current_events[self.current_event_identify]["PlayersInvited"])
                     else:
                         print("Player Already Invited")
         with open('myevents.json') as allcurrentevents:
@@ -2551,7 +2597,7 @@ class DemoApp(MDApp):
             self.dict_of_event = all_current_events[self.current_event_identify]
             with open('ContactInfo.json') as allcontactinfo:
                 all_contact_info = json.load(allcontactinfo)
-                for a in all_current_events[int(self.current_event_identify)]["PlayersInvited"]:
+                for a in all_current_events[self.current_event_identify]["PlayersInvited"]:
                     print('adding players to screen')
                     print(all_contact_info[a - 1])
                     namestring = "Name: "
@@ -2572,6 +2618,7 @@ class DemoApp(MDApp):
         self.root.ids.screen_manager.current = 'SpecificEventPage'
 
     def invitesubssendemail(self):
+        print("***   in the invitesubssendemail MODULE   ***")
         self.root.ids.specific_event_label.clear_widgets()
         print("time to send SUBS emails")
         print(self.current_event_sub_list)
@@ -2583,19 +2630,17 @@ class DemoApp(MDApp):
                 for a in self.ids_of_new_sub_invites:
                     self.email_dict_of_player = all_contact_info[a-1]
                     print(self.email_dict_of_player)
-                    if a not in all_current_events[int(self.current_event_identify)].get("PlayersInvited") \
-                            and a not in all_current_events[int(self.current_event_identify)].get("D1") \
-                            and a not in all_current_events[int(self.current_event_identify)].get("D2") \
-                            and a not in all_current_events[int(self.current_event_identify)].get("L1") \
-                            and a not in all_current_events[int(self.current_event_identify)].get("L2") \
-                            and a not in all_current_events[int(self.current_event_identify)].get("PlayersIn"):
-                        all_current_events[int(self.current_event_identify)].get("PlayersInvited").append(a)
+                    if not (TestingIndividualLogicCode.testingfunctions.check_if_player_invited(self,
+                                                                                                all_current_events[
+                                                                                                    self.current_event_identify],
+                                                                                                a)):
+                        all_current_events[self.current_event_identify].get("PlayersInvited").append(a)
                         TestingIndividualLogicCode.alerts.email_alert(self.email_dict_of_player.get("Email"), "Test Email",
                                                                       self.root.ids.quick_event_text.text)
                         with open('myevents.json', 'w') as json_file:
                             json.dump(all_current_events, json_file, indent=4, separators=(',', ':'))
                             print("Just dumped the info")
-                            print(all_current_events[int(self.current_event_identify)]["PlayersInvited"])
+                            print(all_current_events[self.current_event_identify]["PlayersInvited"])
                     else:
                         print("Player Already Invited")
         with open('myevents.json') as allcurrentevents:
@@ -2604,7 +2649,7 @@ class DemoApp(MDApp):
             self.dict_of_event = all_current_events[self.current_event_identify]
             with open('ContactInfo.json') as allcontactinfo:
                 all_contact_info = json.load(allcontactinfo)
-                for a in all_current_events[int(self.current_event_identify)]["PlayersInvited"]:
+                for a in all_current_events[self.current_event_identify]["PlayersInvited"]:
                     print('adding players to screen')
                     print(all_contact_info[a - 1])
                     namestring = "Name: "
@@ -2635,20 +2680,16 @@ class DemoApp(MDApp):
                 for a in self.ids_of_new_individual_invites:
                     self.email_dict_of_player = all_contact_info[a - 1]
                     print(self.email_dict_of_player)
-                    if a not in all_current_events[int(self.current_event_identify)].get("PlayersInvited") \
-                            and a not in all_current_events[int(self.current_event_identify)].get("D1") \
-                            and a not in all_current_events[int(self.current_event_identify)].get("D2") \
-                            and a not in all_current_events[int(self.current_event_identify)].get("L1") \
-                            and a not in all_current_events[int(self.current_event_identify)].get("L2") \
-                            and a not in all_current_events[int(self.current_event_identify)].get("PlayersIn"):
-                        all_current_events[int(self.current_event_identify)].get("PlayersInvited").append(a)
+                    if not(TestingIndividualLogicCode.testingfunctions.check_if_player_invited(self, all_current_events[self.current_event_identify], a)):
+                        print("WE ARE UNDER THE IF NOT IN THE MAIN APP")
+                        all_current_events[self.current_event_identify].get("PlayersInvited").append(a)
                         TestingIndividualLogicCode.alerts.email_alert(self.email_dict_of_player.get("Email"),
                                                                      "Test Email",
                                                                       self.root.ids.quick3_event_text.text)
                         with open('myevents.json', 'w') as json_file:
                             json.dump(all_current_events, json_file, indent=4, separators=(',', ':'))
                             print("Just dumped the info")
-                            print(all_current_events[int(self.current_event_identify)]["PlayersInvited"])
+                            print(all_current_events[self.current_event_identify]["PlayersInvited"])
                     else:
                         print("Player Already Invited")
         with open('myevents.json') as allcurrentevents:
@@ -2657,7 +2698,7 @@ class DemoApp(MDApp):
             self.dict_of_event = all_current_events[self.current_event_identify]
             with open('ContactInfo.json') as allcontactinfo:
                 all_contact_info = json.load(allcontactinfo)
-                for a in all_current_events[int(self.current_event_identify)]["PlayersInvited"]:
+                for a in all_current_events[self.current_event_identify]["PlayersInvited"]:
                     print('adding players to screen')
                     print(all_contact_info[a - 1])
                     namestring = "Name: "
@@ -2763,9 +2804,6 @@ class DemoApp(MDApp):
                     self.root.ids.grid_for_quick_event_buttons.add_widget(quick_event_button)
                     print("JUST ADDED A BUTTON")
                     print("*"*200)
-                    #put to this id
-                    #grid_for_quick_event_buttons
-
                     print("yes its a dict")
 
                     for key, val in val.items():
@@ -2777,37 +2815,50 @@ class DemoApp(MDApp):
         print("*** in the add_quick_event_on_submit button press module")
         with open('quickevents.json') as f:
             quick_events =json.load(f)
-            quick_events["TotalQuickEvents"] += 1
-            self.quick_eventid = self.root.ids.quick_key.text
+            #quick_events["TotalQuickEvents"] += 1
+            #self.quick_eventid = self.root.ids.quick_key.text
         self.time = self.root.ids.quick_time.text
         # print(self.time)
         self.location = self.root.ids.quick_location.text
+        self.location = self.location.upper()
         # print(self.location)
         self.cost = self.root.ids.quick_cost.text
         # print(self.cost)
         self.totalplayers = self.root.ids.quick_totalplayers.text
         # print(self.totalplayers)
         self.day = self.root.ids.quick_day.text
+        self.day = self.day.upper()
         # print("above is unformated")
         # Pulling Event Information
         # print(listobj)
         # print("above is the listobj")
         #self.fdate = self.date[0:2] + '/' + self.date[2:4] + '/' + self.date[4:6]
-        self.AMPM = self.time[4:6]
-        self.AMPM = self.AMPM.upper()
+        self.ftime = TestingIndividualLogicCode.testingfunctions.format_time(self, self.time)
+        # self.AMPM = self.time[4:6]
+        # self.AMPM = self.AMPM.upper()
         #self.ftime = self.time[0:2] + ':' + self.time[2:4] + self.AMPM
         #self.cost = '$' + self.cost
         #self.flocation = self.location.upper()
         new_quick_event_dict = {
-            "Time": self.time,
+            "Time": self.ftime,
             "Day": self.day,
             "Location": self.location,
             "Cost": self.cost,
             "TotalPlayers": self.totalplayers
         }
+        self.quick_eventid = self.location + " " + self.ftime
+        print(self.quick_eventid)
         quick_events[self.quick_eventid] = new_quick_event_dict
         with open('quickevents.json', 'w') as json_file:
             json.dump(quick_events, json_file, indent=4, separators=(',', ':'))
+        with open('ContactInfo.json') as f:
+            contactinfo =json.load(f)
+            with open('quickevents.json') as g:
+                dict_of_quick_events = json.load(g)
+                contactinfo = TestingIndividualLogicCode.testingfunctions.add_quick_event_to_player_dict(self, contactinfo, dict_of_quick_events, self.quick_eventid)
+                with open('ContactInfo.json', 'w') as json_file:
+                    json.dump(contactinfo, json_file, indent=4, separators=(',', ':'))
+        #NEED TO ADD THE QUICK EVENT TO EVERY PLAYER, AND MAKE SUBS AND REGULARS FOR ANY EVENT A REGULAR FOR THIS EVENT
 
     def add_event_on_submit(self):
         print("add_event_on_submit MODULE")
@@ -2838,10 +2889,12 @@ class DemoApp(MDApp):
         # Pulling Event Information
         #print(listobj)
         #print("above is the listobj")
-        self.fdate = self.date[0:2] + '/' + self.date[2:4] + '/' + self.date[4:6]
+        #self.fdate = self.date[0:2] + '/' + self.date[2:4] + '/' + self.date[4:6]
+        self.fdate = TestingIndividualLogicCode.testingfunctions.format_date(self, self.date)
         self.AMPM = self.time[4:6]
         self.AMPM = self.AMPM.upper()
-        self.ftime = self.time[0:2] + ':' + self.time[2:4] + ' ' + self.AMPM
+        #self.ftime = self.time[0:2] + ':' + self.time[2:4] + ' ' + self.AMPM
+        self.ftime = TestingIndividualLogicCode.testingfunctions.format_time(self, self.time)
         self.cost = '$' + self.cost
         self.flocation = self.location.upper()
         # print(time)
@@ -2882,26 +2935,6 @@ class DemoApp(MDApp):
                 "Status": "Current",
             }
         listobj[self.eventid] = new_event_dict
-        # listobj.append({
-        #     "EventID": self.eventid,
-        #     "Date": self.fdate,
-        #     "Day": self.day,
-        #     "Time": self.ftime,
-        #     "Location": self.flocation,
-        #     "Cost": self.cost,
-        #     "TotalPlayers": self.totalplayers,
-        #     "PlayersIn": [],
-        #     "PlayersInvited": [],
-        #     "PlayersPaid": [],
-        #     "D1": [],
-        #     "D2": [],
-        #     "L1": [],
-        #     "L2": [],
-        #     "Status": "Current",
-        # }
-        # )
-        #print(listobj)
-        #listobj[0]["TotalEventCount"] += 1
         with open('myevents.json', 'w') as json_file:
             json.dump(listobj, json_file, indent=4, separators=(',', ':'))
 
@@ -2916,6 +2949,7 @@ class DemoApp(MDApp):
                 print(val)
                 print("*"*250)
                 if key == instance.event_id:
+                    TestingIndividualLogicCode.testingfunctions.find_current_date_quick_event_date(self, str(listobj[instance.event_id]["Day"]))
                     self.root.ids.time.text = str(listobj[instance.event_id]["Time"])
                     self.root.ids.location.text = str(listobj[instance.event_id]["Location"])
                     self.root.ids.cost.text = str(listobj[instance.event_id]["Cost"])
@@ -2995,6 +3029,7 @@ class DemoApp(MDApp):
             print("TRYING TO PRINT THE LIST OF CURRENT PLAYERS INVITED")
             print(self.current_event_players_invited)
             #print(self.dict_of_event)
+            self.current_event_title = self.dict_of_event.get("Location") + " " + self.dict_of_event.get("Time")
             self.current_event_day = self.dict_of_event.get('Day')
             labeltext = f" {self.dict_of_event.get('Date')}"
             labeltext += f" {self.dict_of_event.get('Day')}"
@@ -3059,8 +3094,8 @@ class DemoApp(MDApp):
                             button = MDTextField(hint_text= i, text=textstring)
                             self.root.ids.specific_found_player_md_list.add_widget(button)
                         else:
-                            button = MDLabel(text=textstring, halign='center')
-                            self.root.ids.specific_found_player_md_list.add_widget(button)
+                            label = MDLabel(text=textstring, halign='center')
+                            self.root.ids.specific_found_player_md_list.add_widget(label)
                          #self.root.ids.right_md_list.add_widget(self.button, 2)
 # id for scroll view: root.ids.specific_found_player_md_list.add_widget(self.mdtextfield)
     def on_swipe_complete4(self, instance):
@@ -3076,19 +3111,11 @@ class DemoApp(MDApp):
         TestingIndividualLogicCode.testingfunctions.remove_nav_drawer_3_widgets(self)
         with open('standardmessages.json') as allstandardmessages:
             all_standard_messages = json.load(allstandardmessages)
-            print(all_standard_messages)
-            specific_message = f'{self.current_event_day}Sub'
-            print(specific_message)
-            txt = str(all_standard_messages[1].get(specific_message))
-            print(txt)
-            txt = txt.replace("insert_date", str(self.dict_of_event.get("Date")))
-            print(txt)
-            print("Printing Specific Message")
-            print(str(self.dict_of_event.get("Date")))
-            print("Date of dict of event")
-            #print(all_standard_messages[0].get(specific_message))
-
-            # specific_message = all_standard_messages.get(specific_message)
+            #print(all_standard_messages)
+            specific_message = f'Sub'
+            #print(specific_message)
+            txt = str(all_standard_messages[specific_message])
+            txt = TestingIndividualLogicCode.testingfunctions.replace_email_message(self, self.dict_of_event, txt)
             self.root.ids.quick3_event_text.text = txt
         with open('ContactInfo.json') as allcontactinfo:
             all_contact_info = json.load(allcontactinfo)
@@ -3156,14 +3183,69 @@ class DemoApp(MDApp):
             root.ids.left_md_list.remove_widget(self.addquickeventbutton3)
 
 
+    def load_paymentpage(self):
+        print("IN THE load_paymentpage MODULE")
+        print(self.dict_of_event)
+        print(self.current_event_identify)
+        players_to_pay = TestingIndividualLogicCode.testingfunctions.add_player_to_payment_screen(self,self.dict_of_event)
+        print(players_to_pay)
+        print("+"*200)
+        for number in players_to_pay:
+            with open("ContactInfo.json") as f:
+                all_contacts = json.load(f)
+                print(all_contacts[number - 1])
+                if all_contacts[number-1].get("Monies") < 30:
+                    player_payment_card = SwipeToPayPlayer(
+                        text=all_contacts[number - 1].get("Player First") + " " + all_contacts[number - 1].get(
+                            "Player Last"),
+                        player_id=number)
+                    self.root.ids.players_who_need_to_pay.add_widget(player_payment_card)
+                    players_to_pay.remove(number)
+        for number in players_to_pay:
+            with open("ContactInfo.json") as f:
+                all_contacts = json.load(f)
+                print(all_contacts[number - 1])
+                if all_contacts[number-1].get("Monies") > 30:
+                    player_payment_card = SwipeToPayPlayer2(
+                        text=all_contacts[number - 1].get("Player First") + " " + all_contacts[number - 1].get(
+                            "Player Last"),
+                        player_id=number)
+                    self.root.ids.players_who_need_to_pay.add_widget(player_payment_card)
+                    players_to_pay.remove(number)
+
+        #if (check_if_player_invited(self, self.dict_of_event, player_id))
+        #Check all player numbers in event
+        #check if player number is in "Payment" of event dictionary
+        #if player is not "paid" display his name for the MDCarSwipe to be paid
+    def player_paid(self, instance):
+        #add the players number to the "Payment" section of the event dictionary
+        print("The player has paid for this event")
+        self.root.ids.players_who_need_to_pay.remove_widget(instance)
+        with open("myevents.json") as f:
+            all_events = json.load(f)
+            print(self.dict_of_event)
+            all_events[self.current_event_identify]["PlayersPaid"].append(instance.player_id)
+            with open('myevents.json', 'w') as json_file:
+                json.dump(all_events, json_file, indent=4, separators=(',', ':'))
+        print("JUST SAVED THE PLAYER TO PAID")
+        with open('myevents.json') as allcurrentevents:
+            all_current_events = json.load(allcurrentevents)
+            self.dict_of_event = all_current_events[self.current_event_identify]
+        with open("ContactInfo.json") as f:
+            all_contacts = json.load(f)
+            print(all_contacts[instance.player_id - 1])
+            if all_contacts[instance.player_id - 1].get("Monies") > 30:
+                all_contacts[instance.player_id - 1]["Monies"] = all_contacts[instance.player_id - 1].get("Monies") - 30
+            print(all_contacts[instance.player_id-1])
+            with open('ContactInfo.json', 'w') as json_file:
+                json.dump(all_contacts, json_file, indent=4, separators=(',', ':'))
+
+
+
     def gotoDeleteQuickEventScreen(self, root):
         print("*** gotoDeleteQuickEventScreen  ***")
         self.root.ids.edit_quick_event_layout.clear_widgets()
-        for child in self.root.ids.edit_quick_event_layout2.children:
-            print(child)
-            if isinstance(child,MDFillRoundFlatButton):
-                self.root.ids.edit_quick_event_layout2.remove_widget(child)
-        #self.root.ids.edit_quick_event_layout2.remove_widget(MDFillRoundFlatButton)
+        TestingIndividualLogicCode.testingfunctions.remove_edit_submit(self, root)
         TestingIndividualLogicCode.testingfunctions.closeLeftDrawerQuickButtons(self)
         self.showManageQuickEvents = False
         #self.root.ids.nav_drawer.set_state('close')
@@ -3180,7 +3262,7 @@ class DemoApp(MDApp):
         print(instance.event_id)
         with open("quickevents.json") as f:
             all_dict_quick_events = json.load(f)
-            all_dict_quick_events["TotalQuickEvents"] -= 1
+            #all_dict_quick_events["TotalQuickEvents"] -= 1
             all_dict_quick_events.pop(instance.event_id)
             with open("quickevents.json", 'w') as json_file:
                 json.dump(all_dict_quick_events, json_file, indent=4, separators=(',', ':'))
@@ -3189,7 +3271,9 @@ class DemoApp(MDApp):
     def gotoEditQuickEventScreen(self, root):
         print("***  gotoEditQuickEventScreen")
         self.root.ids.edit_quick_event_layout.clear_widgets()
+        TestingIndividualLogicCode.testingfunctions.remove_edit_submit(self, root)
         TestingIndividualLogicCode.testingfunctions.closeLeftDrawerQuickButtons(self)
+        self.showManageQuickEvents = False
         self.root.ids.screen_manager.current = 'EditQuickEventScreen'
         with open("quickevents.json") as f:
             all_dict_quick_events = json.load(f)
@@ -3207,7 +3291,7 @@ class DemoApp(MDApp):
         self.showManageQuickEvents = False
         self.root.ids.nav_drawer.set_state('close')
         delete_range = 0
-        for child in self.root.ids.left_md_list.children:
+        for child in self.root.ids.left_md_list.children[:]:
             if isinstance(child, QuickEventButton):
                 print("***")
                 print(child)
@@ -3261,10 +3345,7 @@ class DemoApp(MDApp):
         with open('quickevents.json', 'w') as json_file:
             json.dump(all_dict_quick_events, json_file, indent=4, separators=(',', ':'))
         self.root.ids.edit_quick_event_layout.clear_widgets()
-        for child in self.root.ids.edit_quick_event_layout2.children:
-            print(child)
-            if isinstance(child,MDFillRoundFlatButton):
-                self.root.ids.edit_quick_event_layout2.remove_widget(child)
+        TestingIndividualLogicCode.testingfunctions.remove_edit_submit(self, root)
         self.root.ids.screen_manager.current = 'HomeScreen'
 
 
@@ -3276,6 +3357,7 @@ class DemoApp(MDApp):
 
     def gotoCreateQuickEventScreen(self, root):
         print("***  gotoCreateQuickEventScreen")
+        TestingIndividualLogicCode.testingfunctions.clear_quick_event_text_fields(self,root)
         self.root.ids.screen_manager.current = 'CreateQuickEventScreen'
         TestingIndividualLogicCode.testingfunctions.closeLeftDrawerQuickButtons(self)
         self.showManageQuickEvents = False
@@ -3423,7 +3505,14 @@ class DemoApp(MDApp):
         foundplayerlist = ["playerid", "Player First", "Player Last", "Cell Number", "Email",
                             "position F D G", "LINE", "Tuesday", "Friday", "Sunday", "Monies", "Out", "Suspended"]
         md_text_fields2 = [md_text_field.text for md_text_field in self.root.ids.specific_found_player_md_list.children]
+        for md_text_field in self.root.ids.specific_found_player_md_list.children:
+            if isinstance(md_text_field, MDTextField):
+                print(md_text_field.hint_text)
         insertdictionary = dict(zip(foundplayerlist,reversed(md_text_fields2)))
+        try:
+            insertdictionary["Monies"] = int(insertdictionary["Monies"])
+        except:
+            insertdictionary['Monies'] = 0
         insertdictionary['playerid'] = int(self.search_player_id)
         print(insertdictionary)
         print("just printed the dictionary to insert")
@@ -3459,6 +3548,10 @@ class DemoApp(MDApp):
                            "position F D G", "LINE", "Tuesday", "Friday", "Sunday", "Monies", "Out", "Suspended"]
         md_text_fields2 = [md_text_field.text for md_text_field in self.root.ids.create_player_fields.children]
         insertdictionary = dict(zip(foundplayerlist, reversed(md_text_fields2)))
+        try:
+            insertdictionary["Monies"] = int(insertdictionary["Monies"])
+        except:
+            insertdictionary['Monies'] = 0
         for a in md_text_fields2:
             print(a)
         with open("ContactInfo.json") as allcontactinfo:
@@ -3468,11 +3561,12 @@ class DemoApp(MDApp):
             insertdictionary['playerid'] = player_id
             self.all_contact_info.append(insertdictionary)
             print(self.all_contact_info)
+
             with open('ContactInfo.json', 'w') as json_file:
                 json.dump(self.all_contact_info, json_file, indent=4, separators=(',', ':'))
         for md_text_field in self.root.ids.create_player_fields.children:
             md_text_field.text = ""
-
+        self.root.ids.screen_manager.current = "HomeScreen"
     def just_testing(self):
         TestingIndividualLogicCode.makingtable.testing_key_word_args("testing", "self", "printing")
 

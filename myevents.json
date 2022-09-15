@@ -1,31 +1,43 @@
 {
     "TotalEventCount":1,
     "1":{
-        "Date":"02/05/22",
-        "Day":"Tuesday",
-        "Time":"10:00 PM",
-        "Location":"KROC",
-        "Cost":"$35",
-        "TotalPlayers":"25",
+        "Date":"10/06/22",
+        "Day":"THURSDAY",
+        "Time":"08:00 AM",
+        "Location":"ESCONDIDO",
+        "Cost":"$30",
+        "TotalPlayers":"22",
         "PlayersIn":[],
         "PlayersInvited":[],
-        "PlayersPaid":[],
+        "PlayersPaid":[
+
+        ],
         "Dark":{
-            "Goalie":[],
+            "Goalie":[
+                122
+            ],
             "Line1":{
-                "Forward":[],
+                "Forward":[
+                    85
+                ],
                 "Defense":[]
             },
             "Line2":{
-                "Forward":[],
-                "Defense":[]
+                "Forward":[
+                    121
+                ],
+                "Defense":[
+                    85
+                ]
             }
         },
         "Light":{
             "Goalie":[],
             "Line1":{
                 "Forward":[],
-                "Defense":[]
+                "Defense":[
+                    91
+                ]
             },
             "Line2":{
                 "Forward":[],

@@ -1,11 +1,16 @@
 {
-    "TotalQuickEvents":1,
-    "Kroc 1000PM":{
-        "Enabled":false,
-        "TotalPlayers":"25",
-        "Cost":"35",
-        "Location":"KROC",
-        "Day":"Tuesday",
-        "Time":"1000PM"
+    "ESCONDIDO 08:00 AM":{
+        "Time":"08:00 AM",
+        "Day":"THURSDAY",
+        "Location":"ESCONDIDO",
+        "Cost":"30",
+        "TotalPlayers":"22"
+    },
+    "POWAY 05:00 AM":{
+        "Time":"05:00 AM",
+        "Day":"SATURDAY",
+        "Location":"POWAY",
+        "Cost":"30",
+        "TotalPlayers":"22"
     }
 }

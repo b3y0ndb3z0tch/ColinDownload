@@ -7,12 +7,12 @@
         "Email":"realsurfshop@gmail.com",
         "position F D G":"F",
         "LINE":"1 2",
-        "Tuesday":"R",
-        "Friday":"S",
-        "Sunday":"",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"",
+        "Poway 0945PM":"S",
+        "UTC 1030PM":"R"
     },
     {
         "playerid":2,
@@ -22,12 +22,12 @@
         "Email":"Chbirchall@hotmail.com",
         "position F D G":"F D",
         "LINE":"1",
-        "Tuesday":"R",
-        "Friday":"S",
-        "Sunday":"R",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"R",
+        "Poway 0945PM":"S",
+        "UTC 1030PM":"R"
     },
     {
         "playerid":3,
@@ -37,12 +37,12 @@
         "Email":"Jbirchall@dermacarerb.com",
         "position F D G":"F D",
         "LINE":"1",
-        "Tuesday":"",
-        "Friday":"R",
-        "Sunday":"S",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"S",
+        "Poway 0945PM":"R",
+        "UTC 1030PM":""
     },
     {
         "playerid":4,
@@ -52,12 +52,12 @@
         "Email":"BoomBoomrulzfree@gmail.com",
         "position F D G":"F",
         "LINE":"2",
-        "Tuesday":"",
-        "Friday":"R",
-        "Sunday":"",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"",
+        "Poway 0945PM":"R",
+        "UTC 1030PM":""
     },
     {
         "playerid":5,
@@ -67,12 +67,12 @@
         "Email":"boazsurf@aol.com",
         "position F D G":"F",
         "LINE":"2",
-        "Tuesday":"",
-        "Friday":"",
-        "Sunday":"",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"",
+        "Poway 0945PM":"",
+        "UTC 1030PM":""
     },
     {
         "playerid":6,
@@ -82,12 +82,12 @@
         "Email":"renatobortoluzzi@yahoo.com",
         "position F D G":"D",
         "LINE":"1",
-        "Tuesday":"",
-        "Friday":"S",
-        "Sunday":"",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"",
+        "Poway 0945PM":"S",
+        "UTC 1030PM":""
     },
     {
         "playerid":7,
@@ -97,12 +97,12 @@
         "Email":"justinrbrunda@gmail.com",
         "position F D G":"F",
         "LINE":"2",
-        "Tuesday":"",
-        "Friday":"S",
-        "Sunday":"S",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"S",
+        "Poway 0945PM":"S",
+        "UTC 1030PM":""
     },
     {
         "playerid":8,
@@ -112,12 +112,12 @@
         "Email":"fcam88@yahoo.com",
         "position F D G":"D",
         "LINE":"1",
-        "Tuesday":"S",
-        "Friday":"S",
-        "Sunday":"R",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"R",
+        "Poway 0945PM":"S",
+        "UTC 1030PM":"S"
     },
     {
         "playerid":9,
@@ -127,12 +127,12 @@
         "Email":"offtrack182@yahoo.com",
         "position F D G":"G",
         "LINE":"1",
-        "Tuesday":"",
-        "Friday":"S",
-        "Sunday":"",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"",
+        "Poway 0945PM":"S",
+        "UTC 1030PM":""
     },
     {
         "playerid":10,
@@ -142,12 +142,12 @@
         "Email":"jeanluc.chaubard@gmail.com",
         "position F D G":"F",
         "LINE":"1",
-        "Tuesday":"S",
-        "Friday":"S",
-        "Sunday":"S",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"S",
+        "Poway 0945PM":"S",
+        "UTC 1030PM":"S"
     },
     {
         "playerid":11,
@@ -157,12 +157,12 @@
         "Email":"h.chercoe@gmail.com",
         "position F D G":"F",
         "LINE":"1",
-        "Tuesday":"",
-        "Friday":"R",
-        "Sunday":"",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"",
+        "Poway 0945PM":"R",
+        "UTC 1030PM":""
     },
     {
         "playerid":12,
@@ -172,12 +172,12 @@
         "Email":"vchula@hotmail.com",
         "position F D G":"F D",
         "LINE":"1 2",
-        "Tuesday":"",
-        "Friday":"R",
-        "Sunday":"",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"",
+        "Poway 0945PM":"R",
+        "UTC 1030PM":""
     },
     {
         "playerid":13,
@@ -187,12 +187,12 @@
         "Email":"rob.crockett@gmail.com",
         "position F D G":"F D",
         "LINE":"1 2",
-        "Tuesday":"S",
-        "Friday":"S",
-        "Sunday":"S",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"S",
+        "Poway 0945PM":"S",
+        "UTC 1030PM":"S"
     },
     {
         "playerid":14,
@@ -202,12 +202,12 @@
         "Email":"causticasian@yahoo.com",
         "position F D G":"F D",
         "LINE":"1 2",
-        "Tuesday":"S",
-        "Friday":"S",
-        "Sunday":"S",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"S",
+        "Poway 0945PM":"S",
+        "UTC 1030PM":"S"
     },
     {
         "playerid":15,
@@ -217,12 +217,12 @@
         "Email":"paultrout@aquasolver.com",
         "position F D G":"G",
         "LINE":"1",
-        "Tuesday":"",
-        "Friday":"R",
-        "Sunday":"",
         "Monies":30,
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"",
+        "Poway 0945PM":"R",
+        "UTC 1030PM":""
     },
     {
         "playerid":16,
@@ -232,12 +232,12 @@
         "Email":"louied2727@gmail.com",
         "position F D G":"F",
         "LINE":"1",
-        "Tuesday":"S",
-        "Friday":"",
-        "Sunday":"",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"",
+        "Poway 0945PM":"",
+        "UTC 1030PM":"S"
     },
     {
         "playerid":17,
@@ -247,12 +247,12 @@
         "Email":"csduck@ncfmg.com",
         "position F D G":"F",
         "LINE":"2",
-        "Tuesday":"",
-        "Friday":"R",
-        "Sunday":"",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"",
+        "Poway 0945PM":"R",
+        "UTC 1030PM":""
     },
     {
         "playerid":18,
@@ -262,12 +262,12 @@
         "Email":"Deanduprey@hotmail.com",
         "position F D G":"F D",
         "LINE":"1",
-        "Tuesday":"S",
-        "Friday":"S",
-        "Sunday":"S",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"S",
+        "Poway 0945PM":"S",
+        "UTC 1030PM":"S"
     },
     {
         "playerid":19,
@@ -277,12 +277,12 @@
         "Email":"winjr6@gmail.com",
         "position F D G":"F",
         "LINE":"1",
-        "Tuesday":"",
-        "Friday":"R",
-        "Sunday":"",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"",
+        "Poway 0945PM":"R",
+        "UTC 1030PM":""
     },
     {
         "playerid":20,
@@ -292,12 +292,12 @@
         "Email":"LeonFaison@gmail.com",
         "position F D G":"F D G",
         "LINE":"1",
-        "Tuesday":"S",
-        "Friday":"S",
-        "Sunday":"S",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"S",
+        "Poway 0945PM":"S",
+        "UTC 1030PM":"S"
     },
     {
         "playerid":21,
@@ -307,12 +307,12 @@
         "Email":"DanFarren@verizon.net",
         "position F D G":"D",
         "LINE":"1",
-        "Tuesday":"",
-        "Friday":"R",
-        "Sunday":"",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"",
+        "Poway 0945PM":"R",
+        "UTC 1030PM":""
     },
     {
         "playerid":22,
@@ -322,12 +322,12 @@
         "Email":"paul.ferlatte@gmail.com",
         "position F D G":"F",
         "LINE":"2",
-        "Tuesday":"R",
-        "Friday":"S",
-        "Sunday":"R",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"R",
+        "Poway 0945PM":"S",
+        "UTC 1030PM":"R"
     },
     {
         "playerid":23,
@@ -337,12 +337,12 @@
         "Email":"chris@compu-sult.com",
         "position F D G":"F D",
         "LINE":"1",
-        "Tuesday":"R",
-        "Friday":"R",
-        "Sunday":"R",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"R",
+        "Poway 0945PM":"R",
+        "UTC 1030PM":"R"
     },
     {
         "playerid":24,
@@ -352,12 +352,12 @@
         "Email":"goalparski08@yahoo.com",
         "position F D G":"G",
         "LINE":"1",
-        "Tuesday":"",
-        "Friday":"",
-        "Sunday":"R",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"R",
+        "Poway 0945PM":"",
+        "UTC 1030PM":""
     },
     {
         "playerid":25,
@@ -367,12 +367,12 @@
         "Email":"agallo93010@gmail.com",
         "position F D G":"F",
         "LINE":"1 2",
-        "Tuesday":"S",
-        "Friday":"",
-        "Sunday":"S",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"S",
+        "Poway 0945PM":"",
+        "UTC 1030PM":"S"
     },
     {
         "playerid":26,
@@ -382,12 +382,12 @@
         "Email":"mgeiszler78@gmail.com ",
         "position F D G":"G",
         "LINE":"1",
-        "Tuesday":"R",
-        "Friday":"S",
-        "Sunday":"R",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"R",
+        "Poway 0945PM":"S",
+        "UTC 1030PM":"R"
     },
     {
         "playerid":27,
@@ -397,12 +397,12 @@
         "Email":"JoeyGelsomino@me.com ",
         "position F D G":"F D",
         "LINE":"1",
-        "Tuesday":"R",
-        "Friday":"S",
-        "Sunday":"",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"",
+        "Poway 0945PM":"S",
+        "UTC 1030PM":"R"
     },
     {
         "playerid":28,
@@ -412,12 +412,12 @@
         "Email":"Dangoldb@gmail.com",
         "position F D G":"F D",
         "LINE":"1",
-        "Tuesday":"S",
-        "Friday":"",
-        "Sunday":"R",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"R",
+        "Poway 0945PM":"",
+        "UTC 1030PM":"S"
     },
     {
         "playerid":29,
@@ -427,12 +427,12 @@
         "Email":"i.b.goldenring@gmail.com ",
         "position F D G":"F",
         "LINE":"2",
-        "Tuesday":"",
-        "Friday":"",
-        "Sunday":"R",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"R",
+        "Poway 0945PM":"",
+        "UTC 1030PM":""
     },
     {
         "playerid":30,
@@ -442,12 +442,12 @@
         "Email":"mannygomes1799@gmail.com",
         "position F D G":"F",
         "LINE":"1 2",
-        "Tuesday":"S",
-        "Friday":"S",
-        "Sunday":"",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"",
+        "Poway 0945PM":"S",
+        "UTC 1030PM":"S"
     },
     {
         "playerid":31,
@@ -457,12 +457,12 @@
         "Email":"6t2tr4@gmail.com",
         "position F D G":"F",
         "LINE":"1 2",
-        "Tuesday":"",
-        "Friday":"S",
-        "Sunday":"",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"",
+        "Poway 0945PM":"S",
+        "UTC 1030PM":""
     },
     {
         "playerid":32,
@@ -472,12 +472,12 @@
         "Email":"granackib@hotmail.com ",
         "position F D G":"F",
         "LINE":"2",
-        "Tuesday":"S",
-        "Friday":"",
-        "Sunday":"",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"",
+        "Poway 0945PM":"",
+        "UTC 1030PM":"S"
     },
     {
         "playerid":33,
@@ -487,12 +487,12 @@
         "Email":"tomg92026@aol.com",
         "position F D G":"D",
         "LINE":"2",
-        "Tuesday":"R",
-        "Friday":"",
-        "Sunday":"",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"",
+        "Poway 0945PM":"",
+        "UTC 1030PM":"R"
     },
     {
         "playerid":34,
@@ -502,12 +502,12 @@
         "Email":"johnhadley66@icloud.com",
         "position F D G":"F",
         "LINE":"2",
-        "Tuesday":"R",
-        "Friday":"S",
-        "Sunday":"",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"",
+        "Poway 0945PM":"S",
+        "UTC 1030PM":"R"
     },
     {
         "playerid":35,
@@ -517,12 +517,12 @@
         "Email":"GcHazzard@yahoo.com",
         "position F D G":"D",
         "LINE":"2",
-        "Tuesday":"S",
-        "Friday":"",
-        "Sunday":"S",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"S",
+        "Poway 0945PM":"",
+        "UTC 1030PM":"S"
     },
     {
         "playerid":36,
@@ -532,12 +532,12 @@
         "Email":"brihebert@gmail.com ",
         "position F D G":"F D",
         "LINE":"2",
-        "Tuesday":"",
-        "Friday":"",
-        "Sunday":"",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"",
+        "Poway 0945PM":"",
+        "UTC 1030PM":""
     },
     {
         "playerid":37,
@@ -547,12 +547,12 @@
         "Email":"j@taprootit.com",
         "position F D G":"D",
         "LINE":"1 2",
-        "Tuesday":"R",
-        "Friday":"",
-        "Sunday":"",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"",
+        "Poway 0945PM":"",
+        "UTC 1030PM":"R"
     },
     {
         "playerid":38,
@@ -562,12 +562,12 @@
         "Email":"jheller843@gmail.com ",
         "position F D G":"F",
         "LINE":"1",
-        "Tuesday":"R",
-        "Friday":"S",
-        "Sunday":"",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"",
+        "Poway 0945PM":"S",
+        "UTC 1030PM":"R"
     },
     {
         "playerid":39,
@@ -577,12 +577,12 @@
         "Email":"danherrera896@outlook.com",
         "position F D G":"D",
         "LINE":"1 2",
-        "Tuesday":"R",
-        "Friday":"",
-        "Sunday":"",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"",
+        "Poway 0945PM":"",
+        "UTC 1030PM":"R"
     },
     {
         "playerid":40,
@@ -592,12 +592,12 @@
         "Email":"bhoppal@gmail.com",
         "position F D G":"F D",
         "LINE":"2",
-        "Tuesday":"S",
-        "Friday":"",
-        "Sunday":"R",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"R",
+        "Poway 0945PM":"",
+        "UTC 1030PM":"S"
     },
     {
         "playerid":41,
@@ -607,12 +607,12 @@
         "Email":"Chosegood@gmail.com",
         "position F D G":"F D G",
         "LINE":"1 2",
-        "Tuesday":"Z",
-        "Friday":"R",
-        "Sunday":"R",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"R",
+        "Poway 0945PM":"R",
+        "UTC 1030PM":"Z"
     },
     {
         "playerid":42,
@@ -622,12 +622,12 @@
         "Email":"Jensen311@gmail.com",
         "position F D G":"D",
         "LINE":"1",
-        "Tuesday":"R",
-        "Friday":"S",
-        "Sunday":"R",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"R",
+        "Poway 0945PM":"S",
+        "UTC 1030PM":"R"
     },
     {
         "playerid":43,
@@ -637,12 +637,12 @@
         "Email":"GregJohnson19@gmail.com",
         "position F D G":"F D",
         "LINE":"2",
-        "Tuesday":"R",
-        "Friday":"S",
-        "Sunday":"S",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"S",
+        "Poway 0945PM":"S",
+        "UTC 1030PM":"R"
     },
     {
         "playerid":44,
@@ -652,12 +652,12 @@
         "Email":"jacoballenjohnson7@gmail.com",
         "position F D G":"F",
         "LINE":"1",
-        "Tuesday":"S",
-        "Friday":"S",
-        "Sunday":"R",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"R",
+        "Poway 0945PM":"S",
+        "UTC 1030PM":"S"
     },
     {
         "playerid":45,
@@ -667,12 +667,12 @@
         "Email":"Cjones@hawaii.edu",
         "position F D G":"D",
         "LINE":"1",
-        "Tuesday":"S",
-        "Friday":"S",
-        "Sunday":"R",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"R",
+        "Poway 0945PM":"S",
+        "UTC 1030PM":"S"
     },
     {
         "playerid":46,
@@ -682,12 +682,12 @@
         "Email":"cdgjones@gmail.com",
         "position F D G":"F D",
         "LINE":"2",
-        "Tuesday":"S",
-        "Friday":"",
-        "Sunday":"R",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"R",
+        "Poway 0945PM":"",
+        "UTC 1030PM":"S"
     },
     {
         "playerid":47,
@@ -697,12 +697,12 @@
         "Email":"sunil.joseph@me.com",
         "position F D G":"G",
         "LINE":"1",
-        "Tuesday":"R",
-        "Friday":"S",
-        "Sunday":"S",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"S",
+        "Poway 0945PM":"S",
+        "UTC 1030PM":"R"
     },
     {
         "playerid":48,
@@ -712,12 +712,12 @@
         "Email":"Rbconst@gmail.com",
         "position F D G":"D",
         "LINE":"2",
-        "Tuesday":"",
-        "Friday":"R",
-        "Sunday":"",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"",
+        "Poway 0945PM":"R",
+        "UTC 1030PM":""
     },
     {
         "playerid":49,
@@ -727,12 +727,12 @@
         "Email":"leoking688@gmail.com",
         "position F D G":"F D",
         "LINE":"1",
-        "Tuesday":"S",
-        "Friday":"S",
-        "Sunday":"S",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"S",
+        "Poway 0945PM":"S",
+        "UTC 1030PM":"S"
     },
     {
         "playerid":50,
@@ -742,12 +742,12 @@
         "Email":"K.Kiraly26@gmail.com",
         "position F D G":"F G",
         "LINE":"2",
-        "Tuesday":"S",
-        "Friday":"S",
-        "Sunday":"S",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"S",
+        "Poway 0945PM":"S",
+        "UTC 1030PM":"S"
     },
     {
         "playerid":51,
@@ -757,12 +757,12 @@
         "Email":"Katzoo44@gmail.com",
         "position F D G":"G",
         "LINE":"1",
-        "Tuesday":"",
-        "Friday":"",
-        "Sunday":"S",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"S",
+        "Poway 0945PM":"",
+        "UTC 1030PM":""
     },
     {
         "playerid":52,
@@ -772,12 +772,12 @@
         "Email":"jlaurila@hotmail.com",
         "position F D G":"F",
         "LINE":"1 2",
-        "Tuesday":"",
-        "Friday":"S",
-        "Sunday":"S",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"S",
+        "Poway 0945PM":"S",
+        "UTC 1030PM":""
     },
     {
         "playerid":53,
@@ -787,12 +787,12 @@
         "Email":"steve@sflopesq.com",
         "position F D G":"D",
         "LINE":"2",
-        "Tuesday":"S",
-        "Friday":"",
-        "Sunday":"R",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"R",
+        "Poway 0945PM":"",
+        "UTC 1030PM":"S"
     },
     {
         "playerid":54,
@@ -802,12 +802,12 @@
         "Email":"Gntnafam@gmail.com",
         "position F D G":"F",
         "LINE":"1 2",
-        "Tuesday":"S",
-        "Friday":"",
-        "Sunday":"S",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"S",
+        "Poway 0945PM":"",
+        "UTC 1030PM":"S"
     },
     {
         "playerid":55,
@@ -817,12 +817,12 @@
         "Email":"FrankEdwardii@hotmail.com",
         "position F D G":"D",
         "LINE":"2",
-        "Tuesday":"",
-        "Friday":"R",
-        "Sunday":"",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"",
+        "Poway 0945PM":"R",
+        "UTC 1030PM":""
     },
     {
         "playerid":56,
@@ -832,12 +832,12 @@
         "Email":"Nickrenew@gmail.com",
         "position F D G":"D",
         "LINE":"2",
-        "Tuesday":"",
-        "Friday":"S",
-        "Sunday":"",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"",
+        "Poway 0945PM":"S",
+        "UTC 1030PM":""
     },
     {
         "playerid":57,
@@ -847,12 +847,12 @@
         "Email":"jwnorthrup@gmail.com ",
         "position F D G":"F D",
         "LINE":"2",
-        "Tuesday":"R",
-        "Friday":"S",
-        "Sunday":"S",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"S",
+        "Poway 0945PM":"S",
+        "UTC 1030PM":"R"
     },
     {
         "playerid":58,
@@ -862,12 +862,12 @@
         "Email":"Dougowen4@hotmail.com",
         "position F D G":"F",
         "LINE":"2",
-        "Tuesday":"",
-        "Friday":"",
-        "Sunday":"S",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"S",
+        "Poway 0945PM":"",
+        "UTC 1030PM":""
     },
     {
         "playerid":59,
@@ -877,12 +877,12 @@
         "Email":"dplasko@umich.edu",
         "position F D G":"F D",
         "LINE":"1",
-        "Tuesday":"R",
-        "Friday":"S",
-        "Sunday":"S",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"S",
+        "Poway 0945PM":"S",
+        "UTC 1030PM":"R"
     },
     {
         "playerid":60,
@@ -892,12 +892,12 @@
         "Email":"Andy.Pollin@thepollingroup.com ",
         "position F D G":"D",
         "LINE":"1 2",
-        "Tuesday":"R",
-        "Friday":"",
-        "Sunday":"",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"",
+        "Poway 0945PM":"",
+        "UTC 1030PM":"R"
     },
     {
         "playerid":61,
@@ -907,12 +907,12 @@
         "Email":"Brianchristopherpope@gmail.com ",
         "position F D G":"F",
         "LINE":"1",
-        "Tuesday":"S",
-        "Friday":"S",
-        "Sunday":"S",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"S",
+        "Poway 0945PM":"S",
+        "UTC 1030PM":"S"
     },
     {
         "playerid":62,
@@ -922,12 +922,12 @@
         "Email":"michael.prestler@gmail.com",
         "position F D G":"F",
         "LINE":"2",
-        "Tuesday":"",
-        "Friday":"S",
-        "Sunday":"",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"",
+        "Poway 0945PM":"S",
+        "UTC 1030PM":""
     },
     {
         "playerid":63,
@@ -937,12 +937,12 @@
         "Email":"Bri@brincubator.com",
         "position F D G":"D",
         "LINE":"2",
-        "Tuesday":"S",
-        "Friday":"",
-        "Sunday":"S",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"S",
+        "Poway 0945PM":"",
+        "UTC 1030PM":"S"
     },
     {
         "playerid":64,
@@ -952,12 +952,12 @@
         "Email":"chrisruch44@gmail.com",
         "position F D G":"F",
         "LINE":"2",
-        "Tuesday":"S",
-        "Friday":"",
-        "Sunday":"R",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"R",
+        "Poway 0945PM":"",
+        "UTC 1030PM":"S"
     },
     {
         "playerid":65,
@@ -967,12 +967,12 @@
         "Email":"j.rytz@yahoo.com ",
         "position F D G":"D",
         "LINE":"1",
-        "Tuesday":"",
-        "Friday":"R",
-        "Sunday":"",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"",
+        "Poway 0945PM":"R",
+        "UTC 1030PM":""
     },
     {
         "playerid":66,
@@ -982,12 +982,12 @@
         "Email":"hpsampson@yahoo.com",
         "position F D G":"F D",
         "LINE":"2",
-        "Tuesday":"",
-        "Friday":"",
-        "Sunday":"R",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"R",
+        "Poway 0945PM":"",
+        "UTC 1030PM":""
     },
     {
         "playerid":67,
@@ -997,12 +997,12 @@
         "Email":"Jim@Shea.cc",
         "position F D G":"F",
         "LINE":"1 2",
-        "Tuesday":"R",
-        "Friday":"R",
-        "Sunday":"S",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"S",
+        "Poway 0945PM":"R",
+        "UTC 1030PM":"R"
     },
     {
         "playerid":68,
@@ -1012,12 +1012,12 @@
         "Email":"Kingspucknut@gmail.com",
         "position F D G":"F D",
         "LINE":"1 2",
-        "Tuesday":"R",
-        "Friday":"R",
-        "Sunday":"S",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"S",
+        "Poway 0945PM":"R",
+        "UTC 1030PM":"R"
     },
     {
         "playerid":69,
@@ -1027,12 +1027,12 @@
         "Email":"Darrensimpson22@gmail.com",
         "position F D G":"F D",
         "LINE":"2",
-        "Tuesday":"R",
-        "Friday":"S",
-        "Sunday":"",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"",
+        "Poway 0945PM":"S",
+        "UTC 1030PM":"R"
     },
     {
         "playerid":70,
@@ -1042,12 +1042,12 @@
         "Email":"puremetal33@gmail.com ",
         "position F D G":"G",
         "LINE":"1",
-        "Tuesday":"S",
-        "Friday":"",
-        "Sunday":"S",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"S",
+        "Poway 0945PM":"",
+        "UTC 1030PM":"S"
     },
     {
         "playerid":71,
@@ -1057,12 +1057,12 @@
         "Email":"Joefrom2ndid@yahoo.com",
         "position F D G":"F D",
         "LINE":"1 2",
-        "Tuesday":"R",
-        "Friday":"R",
-        "Sunday":"S",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"S",
+        "Poway 0945PM":"R",
+        "UTC 1030PM":"R"
     },
     {
         "playerid":72,
@@ -1072,12 +1072,12 @@
         "Email":"bobs01130804@gmail.com ",
         "position F D G":"F D",
         "LINE":"2",
-        "Tuesday":"",
-        "Friday":"",
-        "Sunday":"R",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"R",
+        "Poway 0945PM":"",
+        "UTC 1030PM":""
     },
     {
         "playerid":73,
@@ -1087,12 +1087,12 @@
         "Email":"Steinecke4@yahoo.com ",
         "position F D G":"F",
         "LINE":"2",
-        "Tuesday":"R",
-        "Friday":"S",
-        "Sunday":"",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"",
+        "Poway 0945PM":"S",
+        "UTC 1030PM":"R"
     },
     {
         "playerid":74,
@@ -1102,12 +1102,12 @@
         "Email":"Steinecke4@yahoo.com ",
         "position F D G":"F",
         "LINE":"2",
-        "Tuesday":"R",
-        "Friday":"",
-        "Sunday":"",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"",
+        "Poway 0945PM":"",
+        "UTC 1030PM":"R"
     },
     {
         "playerid":75,
@@ -1117,12 +1117,12 @@
         "Email":"raymondsun@gmail.com",
         "position F D G":"F D",
         "LINE":"1",
-        "Tuesday":"S",
-        "Friday":"S",
-        "Sunday":"R",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"R",
+        "Poway 0945PM":"S",
+        "UTC 1030PM":"S"
     },
     {
         "playerid":76,
@@ -1132,12 +1132,12 @@
         "Email":"Norif.Takaya@gmail.com",
         "position F D G":"F D",
         "LINE":"1",
-        "Tuesday":"",
-        "Friday":"R",
-        "Sunday":"S",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"S",
+        "Poway 0945PM":"R",
+        "UTC 1030PM":""
     },
     {
         "playerid":77,
@@ -1147,12 +1147,12 @@
         "Email":"atazbaz@yahoo.com",
         "position F D G":"D",
         "LINE":"1",
-        "Tuesday":"",
-        "Friday":"R",
-        "Sunday":"",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"",
+        "Poway 0945PM":"R",
+        "UTC 1030PM":""
     },
     {
         "playerid":78,
@@ -1162,12 +1162,12 @@
         "Email":"thaddeus.thacker@gmail.com",
         "position F D G":"F D",
         "LINE":"1",
-        "Tuesday":"S",
-        "Friday":"R",
-        "Sunday":"S",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"S",
+        "Poway 0945PM":"R",
+        "UTC 1030PM":"S"
     },
     {
         "playerid":79,
@@ -1177,12 +1177,12 @@
         "Email":"circusvarga@gmail.com ",
         "position F D G":"F",
         "LINE":"2",
-        "Tuesday":"",
-        "Friday":"R",
-        "Sunday":"",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"",
+        "Poway 0945PM":"R",
+        "UTC 1030PM":""
     },
     {
         "playerid":80,
@@ -1192,12 +1192,12 @@
         "Email":"3jvgomez@gmail.com ",
         "position F D G":"F",
         "LINE":"2",
-        "Tuesday":"",
-        "Friday":"R",
-        "Sunday":"",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"",
+        "Poway 0945PM":"R",
+        "UTC 1030PM":""
     },
     {
         "playerid":81,
@@ -1207,12 +1207,12 @@
         "Email":"evinson23@gmail.com",
         "position F D G":"F",
         "LINE":"2",
-        "Tuesday":"S",
-        "Friday":"S",
-        "Sunday":"S",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"S",
+        "Poway 0945PM":"S",
+        "UTC 1030PM":"S"
     },
     {
         "playerid":82,
@@ -1222,12 +1222,12 @@
         "Email":"jcvogie@verizon.net",
         "position F D G":"F",
         "LINE":"1",
-        "Tuesday":"",
-        "Friday":"R",
-        "Sunday":"",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"",
+        "Poway 0945PM":"R",
+        "UTC 1030PM":""
     },
     {
         "playerid":83,
@@ -1237,12 +1237,12 @@
         "Email":"Ajwesolekjr@aol.com ",
         "position F D G":"F",
         "LINE":"1",
-        "Tuesday":"R",
-        "Friday":"S",
-        "Sunday":"R",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"R",
+        "Poway 0945PM":"S",
+        "UTC 1030PM":"R"
     },
     {
         "playerid":84,
@@ -1252,12 +1252,12 @@
         "Email":"Dwhalen@berklee.edu ",
         "position F D G":"F D",
         "LINE":"2",
-        "Tuesday":"",
-        "Friday":"",
-        "Sunday":"R",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"R",
+        "Poway 0945PM":"",
+        "UTC 1030PM":""
     },
     {
         "playerid":85,
@@ -1267,12 +1267,12 @@
         "Email":"Adamwilliams86@yahoo.com ",
         "position F D G":"F D",
         "LINE":"1",
-        "Tuesday":"Z",
-        "Friday":"S",
-        "Sunday":"S",
         "Monies":"200",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"R",
+        "Poway 0945PM":"R",
+        "UTC 1030PM":"Z"
     },
     {
         "playerid":86,
@@ -1282,12 +1282,12 @@
         "Email":"Travis.A.Zessin@gmail.com",
         "position F D G":"F",
         "LINE":"2",
-        "Tuesday":"S",
-        "Friday":"S",
-        "Sunday":"S",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"S",
+        "Poway 0945PM":"S",
+        "UTC 1030PM":"S"
     },
     {
         "playerid":87,
@@ -1297,12 +1297,12 @@
         "Email":"Jussi.Santa@gmail.com",
         "position F D G":"F D",
         "LINE":"1",
-        "Tuesday":"",
-        "Friday":"",
-        "Sunday":"S",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"S",
+        "Poway 0945PM":"",
+        "UTC 1030PM":""
     },
     {
         "playerid":88,
@@ -1312,12 +1312,12 @@
         "Email":"kevindinkel327@gmail.com",
         "position F D G":"F D G",
         "LINE":"1",
-        "Tuesday":"S",
-        "Friday":"S",
-        "Sunday":"S",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"S",
+        "Poway 0945PM":"S",
+        "UTC 1030PM":"S"
     },
     {
         "playerid":89,
@@ -1327,12 +1327,12 @@
         "Email":"owensd18@hotmail.com",
         "position F D G":"D",
         "LINE":"1",
-        "Tuesday":"",
-        "Friday":"",
-        "Sunday":"R",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"R",
+        "Poway 0945PM":"",
+        "UTC 1030PM":""
     },
     {
         "playerid":90,
@@ -1342,12 +1342,12 @@
         "Email":"keith@gbvintners.com",
         "position F D G":"F",
         "LINE":"1",
-        "Tuesday":"",
-        "Friday":"",
-        "Sunday":"S",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"S",
+        "Poway 0945PM":"",
+        "UTC 1030PM":""
     },
     {
         "playerid":91,
@@ -1357,12 +1357,12 @@
         "Email":"a.bergoch@gmail.com",
         "position F D G":"F D",
         "LINE":"1",
-        "Tuesday":"S",
-        "Friday":"",
-        "Sunday":"S",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"S",
+        "Poway 0945PM":"",
+        "UTC 1030PM":"S"
     },
     {
         "playerid":92,
@@ -1372,12 +1372,12 @@
         "Email":"greciabocharov@usw.salvationarmy.org",
         "position F D G":"F D",
         "LINE":"1",
-        "Tuesday":"",
-        "Friday":"",
-        "Sunday":"S",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"S",
+        "Poway 0945PM":"",
+        "UTC 1030PM":""
     },
     {
         "playerid":93,
@@ -1387,12 +1387,12 @@
         "Email":"kellenhancock@gmail.com",
         "position F D G":"F",
         "LINE":"1",
-        "Tuesday":"",
-        "Friday":"",
-        "Sunday":"S",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"S",
+        "Poway 0945PM":"",
+        "UTC 1030PM":""
     },
     {
         "playerid":94,
@@ -1402,12 +1402,12 @@
         "Email":"Taylor@readcrease.com",
         "position F D G":"F",
         "LINE":"1 2",
-        "Tuesday":"",
-        "Friday":"S",
-        "Sunday":"S",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"S",
+        "Poway 0945PM":"S",
+        "UTC 1030PM":""
     },
     {
         "playerid":95,
@@ -1417,12 +1417,12 @@
         "Email":"rescueme1983@aol.com",
         "position F D G":"F",
         "LINE":"1",
-        "Tuesday":"",
-        "Friday":"",
-        "Sunday":"S",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"S",
+        "Poway 0945PM":"",
+        "UTC 1030PM":""
     },
     {
         "playerid":96,
@@ -1432,12 +1432,12 @@
         "Email":"ChristianYager@gmail.com",
         "position F D G":"F",
         "LINE":"2",
-        "Tuesday":"",
-        "Friday":"",
-        "Sunday":"S",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"S",
+        "Poway 0945PM":"",
+        "UTC 1030PM":""
     },
     {
         "playerid":97,
@@ -1447,12 +1447,12 @@
         "Email":"art.taylor1@cox.net",
         "position F D G":"F",
         "LINE":"2",
-        "Tuesday":"",
-        "Friday":"",
-        "Sunday":"S",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"S",
+        "Poway 0945PM":"",
+        "UTC 1030PM":""
     },
     {
         "playerid":98,
@@ -1462,12 +1462,12 @@
         "Email":"billy.warren18@yahoo.com",
         "position F D G":"F",
         "LINE":"2",
-        "Tuesday":"",
-        "Friday":"",
-        "Sunday":"S",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"S",
+        "Poway 0945PM":"",
+        "UTC 1030PM":""
     },
     {
         "playerid":99,
@@ -1477,12 +1477,12 @@
         "Email":"tvarrasso10@gmail.com",
         "position F D G":"D",
         "LINE":"2",
-        "Tuesday":"S",
-        "Friday":"",
-        "Sunday":"S",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"S",
+        "Poway 0945PM":"",
+        "UTC 1030PM":"S"
     },
     {
         "playerid":100,
@@ -1492,12 +1492,12 @@
         "Email":"adricontre1997@yahoo.com",
         "position F D G":"F D",
         "LINE":"2",
-        "Tuesday":"",
-        "Friday":"",
-        "Sunday":"S",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"S",
+        "Poway 0945PM":"",
+        "UTC 1030PM":""
     },
     {
         "playerid":101,
@@ -1507,12 +1507,12 @@
         "Email":"eddy12265@gmail.com",
         "position F D G":"F",
         "LINE":"2",
-        "Tuesday":"",
-        "Friday":"",
-        "Sunday":"S",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"S",
+        "Poway 0945PM":"",
+        "UTC 1030PM":""
     },
     {
         "playerid":102,
@@ -1522,12 +1522,12 @@
         "Email":"jaydavis8134@gmail.com",
         "position F D G":"F",
         "LINE":"1 2",
-        "Tuesday":"",
-        "Friday":"",
-        "Sunday":"S",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"S",
+        "Poway 0945PM":"",
+        "UTC 1030PM":""
     },
     {
         "playerid":103,
@@ -1537,12 +1537,12 @@
         "Email":"matthewstangl@yahoo.com",
         "position F D G":"F D",
         "LINE":"2",
-        "Tuesday":"S",
-        "Friday":"S",
-        "Sunday":"S",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"S",
+        "Poway 0945PM":"S",
+        "UTC 1030PM":"S"
     },
     {
         "playerid":104,
@@ -1552,12 +1552,12 @@
         "Email":"nbcfromusbc@gmail.com",
         "position F D G":"F D",
         "LINE":"1",
-        "Tuesday":"",
-        "Friday":"S",
-        "Sunday":"",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"",
+        "Poway 0945PM":"S",
+        "UTC 1030PM":""
     },
     {
         "playerid":105,
@@ -1567,12 +1567,12 @@
         "Email":"markusbirch93@gmail.com",
         "position F D G":"F D",
         "LINE":"1",
-        "Tuesday":"",
-        "Friday":"S",
-        "Sunday":"",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"",
+        "Poway 0945PM":"S",
+        "UTC 1030PM":""
     },
     {
         "playerid":106,
@@ -1582,12 +1582,12 @@
         "Email":"scottbrooks27@gmail.com",
         "position F D G":"D",
         "LINE":"1",
-        "Tuesday":"",
-        "Friday":"S",
-        "Sunday":"",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"",
+        "Poway 0945PM":"S",
+        "UTC 1030PM":""
     },
     {
         "playerid":107,
@@ -1597,12 +1597,12 @@
         "Email":"Redwings12594@yahoo.com",
         "position F D G":"F D",
         "LINE":"1",
-        "Tuesday":"S",
-        "Friday":"",
-        "Sunday":"S",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"S",
+        "Poway 0945PM":"",
+        "UTC 1030PM":"S"
     },
     {
         "playerid":108,
@@ -1612,12 +1612,12 @@
         "Email":"llcalifornia1@gmail.com",
         "position F D G":"F D",
         "LINE":"1",
-        "Tuesday":"",
-        "Friday":"S",
-        "Sunday":"",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"",
+        "Poway 0945PM":"S",
+        "UTC 1030PM":""
     },
     {
         "playerid":109,
@@ -1627,12 +1627,12 @@
         "Email":"rhinodadx2@yahoo.com",
         "position F D G":"D",
         "LINE":"2",
-        "Tuesday":"R",
-        "Friday":"S",
-        "Sunday":"S",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"S",
+        "Poway 0945PM":"S",
+        "UTC 1030PM":"R"
     },
     {
         "playerid":110,
@@ -1642,12 +1642,12 @@
         "Email":"slisker@gmail.com",
         "position F D G":"D",
         "LINE":"2",
-        "Tuesday":"",
-        "Friday":"S",
-        "Sunday":"S",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"S",
+        "Poway 0945PM":"S",
+        "UTC 1030PM":""
     },
     {
         "playerid":111,
@@ -1657,12 +1657,12 @@
         "Email":"Cgeschwender@gmail.com",
         "position F D G":"F",
         "LINE":"2",
-        "Tuesday":"",
-        "Friday":"S",
-        "Sunday":"S",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"S",
+        "Poway 0945PM":"S",
+        "UTC 1030PM":""
     },
     {
         "playerid":112,
@@ -1672,12 +1672,12 @@
         "Email":"mchercoe@gmail.com",
         "position F D G":"F",
         "LINE":"2",
-        "Tuesday":"",
-        "Friday":"S",
-        "Sunday":"",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"",
+        "Poway 0945PM":"S",
+        "UTC 1030PM":""
     },
     {
         "playerid":113,
@@ -1687,12 +1687,12 @@
         "Email":"joedaly312@gmail.com",
         "position F D G":"D",
         "LINE":"2",
-        "Tuesday":"",
-        "Friday":"S",
-        "Sunday":"S",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"S",
+        "Poway 0945PM":"S",
+        "UTC 1030PM":""
     },
     {
         "playerid":114,
@@ -1702,12 +1702,12 @@
         "Email":"william.burzynski@gmail.com",
         "position F D G":"D",
         "LINE":"2",
-        "Tuesday":"S",
-        "Friday":"",
-        "Sunday":"S",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"S",
+        "Poway 0945PM":"",
+        "UTC 1030PM":"S"
     },
     {
         "playerid":115,
@@ -1717,12 +1717,12 @@
         "Email":"mander715@cox.net",
         "position F D G":"F",
         "LINE":"1",
-        "Tuesday":"S",
-        "Friday":"",
-        "Sunday":"",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"",
+        "Poway 0945PM":"",
+        "UTC 1030PM":"S"
     },
     {
         "playerid":116,
@@ -1732,12 +1732,12 @@
         "Email":"bsvienson@gmail.com",
         "position F D G":"F",
         "LINE":"1",
-        "Tuesday":"S",
-        "Friday":"",
-        "Sunday":"S",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"S",
+        "Poway 0945PM":"",
+        "UTC 1030PM":"S"
     },
     {
         "playerid":117,
@@ -1747,12 +1747,12 @@
         "Email":"AneoRong@hotmail.com",
         "position F D G":"F",
         "LINE":"1",
-        "Tuesday":"S",
-        "Friday":"",
-        "Sunday":"",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"",
+        "Poway 0945PM":"",
+        "UTC 1030PM":"S"
     },
     {
         "playerid":118,
@@ -1762,12 +1762,12 @@
         "Email":"Jeff@prospectcom.com",
         "position F D G":"F",
         "LINE":"2",
-        "Tuesday":"S",
-        "Friday":"",
-        "Sunday":"",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"",
+        "Poway 0945PM":"",
+        "UTC 1030PM":"S"
     },
     {
         "playerid":119,
@@ -1777,12 +1777,12 @@
         "Email":"jzeis@toolboxmed.com",
         "position F D G":"F",
         "LINE":"2",
-        "Tuesday":"S",
-        "Friday":"",
-        "Sunday":"",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"",
+        "Poway 0945PM":"",
+        "UTC 1030PM":"S"
     },
     {
         "playerid":120,
@@ -1792,12 +1792,12 @@
         "Email":"760jon@gmail.com",
         "position F D G":"F",
         "LINE":"2",
-        "Tuesday":"S",
-        "Friday":"",
-        "Sunday":"S",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"S",
+        "Poway 0945PM":"",
+        "UTC 1030PM":"S"
     },
     {
         "playerid":121,
@@ -1807,12 +1807,12 @@
         "Email":"Adamwass@sbcglobal.net",
         "position F D G":"F",
         "LINE":"2",
-        "Tuesday":"S",
-        "Friday":"",
-        "Sunday":"S",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"S",
+        "Poway 0945PM":"",
+        "UTC 1030PM":"S"
     },
     {
         "playerid":122,
@@ -1822,12 +1822,12 @@
         "Email":"duboisad.msu@gmail.com",
         "position F D G":"G",
         "LINE":"1",
-        "Tuesday":"S",
-        "Friday":"S",
-        "Sunday":"S",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"S",
+        "Poway 0945PM":"S",
+        "UTC 1030PM":"S"
     },
     {
         "playerid":123,
@@ -1837,12 +1837,12 @@
         "Email":"pwr148@hotmail.com",
         "position F D G":"G",
         "LINE":"1",
-        "Tuesday":"S",
-        "Friday":"S",
-        "Sunday":"S",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"S",
+        "Poway 0945PM":"S",
+        "UTC 1030PM":"S"
     },
     {
         "playerid":124,
@@ -1852,12 +1852,12 @@
         "Email":"hugogoalie@gmail.com",
         "position F D G":"G",
         "LINE":"1",
-        "Tuesday":"",
-        "Friday":"S",
-        "Sunday":"",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"",
+        "Poway 0945PM":"S",
+        "UTC 1030PM":""
     },
     {
         "playerid":125,
@@ -1867,12 +1867,12 @@
         "Email":"mslans26@gmail.com",
         "position F D G":"G",
         "LINE":"1",
-        "Tuesday":"S",
-        "Friday":"S",
-        "Sunday":"S",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"S",
+        "Poway 0945PM":"S",
+        "UTC 1030PM":"S"
     },
     {
         "playerid":126,
@@ -1882,12 +1882,12 @@
         "Email":"ToddAbele@hotmail.com",
         "position F D G":"G",
         "LINE":"1",
-        "Tuesday":"",
-        "Friday":"S",
-        "Sunday":"S",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"S",
+        "Poway 0945PM":"S",
+        "UTC 1030PM":""
     },
     {
         "playerid":127,
@@ -1897,11 +1897,11 @@
         "Email":"wvarrasso10@gmail.com",
         "position F D G":"F D",
         "LINE":"1",
-        "Tuesday":"",
-        "Friday":"",
-        "Sunday":"S",
         "Monies":"",
         "Out":"",
-        "Suspended":""
+        "Suspended":"",
+        "Kroc 0900PM":"S",
+        "Poway 0945PM":"",
+        "UTC 1030PM":""
     }
 ]
