@@ -1,11 +1,11 @@
 {
     "TotalQuickEvents":1,
     "Kroc 1000PM":{
-        "Time":"1000PM",
-        "Day":"Tuesday",
-        "Location":"KROC",
-        "Cost":"35",
+        "Enabled":false,
         "TotalPlayers":"25",
-        "Enabled":false
+        "Cost":"35",
+        "Location":"KROC",
+        "Day":"Tuesday",
+        "Time":"1000PM"
     }
 }
