@@ -1,16 +1,26 @@
 {
-    "ESCONDIDO 08:00 AM":{
-        "Time":"08:00 AM",
-        "Day":"THURSDAY",
-        "Location":"ESCONDIDO",
+    "KROC 09:00 PM":{
+        "TotalPlayers":"22",
         "Cost":"30",
-        "TotalPlayers":"22"
+        "Location":"KROC",
+        "Day":"SUNDAY",
+        "Time":"09:00 PM",
+        "Enabled": true
     },
-    "POWAY 05:00 AM":{
-        "Time":"05:00 AM",
-        "Day":"SATURDAY",
+    "UTC 10:30 PM":{
+        "Time":"10:30 PM",
+        "Day":"TUESDAY",
+        "Location":"UTC",
+        "Cost":"30",
+        "TotalPlayers":"22",
+        "Enabled": true
+    },
+    "POWAY 09:45 PM":{
+        "Time":"09:45 PM",
+        "Day":"FRIDAY",
         "Location":"POWAY",
         "Cost":"30",
-        "TotalPlayers":"22"
+        "TotalPlayers":"22",
+        "Enabled": true
     }
 }

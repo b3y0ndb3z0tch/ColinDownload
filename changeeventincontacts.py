@@ -1,5 +1,20 @@
 import json
 
+# def remove_all_contact_non_real_quick_event():
+#     with open("ContactInfo.json") as f:
+#         all_contacts = json.load(f)
+#         for single_contact in all_contacts:
+#             single_contact.pop("ESCONDIDO 08:00 AM")
+#             single_contact.pop("POWAY 05:00 AM")
+#             single_contact.pop("ESCONDIDO 04:00 PM")
+#             single_contact.pop("ESCONDIDO 08:00 PM")
+#             single_contact.pop(" 04:00 PM")
+#             single_contact.pop("FRIDAY KROC 10:00 PM")
+#         with open("ContactInfo.json", 'w') as json_file:
+#             json.dump(all_contacts, json_file, indent=4, separators=(',', ':'))
+#
+# remove_all_contact_non_real_quick_event()
+
 # def change_contact_to_quick_events():
 #     with open("ContactInfo.json") as f:
 #         all_contacts = json.load(f)

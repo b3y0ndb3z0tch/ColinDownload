@@ -4,8 +4,6 @@ from functools import partial
 from kivymd.uix.button import MDRaisedButton, MDFillRoundFlatButton
 
 
-
-
 def remove_nav_drawer_3_widgets(self):
     self.root.ids.nav_drawer3_md_list.remove_widget(self.invite)
     self.root.ids.nav_drawer3_md_list.remove_widget(self.invite2)
@@ -128,16 +126,17 @@ def clear_quick_event_text_fields(self,root):
     self.root.ids.quick_totalplayers.text = ""
 
 
+
 def add_quick_event_to_player_dict(self, contact_dict, quick_event_dict, quick_event_name):
     print("%%%   add_quick_event_to_player_dict MODULE   %%%")
     for single_contact in contact_dict:
         for single_event in quick_event_dict.keys():
             if single_contact.get(single_event) is not None:
                 print("%%%")
-                if single_contact[single_event] == "R":
+                if str(single_contact[single_event]).upper() == "R":
                     single_contact[quick_event_name] = "R"
                     print("%")
-                if single_contact[single_event] == "S":
+                if (single_contact[single_event]).upper() == "S":
                     single_contact[quick_event_name] = "S"
                     print("%%%%%%%%%%%%%%%%%%")
             else:
@@ -186,10 +185,13 @@ def check_if_player_invited(self, this_event, player_id):
     print(player_id)
     for key, val in this_event.items():
         print(key, val)
-        if(check_if_list_or_dict(self, key, val, player_id)):
+        check_this = check_if_list_or_dict(self, key, val, player_id)
+        if check_this == True:
             return True
             print("WE MADE IT ALL THE WAY TO THE END OF CHECKING")
             print("NEED TO RETURN FALSE SO THAT THE PLAYER WILL BE INVITED")
+        else:
+            print("Player has already been invited")
 
 def check_if_list(self, key, val, this_event, players_to_pay):
     print("in the check_if_list function")
@@ -199,10 +201,13 @@ def check_if_list(self, key, val, this_event, players_to_pay):
         print("*"*250)
         if len(val) != 0:
             for number in val:
+                print("~"*250)
+                print(val)
+                print(number)
                 if number in this_event['PlayersPaid']:
                     print("ABOUT TO BREAK")
-                    break
                 else:
+                    print("JUST ADDED THIS NUMBER")
                     players_to_pay.append(number)
                     #ADD PLAYER TO SWIPECARD TO THE SCREEN
         else:
@@ -222,3 +227,146 @@ def add_player_to_payment_screen(self, this_event):
     return players_to_pay
 
 
+def format_create_player(self, insertdictionary):
+    print("+++   we are in the FORMAT_CREATE_PLAYER function   +++")
+
+def show_paid_players(self, this_event):
+    paid_players=[]
+    paid_players = this_event["PlayersPaid"]
+    return paid_players
+
+def show_all_players_recursive(self, this_event, attended_players, val):
+    for key2, val2 in val.items():
+        if isinstance(val2, dict):
+            attended_players = show_all_players_recursive(self, this_event, attended_players, val2)
+        if isinstance(val2, list):
+            for single_player in val2:
+                attended_players.append(single_player)
+    return attended_players
+
+def show_all_players(self, this_event):
+    attended_players = []
+    for key, val in this_event.items():
+        if isinstance(val, dict):
+            attended_players = show_all_players_recursive(self, this_event, attended_players, val)
+        if isinstance(val, list):
+            for single_player in val:
+                attended_players.append(single_player)
+    return attended_players
+
+
+def add_with_path_and_class(self, path, widg):
+    print("999 in the add_with_path_and_class function 999")
+    print(path)
+    print(type(path))
+    print(widg)
+    print(type(widg))
+    path.add_widget(widg)
+
+
+def check_event_already_created(self, all_events, new_event):
+    new_event_title = new_event['Location'] + " " + new_event['Time'] + " " + new_event['Date']
+    print(new_event_title)
+    print(all_events)
+    for event in all_events:
+        print(event)
+        if event != "TotalEventCount":
+            created_event_title = all_events[event].get('Location') + " " + all_events[event].get("Time") + " " + all_events[event].get("Date")
+            print(created_event_title)
+            print(created_event_title)
+            if created_event_title == new_event_title:
+                print("THIS EVENT IS ALREADY CREATED")
+                return True
+            else:
+                print("We need to create the event")
+
+
+def display_selected_event(self, current_event_identify, MDLabel, SwipeToAddPlayerToInList):
+    print("---   in the display_selected_event function   ---")
+    self.root.ids.specific_event_page_box_layout.clear_widgets()
+    with open('myevents.json') as myevents:
+        alleventslist = json.load(myevents)
+        self.dict_of_event = alleventslist[self.current_event_identify]
+        self.current_event_players_invited = self.dict_of_event.get("PlayersInvited")
+        print("TRYING TO PRINT THE LIST OF CURRENT PLAYERS INVITED")
+        print(self.current_event_players_invited)
+        # print(self.dict_of_event)
+        self.current_event_title = str(self.dict_of_event.get("Location") + " " + self.dict_of_event.get("Time"))
+        self.current_event_day = self.dict_of_event.get('Day')
+        labeltext = f" {self.dict_of_event.get('Date')}"
+        labeltext += f" {self.dict_of_event.get('Day')}"
+        labeltext += f" {self.dict_of_event.get('Location')}"
+        labeltext += f" {self.dict_of_event.get('Time')}"
+        labeltext += f"\nInvited: {len(self.dict_of_event.get('PlayersInvited'))}"
+        labeltext += f" ~ To Assign: {len(self.dict_of_event.get('PlayersIn'))}"
+        labeltext += f" ~ Goalies: {len(self.dict_of_event['Dark'].get('Goalie')) + len(self.dict_of_event['Light'].get('Goalie'))} \n" \
+                     f"Dark: {len(self.dict_of_event['Dark']['Line1'].get('Forward')) + len(self.dict_of_event['Dark']['Line1'].get('Defense')) + len(self.dict_of_event['Dark']['Line2'].get('Forward')) + len(self.dict_of_event['Dark']['Line2'].get('Defense'))}" \
+                     f" ~ Light: {len(self.dict_of_event['Light']['Line1'].get('Forward')) + len(self.dict_of_event['Light']['Line1'].get('Defense')) + len(self.dict_of_event['Light']['Line2'].get('Forward')) + len(self.dict_of_event['Light']['Line2'].get('Defense'))}"
+        specific_event_heading_label = MDLabel(text=labeltext, halign='center')
+        self.root.ids.specific_event_page_box_layout.add_widget(specific_event_heading_label)
+    with open('ContactInfo.json') as allcontactinfo:
+        all_contact_info = json.load(allcontactinfo)
+        for a in self.dict_of_event.get("PlayersInvited"):
+            print(all_contact_info[a - 1])
+            namestring = "Name: "
+            namestring += f"{all_contact_info[a - 1].get('Player First')}"
+            namestring += " " + f"{all_contact_info[a - 1].get('Player Last')}"
+            positionstring = "Pos: "
+            positionstring += f'{all_contact_info[a - 1].get("position F D G")}'
+            positionstring += "  Line: "
+            positionstring += f'{all_contact_info[a - 1].get("LINE")}'
+            player_id = int(all_contact_info[a - 1].get("playerid"))
+            print(namestring)
+            player_card = SwipeToAddPlayerToInList(text=namestring,
+                                                   second_text=positionstring,
+                                                   event_id=self.current_event_identify,
+                                                   player_id=player_id
+                                                   )
+            self.root.ids.specific_event_label.add_widget(player_card)
+        # for a in str(singleevent.get(["PlayersIn"])):
+        #     print(int(a))
+    self.root.ids.screen_manager.current = 'SpecificEventPage'
+
+def check_create_player_text_fields(self, insertdictionary, saveplayer):
+    print("WE ARE IN check_create_player_text_fields function")
+    for child in self.root.ids.create_player_fields.children[:]:
+        print(child.id)
+        print(child.text)
+        if child.id == "Player First":
+            if child.text == "":
+                child.text = "John"
+        if child.id == "Player Last":
+            if child.text == "":
+                child.text = "Doe"
+        if child.id == "Cell Number":
+            if len(child.text) == 9 and child.text[0] != 1:
+                child.text = "1" + child.text
+        if child.id == "Email":
+            if child.text.find("@") == -1:
+                print("Did not have correct email format")
+        insertdictionary[str(child.id)] = str(child.text.upper())
+    saveplayer = True
+    return insertdictionary, saveplayer
+
+
+# def all_players_invited(self, dict_of_event):
+#     invited_players = []
+#     for key, val in dict_of_event.items():
+#         if isinstance(val, list):
+#             for player in val:
+#                 invited_players.append(player)
+#         if isinstance(val, dict):
+
+
+
+# def home_screen_notifications(self, root):
+#     print("~~~   in the home_screen_notifications function   ~~~")
+#     with open('notifications.json') as f:
+#         all_notifications = json.load(f)
+#         with open('ContactInfo.json') as file:
+#             all_contacts = json.load(file)
+#         for key, val in all_notifications.items():
+#             self.root.ids.notifications.add_widget(PlayerNotificationCard(text2=str(key)))
+#             for single_player in val:
+#                 this_contact = all_contacts[single_player-1]
+#                 self.root.ids.notifications.add_widget(PlayerNotificationCard(text2=str(this_contact["Player First" + this_contact["Player Last"]])))

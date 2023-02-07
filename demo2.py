@@ -1,95 +1,41 @@
 from kivy.lang import Builder
-from kivy.properties import StringProperty
-from kivy.uix.screenmanager import Screen
-
-from kivymd.icon_definitions import md_icons
+from kivy.uix.screenmanager import ScreenManager, Screen
 from kivymd.app import MDApp
-from kivymd.uix.list import OneLineIconListItem
+from kivymd.uix.button import MDRectangleFlatButton
+from kivymd.uix.screen import MDScreen
 
-
-Builder.load_string(
-    '''
-#:import images_path kivymd.images_path
-
-
-<CustomOneLineIconListItem>
-
-    IconLeftWidget:
-        icon: root.icon
-
-
-<PreviousMDIcons>
-
-    MDBoxLayout:
-        orientation: 'vertical'
-        spacing: dp(10)
-        padding: dp(20)
-
-        MDBoxLayout:
-            adaptive_height: True
-
-            MDIconButton:
-                icon: 'magnify'
-
-            MDTextField:
-                id: search_field
-                hint_text: 'Search icon'
-                on_text: root.set_list_md_icons(self.text, True)
-
-        RecycleView:
-            id: rv
-            key_viewclass: 'viewclass'
-            key_size: 'height'
-
-            RecycleBoxLayout:
-                padding: dp(10)
-                default_size: None, dp(48)
-                default_size_hint: 1, None
-                size_hint_y: None
-                height: self.minimum_height
-                orientation: 'vertical'
-'''
-)
-
-
-class CustomOneLineIconListItem(OneLineIconListItem):
-    icon = StringProperty()
-
-
-class PreviousMDIcons(Screen):
-
-    def set_list_md_icons(self, text="", search=False):
-        '''Builds a list of icons for the screen MDIcons.'''
-
-        def add_icon_item(name_icon):
-            self.ids.rv.data.append(
-                {
-                    "viewclass": "CustomOneLineIconListItem",
-                    "icon": name_icon,
-                    "text": name_icon,
-                    "callback": lambda x: x,
-                }
-            )
-
-        self.ids.rv.data = []
-        for name_icon in md_icons.keys():
-            if search:
-                if text in name_icon:
-                    add_icon_item(name_icon)
-            else:
-                add_icon_item(name_icon)
-
-
-class MainApp(MDApp):
+# Declare both screens
+class ScreenOne(MDScreen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.screen = PreviousMDIcons()
 
+        # Create the button to go to the next screen
+        self.next_button = MDRectangleFlatButton(text='Next', on_release=self.go_to_next)
+        self.add_widget(self.next_button)
+
+    def go_to_next(self, *args):
+        self.manager.current = 'screen_two'
+
+class ScreenTwo(MDScreen):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+        # Create the button to go back to the previous screen
+        self.prev_button = MDRectangleFlatButton(text='Prev', on_release=self.go_to_prev)
+        self.add_widget(self.prev_button)
+
+    def go_to_prev(self, *args):
+        self.manager.current = 'screen_one'
+
+# Create the screen manager
+sm = ScreenManager()
+sm.add_widget(ScreenOne(name='screen_one'))
+sm.add_widget(ScreenTwo(name='screen_two'))
+
+# Create the KivyMD app
+class KivyMDApp(MDApp):
     def build(self):
-        return self.screen
+        return sm
 
-    def on_start(self):
-        self.screen.set_list_md_icons()
-
-
-MainApp().run()
+# Run the app
+KivyMDApp().run()

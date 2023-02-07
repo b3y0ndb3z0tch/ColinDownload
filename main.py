@@ -2,10 +2,15 @@
 #Lines 2660 show the iteration through a dictionary into dictionary
 #need to work on line 2807 to edit from reading from list to reading from dict
 #
-#
-#
-#NEED TO WORK ON THE TEXTFIELDS TO INCLUDE AND HAVE THE QUICKEVENTS FOR ADDING / EDITING PLAYERS
-
+#NEED TO COMPLETE EVENT PAGE SHOWING AND DISPLAY
+#When Searching player using multiple fields, need to only return that player once
+#When Creating a player need to check the fields to make sure they have a correct input
+#IE FOR CREATING PLAYER FIELDS
+#Phone starts with 1 and has 10 digits
+#Email has @---.com
+#Need to check if position works with/without spacing FDG F D G
+#Need to check if LINE works with/without spacing 12 1 2
+#Need to check if OUT is true of False
 import json
 
 from kivy.properties import StringProperty, BooleanProperty, ObjectProperty, NumericProperty
@@ -14,8 +19,9 @@ from kivy.uix.scrollview import ScrollView
 from kivy.utils import get_color_from_hex
 from kivymd.material_resources import dp
 from kivymd.uix.behaviors import RoundedRectangularElevationBehavior
-from kivymd.uix.button import MDRaisedButton, MDFillRoundFlatButton
-from kivymd.uix.card import MDCard, MDCardSwipe
+from kivymd.uix.button import MDRaisedButton, MDFillRoundFlatButton, MDRoundFlatButton, MDRectangleFlatIconButton, \
+    MDRectangleFlatButton
+from kivymd.uix.card import MDCard, MDCardSwipe, MDSeparator
 from kivy.uix.screenmanager import ScreenManager, NoTransition
 from kivy.uix.widget import Widget
 from kivymd.app import MDApp
@@ -26,13 +32,14 @@ from kivymd.uix.expansionpanel import MDExpansionPanelThreeLine
 from kivymd.uix.floatlayout import MDFloatLayout
 from kivymd.uix.label import MDLabel
 from kivymd.uix.list import IconLeftWidget, OneLineAvatarIconListItem, IRightBodyTouch, ILeftBodyTouch, \
-    ThreeLineAvatarIconListItem, TwoLineAvatarIconListItem
+    ThreeLineAvatarIconListItem, TwoLineAvatarIconListItem, TwoLineListItem
 from kivymd.uix.menu import MDDropdownMenu
 from kivymd.uix.navigationdrawer import MDNavigationLayout
 from kivymd.uix.screen import MDScreen
 from kivymd.uix.tab import MDTabsBase
 from kivymd.uix.textfield import MDTextField
 import TestingIndividualLogicCode.testingfunctions
+import TestingIndividualLogicCode.automatingdays
 import TestingIndividualLogicCode.alerts
 import TestingIndividualLogicCode.makingtable
 #import TestingIndividualLogicCode.quickevent
@@ -41,17 +48,8 @@ from kivymd.uix.list import OneLineListItem
 
 from kivymd.uix.list import MDList
 
-#START WITH EDIT AND DELETE QUICK EVENTS
-#SHOULD CREATE ANOTHER SCREEN FOR EDIT / DELETE QUICK EVENTS DEPENDING
-#INSTEAD OF TRYING TO USE THE SAME SCREEN
 
 #from KivyMD.kivymd.uix.expansionpanel import MDExpansionPanel, MDExpansionPanelOneLine
-
-#when in invite - need to refresh the search for players
-#when in invite - need to give option to go back to event home screen
-
-#ADD INFORMATION TO EMAIL BY insert_date string replace
-#Add players when email is sent to the playersinvited on the json file
 
 #if movies_dict.get('year') is not None:
 
@@ -59,29 +57,66 @@ Window.size = (300, 500)
 
 
 navigation_helper = """
-<SwipeToDeleteItem>:
+<SwipeToDeleteItem2>:
+    line_color: 
     size_hint_y: None
-    height: content.height
-    on_swipe_complete: app.on_swipe_complete(root)
+    height: content.height*1.5
+    on_swipe_complete: app.on_swipe_complete2(root)
     # padding: '8dp'
     # spacing: '20dp'
     MDCardSwipeLayerBox:
         # Content under the card.
+        md_bg_color: 0,0,0,.2
 
     MDCardSwipeFrontBox:
-        md_bg_color: .8,.3,.2,1
-        # Content of card.
-        ThreeLineListItem:
-            id: content
-            text: root.text
-            secondary_text: root.second_text
-            tertiary_text: root.third_text
-            _no_ripple_effect: True
+        MDBoxLayout:
+            orientation: 'vertical'
+            md_bg_color: .8,.3,.2,1
+            MDBoxLayout:
+                orientation: 'vertical'
+                md_bg_color: .2,.53,.733,1 #blue
+                #md_bg_color: .8,.3,.2,1 #orange
+                size_hint:(1,.1)
+            MDSeparator:
+                color: 1,1,1,1
+                size_hint:(1,.08)
+            # MDBoxLayout:
+            #     orientation: 'vertical'
+            #     #md_bg_color: .2,.53,.733,1 #blue
+            #     md_bg_color: .8,.3,.2,1 #orange
+            # # Content of card.
+            MDAnchorLayout:
+                anchor_x: 'center'
+                anchor_y: 'center'
+                ThreeLineListItem:
+                    id: content
+                    pos_hint: {"center_x":.5, "center_y":.5}
+                    text: root.text2
+                    secondary_text: root.second_text2
+                    tertiary_text: root.third_text2
+                    event_id2: root.event_id2
+                    _no_ripple_effect: True
+                    on_release: 
+                        print(root.third_text2)
+                        print(root.event_id2)
+            MDSeparator:
+                color: 1,1,1,1
+                size_hint:(1,.05)
+            MDBoxLayout:
+                orientation: 'vertical'
+                md_bg_color: .2,.53,.733,1 #blue
+                #md_bg_color: .8,.3,.2,1 #orange
+                size_hint:(1,.1)
+            MDSeparator:
+                color: 1,1,1,1
+                size_hint:(1,.1)
 
-<SwipeToDeleteItem2>:
+            
+
+<PlayerNotificationCard>:
     size_hint_y: None
     height: content.height
-    on_swipe_complete: app.on_swipe_complete2(root)
+    on_swipe_complete: app.remove_player_from_notification(root)
     # padding: '8dp'
     # spacing: '20dp'
     MDCardSwipeLayerBox:
@@ -95,12 +130,12 @@ navigation_helper = """
             text: root.text2
             secondary_text: root.second_text2
             tertiary_text: root.third_text2
-            event_id2: root.event_id2
+            player_id: root.player_id
             _no_ripple_effect: True
             on_release: 
                 print(root.third_text2)
-                print(root.event_id2)
-                
+                print(root.player_id)
+    
 <SwipeToDeletePlayerCard>:
     size_hint_y: None
     height: content.height
@@ -152,7 +187,7 @@ navigation_helper = """
 
 <SwipeToAddPlayerToInList>:
     size_hint_y: None
-    height: content.height
+    height: content.height * .9
     on_swipe_complete: app.add_player_to_in_list(root)
     padding: '8dp'
     spacing: '20dp'
@@ -162,12 +197,117 @@ navigation_helper = """
     MDCardSwipeFrontBox:
         md_bg_color: .8,.3,.2,1
         #Player Content of card.
-        ThreeLineListItem:
-            id: content
-            text: root.text
-            secondary_text: root.second_text
-            _no_ripple_effect: True
-            on_release: 
+        MDBoxLayout:
+            orientation: 'vertical'
+            md_bg_color: .8,.3,.2,1
+            MDBoxLayout:
+                orientation: 'vertical'
+                md_bg_color: .2,.53,.733,1 #blue
+                #md_bg_color: .8,.3,.2,1 #orange
+                size_hint:(1,.1)
+            MDAnchorLayout:
+                anchor_x: 'center'
+                anchor_y: 'center'
+                size_hint: (1, .8)      
+                ThreeLineListItem:
+                    id: content
+                    #pos_hint: {"center_x":.5, "center_y":.5}
+                    text: root.text
+                    secondary_text: root.second_text
+                    _no_ripple_effect: True
+                    on_release: 
+            MDBoxLayout:
+                orientation: 'vertical'
+                md_bg_color: .2,.53,.733,1 #blue
+                #md_bg_color: .8,.3,.2,1 #orange
+                size_hint:(1,.1)
+            MDSeparator:
+                color: 1,1,1,1
+                size_hint:(1,.1)
+ 
+ 
+<SwipeToRemovePlayerFromAllEmail>:
+    size_hint_y: None
+    height: content.height
+    on_swipe_complete: app.remove_player_from_all_email_list(root)
+    padding: '8dp'
+    spacing: '20dp'
+    MDCardSwipeLayerBox:
+        # Content under the card.
+
+    MDCardSwipeFrontBox:
+        md_bg_color: .8,.3,.2,1
+        #Player Content of card.
+        MDBoxLayout:
+            orientation: 'vertical'
+            md_bg_color: .8,.3,.2,1
+            MDBoxLayout:
+                orientation: 'vertical'
+                md_bg_color: .2,.53,.733,1 #blue
+                #md_bg_color: .8,.3,.2,1 #orange
+                size_hint:(1,.1)
+            # MDAnchorLayout:
+            #     anchor_x: 'center'
+            #     anchor_y: 'center'
+            #     size_hint: (1, .8)      
+                
+            MDBoxLayout:
+                orientation: 'vertical'
+                md_bg_color: .2,.53,.733,1 #blue
+                #md_bg_color: .8,.3,.2,1 #orange
+                size_hint:(1,.1)
+            MDSeparator:
+                color: 1,1,1,1
+                size_hint:(1,.1)
+            ThreeLineListItem:
+                id: content
+                #pos_hint: {"center_x":.5, "center_y":.5}
+                text: root.text
+                secondary_text: root.second_text
+                _no_ripple_effect: True
+                on_release: 
+ 
+# <SwipeToRemovePlayerFromAllEmail>:
+#     size_hint_y: None
+#     height: content.height * .5
+#     on_swipe_complete: app.remove_player_from_all_email_list(root)
+#     padding: '8dp'
+#     spacing: '20dp'
+#     MDCardSwipeLayerBox:
+#         # Content under the card.
+# 
+#     MDCardSwipeFrontBox:
+#         md_bg_color: .8,.3,.2,1
+#         #Player Content of card.
+#         MDBoxLayout:
+#             orientation: 'vertical'
+#             md_bg_color: .8,.3,.2,1
+#             MDBoxLayout:
+#                 orientation: 'vertical'
+#                 md_bg_color: .2,.53,.733,1 #blue
+#                 #md_bg_color: .8,.3,.2,1 #orange
+#                 size_hint:(1,.1)
+#             MDAnchorLayout:
+#                 anchor_x: 'center'
+#                 anchor_y: 'center'
+#                 size_hint: (1, .8)      
+#                 ThreeLineListItem:
+#                     id: content
+#                     #pos_hint: {"center_x":.5, "center_y":.5}
+#                     text: root.text
+#                     secondary_text: root.second_text
+#                     _no_ripple_effect: True
+#                     on_release: 
+#             MDBoxLayout:
+#                 orientation: 'vertical'
+#                 md_bg_color: .2,.53,.733,1 #blue
+#                 #md_bg_color: .8,.3,.2,1 #orange
+#                 size_hint:(1,.1)
+#             MDSeparator:
+#                 color: 1,1,1,1
+#                 size_hint:(1,.1)
+ 
+ 
  
 <SwipeToPayPlayer>:
     size_hint_y: None
@@ -226,6 +366,26 @@ navigation_helper = """
             _no_ripple_effect: True
             on_release:
 
+
+<SwipeToRemoveAllFromEmailList>:
+    size_hint_y: None
+    height: content.height
+    on_swipe_complete: app.remove_all_from_email_list(root)
+    padding: '8dp'
+    spacing: '20dp'
+    MDCardSwipeLayerBox:
+        # Content under the card.
+
+    MDCardSwipeFrontBox:
+        md_bg_color: .8,.3,.2,1
+        # Player Content of card.
+        OneLineListItem:
+            id: content
+            text: root.text
+            _no_ripple_effect: True
+            on_release:
+
+
 <SwipeToRemoveIndividualFromEmailList>:
     size_hint_y: None
     height: content.height
@@ -265,7 +425,7 @@ navigation_helper = """
 <OrganizePlayerToTeam>:
     text: root.text
     secondary_text: root.second_text
-    tertiary_text: root.third_text
+    #tertiary_text: root.third_text
     player_id: root.player_id
     bg_color: .8,.3,.2,1
     on_size:
@@ -299,7 +459,7 @@ navigation_helper = """
     secondary_text: root.second_text
     pos_hint: {"center_x": 0.5}
     player_id: root.player_id
-    bg_color: .4,.63,.79,1
+    bg_color: .4,.63,.79,.5
     IconLeftWidget:
         icon:"plus"
         on_press:
@@ -331,7 +491,7 @@ navigation_helper = """
     text_color: 
     secondary_text: root.second_text
     player_id: root.player_id
-    bg_color: .95,.54,.47,1
+    bg_color: .95,.54,.47,.5
     IconLeftWidget:
         icon:"plus"
         on_press:
@@ -423,18 +583,59 @@ navigation_helper = """
     player_id: root.player_id
     md_bg_color: .01,.5,1,1
     pos_hint: {"center_x": .5, "center_y": .5}
+
+<RegularAllEmail>:
+    text: root.text
+    player_id: root.quick_event
+    md_bg_color: .01,.5,1,1
+    pos_hint: {"center_x": .5, "center_y": .5}
+
+<SubstituteAllEmail>:
+    text: root.text
+    player_id: root.quick_event
+    md_bg_color: 1,.5,.1,1
+    pos_hint: {"center_x": .5, "center_y": .5}
+
+<OpenAllEmail>:
+    text: root.text
+    player_id: root.quick_event
+    md_bg_color: 0,0,0,.15
+    pos_hint: {"center_x": .5, "center_y": .5}
+
+
+<TryingButtonDark2>:
+    text: root.text
+    player_id: root.player_id
+    md_bg_color: .01,.5,1,.5
+    pos_hint: {"center_x": .5, "center_y": .5}
+    
 <TryingButtonLight>:
     text: root.text
     player_id: root.player_id
     md_bg_color: 1,.5,.1,1
     pos_hint: {"center_x": .5, "center_y": .5}
+    
+<TryingButtonLight2>:
+    text: root.text
+    player_id: root.player_id
+    md_bg_color: 1,.5,.1,.5
+    pos_hint: {"center_x": .5, "center_y": .5}
 
-<QuickEventButton>:
+<QuickEventButtonLight>:
     text: root.text
     event_id: root.event_id
+    pos_hint: {"center_x": .5, "center_y": .5}
+    size_hint: (.6, None)
+    md_bg_color: 1,.5,.1,1
 
+<QuickEventButtonDark>:
+    text: root.text
+    event_id: root.event_id
+    pos_hint: {"center_x": .5, "center_y": .5}
+    size_hint: (.85, None)
+    md_bg_color: .01,.5,1,1
 
-
+#START OF APP
 MDScreen:
     MDNavigationLayout:
         ScreenManager:
@@ -443,129 +644,282 @@ MDScreen:
                 name: "HomeScreen"
                 BoxLayout:
                     orientation: 'vertical'
-                    MDToolbar:
+                    MDTopAppBar:
                         title: "BAH"
-                        elevation: 10
+                        elevation: 2
                         pos_hint: {"top": 1}
                         left_action_items: [['menu', lambda x: nav_drawer.set_state('open')]]
                         right_action_items: [['face-profile', lambda x: nav_drawer2.set_state('open')]]
-                    Widget:
+                    BoxLayout:
+                        orientation: 'vertical'
+                        id: home_screen
             MDScreen:
-                name: "CreateQuickEventScreen"
+                name: "NotificationScreen"
                 BoxLayout:
                     orientation: 'vertical'
-                    MDToolbar:
-                        title: "Quick Event"
-                        elevation: 10
-                        left_action_items: [['menu', lambda x: nav_drawer.set_state('open')]]
-                        right_action_items: [['face-profile', lambda x: nav_drawer2.set_state('open')]]
-                    Widget:
-                    MDTextField:
-                        id: quick_time
-                        hint_text: "Time: 0900pm"
-                        helper_text: "900PM"
-                        pos_hint: {"center_x": .5, 'center_y': .7}
-                        size_hint: (1, None)
-                    MDTextField:
-                        id: quick_day
-                        hint_text: "Day: Monday"
-                        pos_hint: {"center_x": .5, "top": 1}
-                        size_hint: (1, None)
-                    MDTextField:
-                        id: quick_location
-                        hint_text: "Location: Kroc"
-                        pos_hint: {"center_x": .5, 'center_y': .5}
-                        size_hint: (1, None)
-                    MDTextField:
-                        id: quick_cost
-                        hint_text: "Cost: 30"
-                        pos_hint: {"center_x": .5, 'center_y': .3}
-                        size_hint: (1, None)
-                    MDTextField:
-                        id: quick_totalplayers
-                        hint_text: "TOTAL PLAYERS"
-                        pos_hint: {"center_x": .5, 'center_y': .2}
-                        size_hint: (1, None)
-                    MDRaisedButton:
-                        text: "Submit"
-                        pos_hint: {"center_x": .5, 'center_y': .1}
-                        size_hint: (1, None)
-                        on_press:
-                            app.create_quick_event(root)
-                            root.ids.screen_manager.current = "CreateEventScreen"
-            MDScreen:
-                name: "EditQuickEventScreen"
-                BoxLayout:
-                    orientation: 'vertical'
-                    #spacing: 15
-                    MDToolbar:
-                        title: "Edit Qck Event"
-                        elevation: 10
+                    MDTopAppBar:
+                        title: "BAH"
+                        elevation: 2
+                        pos_hint: {"top": 1}
                         left_action_items: [['menu', lambda x: nav_drawer.set_state('open')]]
                         right_action_items: [['face-profile', lambda x: nav_drawer2.set_state('open')]]
                     BoxLayout:
-                        id: edit_quick_event_layout2
                         orientation: 'vertical'
                         ScrollView:
                             scroll_timeout: 100
                             do_x_scroll: True
                             MDList:
-                                id: edit_quick_event_layout
-                                spacing: 15
-                        # MDFillRoundFlatButton:
-                        #     text: "Submit"
-                        #     on_press: 
-                        #         app.saveTheQuickEvents(root)
-                                
-                            
+                                id: notifications
+                                spacing:5
+                        
+#Create Event Button Flow START
             MDScreen:
                 name: "CreateEventScreen"
                 BoxLayout:
                     orientation: 'vertical'
                     #spacing: 15
-                    MDToolbar:
+                    MDTopAppBar:
                         title: "Create Event"
-                        elevation: 10
+                        elevation: 2
                         left_action_items: [['menu', lambda x: nav_drawer.set_state('open')]]
                         right_action_items: [['face-profile', lambda x: nav_drawer2.set_state('open')]]
-                    BoxLayout:
+                    MDSeparator:
+                    MDBoxLayout:
                         id: quick_button_layout
                         orientation: 'vertical'
-                        ScrollView:
-                            scroll_timeout: 100
-                            do_x_scroll: True
-                            MDList:
-                                id: grid_for_quick_event_buttons
-                                spacing:5
+                        spacing: 5
+                        #md_bg_color: 1,0,0,1 changes whole screen to red 
+                        MDAnchorLayout:
+                            size_hint: (1, .3)
+                            #adaptive_height: True
+                            anchor_x: 'center'
+                            padding: [20, 5, 20, 5]
+                            md_bg_color: 0,0,0,.5
+                            
+                            ScrollView:
+                                scroll_timeout: 100
+                                do_x_scroll: True
+                                MDList:
+                                    id: grid_for_quick_event_buttons
+                                    spacing: 10                                    
+                        MDSeparator:
+                        AnchorLayout:
+                            adaptive_height: True
+                            anchor_x: 'center'
+                            padding: [15, 0, 15, 5]
+                            md_bg_color: .67,.67,.67,1
+                            ScrollView:
+                                scroll_timeout: 100
+                                do_x_scroll: True
+                                MDList:
+                                    spacing: 5
+                                    #md_bg_color: .67,.67,.67,.3
+                                    MDTextField:
+                                        id: date
+                                        hint_text: "Date: MMDDYY - 010522"
+                                        max_text_lenght: 6
+                                        pos_hint: {"center_x": .5, "top": 1}
+                                        size_hint: (.85, None)
+                                    MDTextField:
+                                        id: time
+                                        hint_text: "Time: 0900pm"
+                                        helper_text: "900PM"
+                                        pos_hint: {"center_x": .5, 'center_y': .7}
+                                        size_hint: (.85, None)
+                                    MDTextField:
+                                        id: day
+                                        hint_text: "Day: Monday"
+                                        pos_hint: {"center_x": .5, "top": 1}
+                                        size_hint: (.85, None)
+                                    MDTextField:
+                                        id: location
+                                        hint_text: "Location: Kroc"
+                                        pos_hint: {"center_x": .5, 'center_y': .5}
+                                        size_hint: (.85, None)
+                                    MDTextField:
+                                        id: cost
+                                        hint_text: "Cost: 30"
+                                        pos_hint: {"center_x": .5, 'center_y': .3}
+                                        size_hint: (.85, None)
+                                    MDTextField:
+                                        id: totalplayers
+                                        hint_text: "TOTAL PLAYERS"
+                                        pos_hint: {"center_x": .5, 'center_y': .2}
+                                        size_hint: (.85, None)
+                                    MDRaisedButton:
+                                        text: "Submit"
+                                        pos_hint: {"center_x": .5, 'center_y': .1}
+                                        size_hint: (.85, None)
+                                        on_press:
+                                            app.create_event(root)
+                                            #root.ids.screen_manager.current = "CurrentEventsPage"
+            MDScreen:
+                name: "CurrentEventsPage"
+                MDBoxLayout:
+                    orientation: 'vertical'
+                    #padding: [10,5,10,5]
+                    MDTopAppBar:
+                        title: "Current Events"
+                        elevation: 2
+                        pos_hint: {"top": 1}
+                        left_action_items: [['menu', lambda x: nav_drawer.set_state('open')]]
+                        right_action_items: [['face-profile', lambda x: nav_drawer2.set_state('open')]]
+                    ScrollView:
+                        scroll_timeout: 100
+                        padding: [12,5,12,15]
+                        MDList:
+                            id: currentevents_md_list
+                            padding: [12,5,12,15]
+                            spacing: '10dp'
+#Create Event Button Flow START
+#Players Button Flow START
+            MDScreen:
+                name: "SearchPlayerScreen"
+                BoxLayout:
+                    orientation: 'vertical'
+                    MDTopAppBar:
+                        title: "Search Player"
+                        elevation: 2
+                        pos_hint: {"top": 1}
+                        left_action_items: [['home', lambda x: app.change_home_screen()]]
+                    MDSeparator:
+                    BoxLayout:
+                        orientation: 'vertical'
+                        spacing: 15
+                        AnchorLayout:
+                            #size_hint_x: 1
+                            adaptive_height: True
+                            anchor_x: 'center'
+                            padding: [20, 5, 20, 5]
+                            ScrollView:
+                                scroll_timeout: 100
+                                MDList:
+                                    id: search_fields
+                                    size_hint: (1, None)
+                    MDRaisedButton:
+                        text: "Search Players"
+                        pos_hint: {"center_x": .5}
+                        size_hint: (1, None)
+                        on_press:
+                            app.searchplayers()
+#Search Player Found START
+            MDScreen:
+                name: "FoundPlayerScreen"
+                BoxLayout:
+                    orientation: 'vertical'
+                    MDTopAppBar:
+                        title: "Found/Search"
+                        elevation: 2
+                        pos_hint: {"top": 1}
+                        left_action_items: [['home', lambda x: app.change_home_screen()]]
+                    ScrollView:
+                        scroll_timeout: 100
+                        MDList:
+                            id: found_player_md_list
+                            padding: '10dp'
+                            spacing: '10dp'
+                    MDRaisedButton:
+                        text: "Found Player Screen Button"
+                        pos_hint: {"center_x": .5}
+                        size_hint: (1, None)
+#Found Player From Search Screen Start
+            MDScreen:
+                name: "SpecificFoundPlayerScreen"
+                BoxLayout:
+                    orientation: 'vertical'
+                    id: testing
+                    MDTopAppBar:
+                        title: "Edit Player Info"
+                        elevation: 2
+                        pos_hint: {"top": 1}
+                        left_action_items: [['menu', lambda x: nav_drawer.set_state('open')]]
+                        right_action_items: [['face-profile', lambda x: nav_drawer2.set_state('open')]]
+                    ScrollView:
+                        scroll_timeout: 100
+                        MDList:
+                            id: specific_found_player_md_list
+                            padding: '15dp'
+                            spacing: '15dp'
+                    MDRaisedButton:
+                        text: "Save Edited Player"
+                        pos_hint: {"center_x": .5}
+                        size_hint: (1, None)
+                        on_press:
+                            print("time to stick back into the .json file")
+                            app.saveeditfromsearchplayer()
+#Create Event Button Flow END
+#Players Button Flow END
+#Search Player Found END
+#Found Player From Search Screen END
+#Players Create Player Button START
+            MDScreen:
+                name: "CreatePlayerScreen"
+                BoxLayout:
+                    orientation: 'vertical'
+                    MDTopAppBar:
+                        title: "Create Player"
+                        elevation: 2
+                        pos_hint: {"top": 1}
+                        left_action_items: [['home', lambda x: app.change_home_screen()]]
+                    MDSeparator:
+                    BoxLayout:
+                        orientation: 'vertical'
+                        spacing: 15
+                        AnchorLayout:
+                            #size_hint_x: 1
+                            adaptive_height: True
+                            anchor_x: 'center'
+                            padding: [20, 5, 20, 5]
+                            ScrollView:
+                                scroll_timeout: 100
+                                MDList:
+                                    id: create_player_fields
+                    MDRaisedButton:
+                        text: "Create Player"
+                        pos_hint: {"center_x": .5}
+                        size_hint: (1, None)
+                        on_press:
+                            app.save_create_player(root)
+#Players Create Player Button END
+#Manage Quick EVENTS Button START
+#Add Quick Event Button START
+            MDScreen:
+                name: "CreateQuickEventScreen"
+                BoxLayout:
+                    orientation: 'vertical'
+                    MDTopAppBar:
+                        title: "Quick Event"
+                        elevation: 2
+                        left_action_items: [['menu', lambda x: nav_drawer.set_state('open')]]
+                        right_action_items: [['face-profile', lambda x: nav_drawer2.set_state('open')]]
+                    MDSeparator:
+                    BoxLayout:
+                        orientation: 'vertical'
+                        spacing: 15
+                        padding: [20,5,20,5]
                         MDTextField:
-                            id: date
-                            hint_text: "Date: MMDDYY - 010522"
-                            max_text_lenght: 6
-                            pos_hint: {"center_x": .5, "top": 1}
-                            size_hint: (1, None)
-                        MDTextField:
-                            id: time
+                            id: quick_time
                             hint_text: "Time: 0900pm"
                             helper_text: "900PM"
                             pos_hint: {"center_x": .5, 'center_y': .7}
                             size_hint: (1, None)
                         MDTextField:
-                            id: day
+                            id: quick_day
                             hint_text: "Day: Monday"
                             pos_hint: {"center_x": .5, "top": 1}
                             size_hint: (1, None)
                         MDTextField:
-                            id: location
+                            id: quick_location
                             hint_text: "Location: Kroc"
                             pos_hint: {"center_x": .5, 'center_y': .5}
                             size_hint: (1, None)
                         MDTextField:
-                            id: cost
+                            id: quick_cost
                             hint_text: "Cost: 30"
                             pos_hint: {"center_x": .5, 'center_y': .3}
                             size_hint: (1, None)
                         MDTextField:
-                            id: totalplayers
+                            id: quick_totalplayers
                             hint_text: "TOTAL PLAYERS"
                             pos_hint: {"center_x": .5, 'center_y': .2}
                             size_hint: (1, None)
@@ -574,147 +928,329 @@ MDScreen:
                             pos_hint: {"center_x": .5, 'center_y': .1}
                             size_hint: (1, None)
                             on_press:
-                                app.create_event(root)
-                                root.ids.screen_manager.current = "CurrentEventsPage"
+                                app.create_quick_event(root)
+                                root.ids.screen_manager.current = "CreateEventScreen"
+#Add Quick Event Button END
+#Back To Create Event Screen
+#Edit Quick Event Button START
+#Delete Quick Event Button START
             MDScreen:
-                name: "SearchPlayerScreen"
+                name: "EditQuickEventScreen"
                 BoxLayout:
                     orientation: 'vertical'
-                    MDToolbar:
-                        title: "Search Player"
-                        elevation: 10
+                    #spacing: 15
+                    MDTopAppBar:
+                        title: "Edit Qck Event"
+                        elevation: 2
+                        left_action_items: [['menu', lambda x: nav_drawer.set_state('open')]]
+                        right_action_items: [['face-profile', lambda x: nav_drawer2.set_state('open')]]
+                    MDBoxLayout:
+                        orientation: 'vertical'
+                        #md_bg_color: 0,0,0,.1
+                        spacing: 10
+                        MDAnchorLayout:
+                            size_hint: (1,3)
+                            #adaptive_height: True
+                            anchor_x: 'center'
+                            padding: [20, 5, 5, 35]
+                            md_bg_color: 1,1,1,.3
+                            MDScrollView:
+                                scroll_timeout: 100
+                                do_x_scroll: True
+                                MDList:
+                                    id: edit_quick_event_layout
+                                    spacing: 15
+                        MDAnchorLayout:
+                            id: edit_quick_event_layout2
+                            padding: [0,0,10,0]
+                            #md_bg_color: 1,1,1,.3
+                            size_hint: (1, .1)
+                            #adaptive_height: True
+                            anchor_x: 'center'
+                            anchor_y: 'bottom'
+                                
+                            
+                                
+                                
+#Edit Quick Event Button END  
+#Delete Quick Event Button END
+#Right Nav Events Current Events Button START
+#Takes you to Current Events Screen      
+#SLIDE EVENT START
+            MDScreen:
+                name: "SpecificEventPage"
+                BoxLayout:
+                    orientation: 'vertical'
+                    MDTopAppBar:
+                        title: "Invited Guests"
+                        elevation: 2
                         pos_hint: {"top": 1}
                         left_action_items: [['home', lambda x: app.change_home_screen()]]
-                    ScrollView:
-                        scroll_timeout: 100
-                        MDList:
-                            id: search_fields
-                            MDTextField:
-                                id: playerfirst
-                                hint_text: "First Name"
-                                pos_hint: {"center_x": .5, "top": 1}
-                                size_hint: (1, None)
-                            MDTextField:
-                                id: playerlast
-                                hint_text: "Last Name"
-                                pos_hint: {"center_x": .5, 'center_y': .7}
-                                size_hint: (1, None)
-                            MDTextField:
-                                id: playerphone
-                                hint_text: "Phone Number 12345678901"
-                                pos_hint: {"center_x": .5, "top": 1}
-                                size_hint: (1, None)
-                            MDTextField:
-                                id: playeremail
-                                hint_text: "Email"
-                                pos_hint: {"center_x": .5, 'center_y': .5}
-                                size_hint: (1, None)
-                            MDTextField:
-                                id: playerposition
-                                hint_text: "Position F D G"
-                                pos_hint: {"center_x": .5, 'center_y': .3}
-                                size_hint: (1, None)
-                            MDTextField:
-                                id: playerline
-                                hint_text: "Line #"
-                                pos_hint: {"center_x": .5, 'center_y': .2}
-                                size_hint: (1, None)
-                    MDRaisedButton:
-                        text: "Search Players"
-                        pos_hint: {"center_x": .5}
-                        size_hint: (1, None)
-                        on_press:
-                            app.searchplayers()
+                        right_action_items: 
+                            [
+                            ['account-alert', lambda x: app.display_assigned_dark()],
+                            ['account-alert-outline', lambda x: app.change_light_assign()],
+                            ['face-profile', lambda x: nav_drawer3.set_state('open')]
+                            ]
+                    MDBoxLayout:
+                        orientation: 'vertical'
+                        MDBoxLayout:
+                            id: specific_event_page_box_layout
+                            orientation: 'vertical'
+                            size_hint: (1,.2)
+                            md_bg_color: (0,0,0,.15)
+                        ScrollView:
+                            scroll_timeout: 100
+                            MDList:
+                                id: specific_event_label
+                                spacing: '8dp'
+                                padding: '8dp'
+                                # MDLabel:
+                                #     text: "Invited Players"
+                                #     halign: 'center'
+                                #     spacing: '8dp'
+#Tool Bar Dark Team Button START
             MDScreen:
-                name: "CreatePlayerScreen"
-                BoxLayout:
+                name: "AssignDark"
+                MDBoxLayout:
                     orientation: 'vertical'
-                    MDToolbar:
-                        title: "Create Player"
-                        elevation: 10
-                        pos_hint: {"top": 1}
-                        left_action_items: [['home', lambda x: app.change_home_screen()]]
-                    ScrollView:
-                        scroll_timeout: 100
-                        MDList:
-                            id: create_player_fields
-                            MDTextField:
-                                id: playerfirst
-                                hint_text: "First Name"
-                                pos_hint: {"center_x": .5, "top": 1}
-                                size_hint: (1, None)
-                            MDTextField:
-                                id: playerlast
-                                hint_text: "Last Name"
-                                pos_hint: {"center_x": .5, 'center_y': .7}
-                                size_hint: (1, None)
-                            MDTextField:
-                                id: playerphone
-                                hint_text: "Phone Number 12345678901"
-                                pos_hint: {"center_x": .5, "top": 1}
-                                size_hint: (1, None)
-                            MDTextField:
-                                id: playeremail
-                                hint_text: "Email"
-                                pos_hint: {"center_x": .5, 'center_y': .5}
-                                size_hint: (1, None)
-                            MDTextField:
-                                id: playerposition
-                                hint_text: "Position 'F' 'D' 'G'"
-                                pos_hint: {"center_x": .5, 'center_y': .3}
-                                size_hint: (1, None)
-                            MDTextField:
-                                id: playerline
-                                hint_text: "Line # - '1' '2'"
-                                pos_hint: {"center_x": .5, 'center_y': .2}
-                                size_hint: (1, None)                            
-                            MDTextField:
-                                id: play_tuesday
-                                hint_text: "Tuesday 'R' - Regular 'S' - Sub"
-                                pos_hint: {"center_x": .5, 'center_y': .2}
-                                size_hint: (1, None)                            
-                            MDTextField:
-                                id: play_friday
-                                hint_text: "Friday 'R' - Regular 'S' - Sub"
-                                pos_hint: {"center_x": .5, 'center_y': .2}
-                                size_hint: (1, None)                            
-                            MDTextField:
-                                id: play_sunday
-                                hint_text: "Sunday 'R' - Regular 'S' - Sub"
-                                pos_hint: {"center_x": .5, 'center_y': .2}
-                                size_hint: (1, None)                            
-                            MDTextField:
-                                id: player_monies
-                                hint_text: "Banked Money '30'"
-                                pos_hint: {"center_x": .5, 'center_y': .2}
-                                size_hint: (1, None)                            
-                            MDTextField:
-                                id: player_out
-                                hint_text: "Player Out 'Y' - Yes 'N' - No"
-                                pos_hint: {"center_x": .5, 'center_y': .2}
-                                size_hint: (1, None)                            
-                            MDTextField:
-                                id: player_suspended
-                                hint_text: "Suspended Enter Date: 'MMDDYY'"
-                                pos_hint: {"center_x": .5, 'center_y': .2}
-                                size_hint: (1, None)
-                    MDRaisedButton:
-                        text: "Create Player"
-                        pos_hint: {"center_x": .5}
-                        size_hint: (1, None)
-                        on_press:
-                            app.save_create_player(root)
-            MDScreen:
-                name: "SearchInviteIndividualPlayer"
-                BoxLayout:
-                    orientation: 'vertical'
-                    MDToolbar:
-                        title: "Search Individual"
-                        elevation: 10
+                    padding: [10, 3, 10, 5]
+                    #spacing: '15dp'
+                    MDTopAppBar:
+                        title: "Dark Lines"
+                        elevation: 2
                         pos_hint: {"top": 1}
                         left_action_items: 
                             [
                             #['home', lambda x: app.change_home_screen()],
+                            ['home-export-outline',lambda x: app.back_to_current_event()]
+                            ]
+                        right_action_items: 
+                            [
+                            ['account-switch-outline', lambda x: app.display_teams()],
+                            ['account-alert-outline', lambda x: app.change_light_assign()],
+                            ['face-profile', lambda x: nav_drawer3.set_state('open')]
+                            ]                           
+                    MDBoxLayout:   
+                        orientation: 'vertical'
+                        padding: [15,5,15,5]                   
+                        ScrollView:
+                            scroll_timeout: 100
+                            MDList:
+                                id: organize_dark_line1
+                                spacing: '10dp'
+                        MDSeparator:
+                            color: .8,.3,.2,1
+                            size_hint: (1,.025)
+                        ScrollView:
+                            scroll_timeout: 100
+                            MDList:
+                                id: organize_dark_line2
+                                spacing: '10dp'
+#Tool Bar Dark Team Button END
+#Tool Bar Light Team Button START    
+            MDScreen:
+                name: "AssignLight"
+                BoxLayout:
+                    orientation: 'vertical'
+                    padding: [10, 3, 10, 5]
+                    #spacing: '15dp'
+                    MDTopAppBar:
+                        title: "Light Lines"
+                        elevation: 2
+                        pos_hint: {"top": 1}
+                        left_action_items: 
+                            [
+                            #['home', lambda x: app.change_home_screen()],
+                            ['home-export-outline',lambda x: app.back_to_current_event()]
+                            ]
+                        right_action_items: 
+                            [
+                            ['account-switch-outline', lambda x: app.display_teams()],
+                            ['account-alert', lambda x: app.display_assigned_dark()],
+                            ['face-profile', lambda x: nav_drawer3.set_state('open')]
+                            ]                           
+                    MDBoxLayout:   
+                        orientation: 'vertical' 
+                        padding: [15,5,15,5]                  
+                        ScrollView:
+                            scroll_timeout: 100
+                            MDList:
+                                id: organize_light_line1
+                                spacing: '10dp'
+                        MDSeparator:
+                            color: .2,.53,.733,1
+                            size_hint: (1,.025)
+                        ScrollView:
+                            scroll_timeout: 100
+                            MDList:
+                                id: organize_light_line2
+                                spacing: '10dp'  
+#Tool Bar Light Team Button END  
+#Tool Bar Both Team Button START                
+            MDScreen:
+                name: "DisplayTeams"
+                BoxLayout:
+                    orientation: 'vertical'
+                    padding: [0, 0, 0, 0]
+                    #spacing: '15dp'
+                    MDTopAppBar:
+                        title: "Full Teams"
+                        elevation: 2
+                        pos_hint: {"top": 1}
+                        left_action_items: 
+                            [
+                            #['home', lambda x: app.change_home_screen()],
+                            ['home-export-outline',lambda x: app.back_to_current_event()]
+                            ]
+                        right_action_items: 
+                            [
+                            ['email-edit-outline', lambda x: app.send_final_email()], #in the send_final_email function
+                            ['face-profile', lambda x: nav_drawer3.set_state('open')] 
+                            ]                           
+                    MDBoxLayout:
+                        padding: [5,5,5,5]
+                        spacing: 15                    
+                        MDScrollView:
+                            scroll_timeout: 100
+                            padding: [0,5,2,0]
+                            MDList:
+                                id: display_dark
+                                spacing: '25dp'
+                        MDScrollView:
+                            scroll_timeout: 100
+                            padding: [0,5,2,0]
+                            MDList:
+                                id: display_light
+                                spacing: '25dp' 
+#Tool Bar Both Team Button END
+#Email Button calls send_final_email function START END
+#Invite Players Button START
+#Invite Regulars Button START           
+            MDScreen:
+                name: "InviteRegularsScreen"
+                BoxLayout:
+                    orientation: 'vertical'
+                    MDTopAppBar:
+                        title: "Invite Regulars"
+                        elevation: 2
+                        pos_hint: {"top": 1}
+                        left_action_items: [['home-export-outline', lambda x: app.change_to_event_home_screen()]]
+                        right_action_items: [['face-profile', lambda x: nav_drawer3.set_state('open')]]
+                    MDBoxLayout:
+                        orientation: 'vertical'
+                        ScrollView:
+                            scroll_timeout: 100
+                            size_hint: (1,.3)
+                            MDList:
+                                id: list_of_regulars_display
+                        ScrollView:
+                            scroll_timeout: 100
+                            size_hint: (1,1)
+                            MDTextField:
+                                id: quick_event_text
+                                multiline: True
+                                pos_hint_x: {"center_x": .5}
+                                size_hint: (.8, None)
+                        MDRaisedButton:
+                            text: "Send Regular Email"
+                            size_hint: (1, None)
+                            on_press:
+                                app.inviteregularssendemail()   
+#Invite Regulars Button END
+
+#Invite ALL Players Button START           
+            MDScreen:
+                name: "InviteAllPLayersScreen"
+                MDBoxLayout:
+                    orientation: 'vertical'
+                    spacing: '15dp'
+                    MDTopAppBar:
+                        title: "Sd Reg Eml 2:"
+                        elevation: 2
+                        pos_hint: {"top": 1}
+                        left_action_items: [['home-export-outline', lambda x: app.change_to_event_home_screen()]]
+                        right_action_items: [['face-profile', lambda x: nav_drawer3.set_state('open')]]
+                    MDBoxLayout:
+                        orientation: 'vertical'
+                        MDScrollView:
+                            scroll_timeout: 100
+                            padding: [10,5,10,15]
+                            size_hint: (1,.35)
+                            MDList:
+                                id: email_all_players
+                                padding: [15, 5, 15, 5]
+                                spacing: '10dp'
+                        MDSeparator:
+                        
+                        ScrollView:
+                            scroll_timeout: 100
+                            size_hint: (1,1)
+                            MDTextField:
+                                id: all_players_quick_event_text
+                                multiline: True
+                                pos_hint_x: {"center_x": .5}
+                                size_hint: (.8, None)
+                        MDScrollView:
+                            scroll_timeout: 100
+                            padding: [10,5,10,15]
+                            size_hint: (1,.35)
+                            MDList:
+                                id: all_players_getting_email
+                                spacing: '8dp'
+                                padding: '8dp'
+                        MDRaisedButton:
+                            text: "Send This Event Email To:"
+                            size_hint: (1, None)
+                            on_press:
+                                app.allplayersinviteemail()   
+#Invite ALL Players Button END
+
+#Send Regular Email Button calls inviteregularssendemail START END
+#Invite Players Invite Subs Button START
+            MDScreen:
+                name: "InviteSubsScreen"
+                BoxLayout:
+                    orientation: 'vertical'
+                    MDTopAppBar:
+                        title: "Invite Subs"
+                        elevation: 2
+                        pos_hint: {"top": 1}
+                        left_action_items: [['home-export-outline', lambda x: app.change_to_event_home_screen()]]
+                        right_action_items: [['face-profile', lambda x: nav_drawer3.set_state('open')]]
+                    MDBoxLayout:
+                        orientation: 'vertical'
+                        ScrollView:
+                            scroll_timeout: 100
+                            size_hint: (1, .3)
+                            MDList:
+                                id: list_of_subs_display  
+                        ScrollView:
+                            scroll_timeout: 100
+                            size_hint: (1, 1)
+                            MDTextField:
+                                id: quick_event2_text
+                                multiline: True
+                                pos_hint_x: {"center_x": .5}
+                                size_hint: (.8, None)
+                        MDRaisedButton:
+                            text: "Send Sub Email"
+                            size_hint: (1, None)
+                            on_press:
+                                app.invitesubssendemail()
+#Invite Players Invite Subs Button END 
+#Send Regular Email Button calls invitesubssendemail START END
+#Invite Players Invite Individual Player Button START
+            MDScreen:
+                name: "SearchInviteIndividualPlayer"
+                BoxLayout:
+                    orientation: 'vertical'
+                    MDTopAppBar:
+                        title: "Search Individual"
+                        elevation: 2
+                        pos_hint: {"top": 1}
+                        left_action_items: 
+                            [
                             ['home-export-outline',lambda x: app.back_to_current_event()]
                             ]
                     ScrollView:
@@ -757,34 +1293,17 @@ MDScreen:
                         size_hint: (1, None)
                         on_press:
                             app.invitesearchplayers()
-            MDScreen:
-                name: "FoundPlayerScreen"
-                BoxLayout:
-                    orientation: 'vertical'
-                    MDToolbar:
-                        title: "Found 1 Player"
-                        elevation: 10
-                        pos_hint: {"top": 1}
-                        left_action_items: [['home', lambda x: app.change_home_screen()]]
-                    ScrollView:
-                        scroll_timeout: 100
-                        MDList:
-                            id: found_player_md_list
-                            padding: '10dp'
-                            spacing: '10dp'
-                    MDRaisedButton:
-                        text: "Found Player Screen Button"
-                        pos_hint: {"center_x": .5}
-                        size_hint: (1, None)            
+#Search Players Button calls invitesearchplayers
+#Brings Into Event Found Player Screen
             MDScreen:
                 name: "FoundEventInvitePlayerScreen"
                 BoxLayout:
                     orientation: 'vertical'
-                    MDToolbar:
+                    MDTopAppBar:
                         title: "Event Found Player"
-                        elevation: 10
+                        elevation: 2
                         pos_hint: {"top": 1}
-                        left_action_items: [['home', lambda x: app.change_home_screen()]]
+                        left_action_items: [['home-export-outline', lambda x: app.change_to_event_home_screen()]]
                     ScrollView:
                         scroll_timeout: 100
                         MDList:
@@ -798,136 +1317,18 @@ MDScreen:
                         on_press:
                             app.gotoindividualemail()
                             print("Called: app.gotoindividualemail() from FoundEventInvitePlayerScreen")
-                            
-                        
-            MDScreen:
-                name: "SpecificFoundPlayerScreen"
-                BoxLayout:
-                    orientation: 'vertical'
-                    id: testing
-                    MDToolbar:
-                        title: "Edit Player Info"
-                        elevation: 10
-                        pos_hint: {"top": 1}
-                        left_action_items: [['menu', lambda x: nav_drawer.set_state('open')]]
-                        right_action_items: [['face-profile', lambda x: nav_drawer2.set_state('open')]]
-                    ScrollView:
-                        scroll_timeout: 100
-                        MDList:
-                            id: specific_found_player_md_list
-                            padding: '15dp'
-                            spacing: '15dp'
-                    MDRaisedButton:
-                        text: "Save Edited Player"
-                        pos_hint: {"center_x": .5}
-                        size_hint: (1, None)
-                        on_press:
-                            print("time to stick back into the .json file")
-                            app.saveeditfromsearchplayer()
-            MDScreen:
-                name: "CurrentEventsPage"
-                BoxLayout:
-                    orientation: 'vertical'
-                    MDToolbar:
-                        title: "Current Events"
-                        elevation: 10
-                        pos_hint: {"top": 1}
-                        left_action_items: [['menu', lambda x: nav_drawer.set_state('open')]]
-                        right_action_items: [['face-profile', lambda x: nav_drawer2.set_state('open')]]
-                    ScrollView:
-                        scroll_timeout: 100
-                        MDList:
-                            id: currentevents_md_list
-                            padding: '5dp'
-                            spacing: '10dp'
-            MDScreen:
-                name: "CompletedEventsPage"
-                BoxLayout:
-                    orientation: 'vertical'
-                    MDToolbar:
-                        title: "Completed Events"
-                        elevation: 10
-                        pos_hint: {"top": 1}
-                        left_action_items: [['menu', lambda x: nav_drawer.set_state('open')]]
-                        right_action_items: [['face-profile', lambda x: nav_drawer2.set_state('open')]]
-                    Widget:
-                    ScrollView:
-                        scroll_timeout: 100
-                        MDList:
-                            id: completed_md_list
-                    MDRaisedButton:
-                        text: "Raised Button"
-                        pos_hint: {"center_x": .5}
-                        size_hint: (1, None)
-            MDScreen:
-                name: "SpecificEventPage"
-                BoxLayout:
-                    orientation: 'vertical'
-                    MDToolbar:
-                        title: "Invited Guests"
-                        elevation: 10
-                        pos_hint: {"top": 1}
-                        left_action_items: [['home', lambda x: app.change_home_screen()]]
-                        right_action_items: 
-                            [
-                            ['account-alert', lambda x: app.display_assigned_dark()],
-                            ['account-alert-outline', lambda x: app.change_light_assign()],
-                            ['face-profile', lambda x: nav_drawer3.set_state('open')]
-                            ]
-                    MDBoxLayout:
-                        orientation: 'vertical'
-                        MDBoxLayout:
-                            id: specific_event_page_box_layout
-                            orientation: 'vertical'
-                            size_hint: (1,.2)
-                        ScrollView:
-                            scroll_timeout: 100
-                            MDList:
-                                id: specific_event_label
-                                spacing: '8dp'
-                                padding: '8dp'
-                                MDLabel:
-                                    text: "Invited Players"
-                                    halign: 'center'
-                                    spacing: '8dp'
-            MDScreen:
-                name: "InviteRegularsScreen"
-                BoxLayout:
-                    orientation: 'vertical'
-                    MDToolbar:
-                        title: "Invite Regulars"
-                        elevation: 10
-                        pos_hint: {"top": 1}
-                        left_action_items: [['home', lambda x: app.change_home_screen()]]
-                        right_action_items: [['face-profile', lambda x: nav_drawer3.set_state('open')]]
-                    MDBoxLayout:
-                        orientation: 'vertical'
-                        ScrollView:
-                            scroll_timeout: 100
-                            size_hint: (1,.3)
-                            MDList:
-                                id: list_of_regulars_display
-                        ScrollView:
-                            scroll_timeout: 100
-                            size_hint: (1,1)
-                            MDTextField:
-                                id: quick_event_text
-                                multiline: True
-                                pos_hint_x: {"center_x": .5}
-                                size_hint: (.8, None)
-                        MDRaisedButton:
-                            text: "Send Regular Email"
-                            on_press:
-                                app.inviteregularssendemail()            
+#Invite Players Invite Individual Player Button END
+#Slide Individual Player START
+#Goto Send Email Button calls gotoindividualemail
             MDScreen:
                 name: "InviteIndividualsScreen"
                 BoxLayout:
                     orientation: 'vertical'
-                    MDToolbar:
+                    MDTopAppBar:
                         title: "Invite Individuals"
-                        elevation: 10
+                        elevation: 2
                         pos_hint: {"top": 1}
-                        left_action_items: [['home', lambda x: app.change_home_screen()]]
+                        left_action_items: [['home-export-outline', lambda x: app.change_to_event_home_screen()]]
                         right_action_items: [['face-profile', lambda x: nav_drawer3.set_state('open')]]
                     MDBoxLayout:
                         orientation: 'vertical'
@@ -947,44 +1348,19 @@ MDScreen:
                         MDRaisedButton:
                             text: "Send Individual Email"
                             on_press:
-                                app.invitefoundplayerssendemail()
-            MDScreen:
-                name: "InviteSubsScreen"
-                BoxLayout:
-                    orientation: 'vertical'
-                    MDToolbar:
-                        title: "Invite Subs"
-                        elevation: 10
-                        pos_hint: {"top": 1}
-                        left_action_items: [['home', lambda x: app.change_home_screen()]]
-                        right_action_items: [['face-profile', lambda x: nav_drawer3.set_state('open')]]
-                    MDBoxLayout:
-                        orientation: 'vertical'
-                        ScrollView:
-                            scroll_timeout: 100
-                            size_hint: (1, .3)
-                            MDList:
-                                id: list_of_subs_display  
-                        ScrollView:
-                            scroll_timeout: 100
-                            size_hint: (1, 1)
-                            MDTextField:
-                                id: quick_event2_text
-                                multiline: True
-                                pos_hint_x: {"center_x": .5}
-                                size_hint: (.8, None)
-                        MDRaisedButton:
-                            text: "Send Sub Email"
-                            on_press:
-                                app.invitesubssendemail()
+                                app.invitefoundplayerssendemail()      
+#Slide Individual Player END
+#Send Individual Email Button calls invitefoundplayerssendemail function
+#Right Nav Drawer Button
+#Organize Attendees Button START
             MDScreen:
                 name: "OrganizeEventScreen"
                 BoxLayout:
                     orientation: 'vertical'
                     #spacing: '15dp'
-                    MDToolbar:
+                    MDTopAppBar:
                         title: "Organize Event"
-                        elevation: 10
+                        elevation: 2
                         pos_hint: {"top": 1}
                         left_action_items: 
                             [
@@ -1002,123 +1378,34 @@ MDScreen:
                         MDBoxLayout:
                             id: organize_event_page_box_layout
                             orientation: 'vertical'
-                            size_hint: (1,.2)             
+                            size_hint: (1,.2)     
+                            md_bg_color: 0,0,0,.2        
                         ScrollView:
                             scroll_timeout: 100
                             #size_hint: (1,.5)
                             #size: (Window.width, Window.height- dp(20))
                             MDList:
                                 id: organize_event_label
-                                spacing: '15dp'                            
-            MDScreen:
-                name: "AssignDark"
-                BoxLayout:
-                    orientation: 'vertical'
-                    #spacing: '15dp'
-                    MDToolbar:
-                        title: "Dark Lines"
-                        elevation: 10
-                        pos_hint: {"top": 1}
-                        left_action_items: 
-                            [
-                            #['home', lambda x: app.change_home_screen()],
-                            ['home-export-outline',lambda x: app.back_to_current_event()]
-                            ]
-                        right_action_items: 
-                            [
-                            ['account-switch-outline', lambda x: app.display_teams()],
-                            ['account-alert-outline', lambda x: app.change_light_assign()],
-                            ['face-profile', lambda x: nav_drawer3.set_state('open')]
-                            ]                           
-                    MDBoxLayout:   
-                        orientation: 'vertical'                   
-                        ScrollView:
-                            scroll_timeout: 100
-                            MDList:
-                                id: organize_dark_line1
                                 spacing: '15dp'
-                        MDSeparator:
-                        MDSeparator:
-                        ScrollView:
-                            scroll_timeout: 100
-                            MDList:
-                                id: organize_dark_line2
-                                spacing: '15dp'
-            MDScreen:
-                name: "AssignLight"
-                BoxLayout:
-                    orientation: 'vertical'
-                    #spacing: '15dp'
-                    MDToolbar:
-                        title: "Light Lines"
-                        elevation: 10
-                        pos_hint: {"top": 1}
-                        left_action_items: 
-                            [
-                            #['home', lambda x: app.change_home_screen()],
-                            ['home-export-outline',lambda x: app.back_to_current_event()]
-                            ]
-                        right_action_items: 
-                            [
-                            ['account-switch-outline', lambda x: app.display_teams()],
-                            ['account-alert', lambda x: app.display_assigned_dark()],
-                            ['face-profile', lambda x: nav_drawer3.set_state('open')]
-                            ]                           
-                    MDBoxLayout:   
-                        orientation: 'vertical'                   
-                        ScrollView:
-                            scroll_timeout: 100
-                            MDList:
-                                id: organize_light_line1
-                                spacing: '15dp'
-                        MDSeparator:
-                        MDSeparator:
-                        ScrollView:
-                            scroll_timeout: 100
-                            MDList:
-                                id: organize_light_line2
-                                spacing: '15dp'     
-            MDScreen:
-                name: "DisplayTeams"
-                BoxLayout:
-                    orientation: 'vertical'
-                    #spacing: '15dp'
-                    MDToolbar:
-                        title: "Full Teams"
-                        elevation: 10
-                        pos_hint: {"top": 1}
-                        left_action_items: 
-                            [
-                            #['home', lambda x: app.change_home_screen()],
-                            ['home-export-outline',lambda x: app.back_to_current_event()]
-                            ]
-                        right_action_items: 
-                            [
-                            #['account-alert', lambda x: nav_drawer3.set_state('open')],
-                            #['account-alert-outline', lambda x: app.change_light_assign()],
-                            ['email-edit-outline', lambda x: app.send_final_email()],
-                            ['face-profile', lambda x: nav_drawer3.set_state('open')]
-                            ]                           
-                    MDBoxLayout:                    
-                        ScrollView:
-                            scroll_timeout: 100
-                            MDList:
-                                id: display_dark
-                                spacing: '15dp'
-                        ScrollView:
-                            scroll_timeout: 100
-                            MDList:
-                                id: display_light
-                                spacing: '15dp'  
+                        # MDBottomAppBar:
+                        #     MDTopAppBar:
+                        #         type: "bottom"
+                        #         md_bg_color: .8,.3,.2,1
+                        #         left_action_items: [['account-alert', lambda x: app.display_assigned_dark()]]
+                        #         right_action_items: [['account-alert-outline', lambda x: app.change_light_assign()]]
+#Organize Attendees Button END
+#Right Nav Drawer Button
+#Payment Button START
             MDScreen:
                 name: "PaymentPage"
                 BoxLayout:
                     orientation: 'vertical'
-                    MDToolbar:
+                    spacing: '8dp'
+                    MDTopAppBar:
                         title: "Make Payment"
-                        elevation: 10
+                        elevation: 2
                         pos_hint: {"top": 1}
-                        left_action_items: [['home', lambda x: app.change_home_screen()]]
+                        left_action_items: [['home-export-outline', lambda x: app.change_to_event_home_screen()]]
                         right_action_items: 
                             [
                             ['account-alert', lambda x: app.display_assigned_dark()],
@@ -1131,10 +1418,56 @@ MDScreen:
                             id: players_who_need_to_pay
                             spacing: '8dp'
                             padding: '8dp'
-                            MDLabel:
-                                text: "NEED TO PAY"
-                                halign: 'center'
-                                spacing: '8dp'                 
+                    BoxLayout:
+                        orientation: 'vertical'
+                        size_hint: (1, .1)
+                        spacing: '8dp'
+                        id: player_who_need_to_pay2
+#Review Event Button START
+            MDScreen:
+                name: "ReviewPage"
+                BoxLayout:
+                    orientation: 'vertical'
+                    spacing: '8dp'
+                    MDTopAppBar:
+                        title: "Review Event"
+                        elevation: 2
+                        pos_hint: {"top": 1}
+                        left_action_items: [['home-export-outline', lambda x: app.change_to_event_home_screen()]]
+                    ScrollView:
+                        scroll_timeout: 100
+                        MDList:
+                            id: review_event
+                            spacing: '8dp'
+                            padding: '8dp'
+                    MDRaisedButton:
+                        text: "COMPLETE EVENT"
+                        size_hint: (1, None)
+                        on_press:
+                            app.complete_event() 
+                            
+  
+            MDScreen:
+                name: "CompletedEventsPage"
+                BoxLayout:
+                    orientation: 'vertical'
+                    MDTopAppBar:
+                        title: "Completed Events"
+                        elevation: 2
+                        pos_hint: {"top": 1}
+                        left_action_items: [['menu', lambda x: nav_drawer.set_state('open')]]
+                        right_action_items: [['face-profile', lambda x: nav_drawer2.set_state('open')]]
+                    Widget:
+                    ScrollView:
+                        scroll_timeout: 100
+                        MDList:
+                            id: completed_md_list
+                    MDRaisedButton:
+                        text: "Raised Button"
+                        pos_hint: {"center_x": .5}
+                        size_hint: (1, None)
+
+                             
         MDNavigationDrawer:
             id: nav_drawer
             ContentNavigationDrawer:
@@ -1169,10 +1502,8 @@ MDScreen:
                             on_press:
                                 print('Create Player Drawer Button was pressed')
                                 app.showLeftDrawerPlayersMenu = not app.showLeftDrawerPlayersMenu
-                                #app.showManageQuickEvents = False
                                 app.showLeftDrawerPlayers(root)
-                                #root.ids.screen_manager.current = "HomeScreen"
-                                #nav_drawer.set_state('close')
+                                
                         MDFillRoundFlatButton:
                             text: 'Manage Quick EVENTS'
                             font_style: 'Subtitle1'
@@ -1216,17 +1547,16 @@ MDScreen:
                                 app.showRightDrawerEventsMenu = not app.showRightDrawerEventsMenu
                                 app.showRightDrawerEvents(root)
                         MDRaisedButton:
-                            text: 'Players'
+                            text: 'Notifications'
                             font_style: 'Subtitle1'
                             size_hint_x: None
                             size_x: self.parent.width
                             pos_hint: {"center_x": .5}
                             size_hint: (1, None)
                             on_press:
-                                print('Players RIGHT Drawer Button was pressed')
-                                #root.ids.screen_manager.current = "HomeScreen"
+                                print('Notifications RIGHT Drawer Button was pressed')
+                                app.change_to_notifications(root)
                                 nav_drawer2.set_state('close')
-                                #nav_drawer.set_state('close')
                         # MDRaisedButton:
                         #     text: 'EVENT HOME'
                         #     font_style: 'Subtitle1'
@@ -1299,8 +1629,6 @@ MDScreen:
                                 nav_drawer3.set_state('close') 
                                 app.load_paymentpage()
                                 root.ids.screen_manager.current = "PaymentPage"
-                                
-               
 """
 
 
@@ -1308,18 +1636,6 @@ MDScreen:
 class Tab(MDFloatLayout, MDTabsBase):
     # To implement content for a tab
     pass
-
-class SwipeToDeleteItem(MDCardSwipe):
-    text = StringProperty()
-    second_text = StringProperty()
-    third_text = StringProperty()
-    event_id = StringProperty()
-    orientation: 'vertical'
-    type_swipe = 'auto'
-    anchor = 'left'
-    _no_ripple_effect = True
-    # size_hint = 1, .3
-
     print("In the swipe to delete item card")
 
 class SwipeToDeleteItem2(MDCardSwipe):
@@ -1331,6 +1647,17 @@ class SwipeToDeleteItem2(MDCardSwipe):
     type_swipe = 'auto'
     anchor = 'left'
     _no_ripple_effect = True
+
+class PlayerNotificationCard(MDCardSwipe):
+    text2 = StringProperty()
+    second_text2 = StringProperty()
+    third_text2 = StringProperty()
+    player_id = NumericProperty()
+    orientation: 'vertical'
+    type_swipe = 'auto'
+    anchor = 'left'
+    _no_ripple_effect = True
+
 
 class SwipeToDeletePlayerCard(MDCardSwipe):
     text3 = StringProperty()
@@ -1362,6 +1689,20 @@ class SwipeToAddPlayerToInList(MDCardSwipe):
     type_swipe = 'auto'
     anchor = 'left'
     _no_ripple_effect = True
+
+
+class SwipeToRemovePlayerFromAllEmail(MDCardSwipe):
+    text = StringProperty()
+    second_text = StringProperty()
+    third_text = StringProperty()
+    event_id = StringProperty()
+    player_id = NumericProperty()
+    orientation: 'vertical'
+    type_swipe = 'auto'
+    anchor = 'left'
+    _no_ripple_effect = True
+
+
 
 class SwipeToPayPlayer(MDCardSwipe):
     text = StringProperty()
@@ -1417,7 +1758,30 @@ class TryingButtonDark(MDRaisedButton):
     text = StringProperty()
     player_id = NumericProperty()
 
-class QuickEventButton(MDFillRoundFlatButton):
+class TryingButtonDark2(MDRaisedButton):
+    text = StringProperty()
+    player_id = NumericProperty()
+
+
+class RegularAllEmail(MDRaisedButton):
+    text = StringProperty()
+    quick_event = StringProperty()
+    size_hint = (1, None)
+
+class SubstituteAllEmail(MDRaisedButton):
+    text = StringProperty()
+    quick_event = StringProperty()
+    size_hint = (1, None)
+class OpenAllEmail(MDRaisedButton):
+    text = StringProperty()
+    quick_event = StringProperty()
+    size_hint = (1, None)
+
+class QuickEventButtonLight(MDFillRoundFlatButton):
+    text = StringProperty()
+    event_id = StringProperty()
+
+class QuickEventButtonDark(MDFillRoundFlatButton):
     text = StringProperty()
     event_id = StringProperty()
 
@@ -1429,6 +1793,10 @@ class QuickEventTextField(MDTextField):
     id = StringProperty()
 
 class TryingButtonLight(MDRaisedButton):
+    text = StringProperty()
+    player_id = NumericProperty()
+
+class TryingButtonLight2(MDRaisedButton):
     text = StringProperty()
     player_id = NumericProperty()
 
@@ -1444,10 +1812,10 @@ class LeftContainer(ILeftBodyTouch, MDBoxLayout):
 class RightContainer(IRightBodyTouch, MDBoxLayout):
     adaptive_width = True
 
-class OrganizePlayerToTeam(ThreeLineAvatarIconListItem):
+class OrganizePlayerToTeam(TwoLineListItem):
     text = StringProperty()
     second_text = StringProperty()
-    third_text = StringProperty()
+    #third_text = StringProperty()
     player_id = NumericProperty()
     adaptive_width = True
 
@@ -1505,6 +1873,7 @@ class Tab(MDFloatLayout, MDTabsBase):
 
 sm = ScreenManager(transition=NoTransition())
 sm.add_widget(CreateEventScreen(name="HomeScreen"))
+sm.add_widget(CreateEventScreen(name="NotificationScreen"))
 sm.add_widget(CreateEventScreen(name="CreateEventScreen"))
 sm.add_widget(CreatePlayerScreen(name="CreatePlayerScreen"))
 sm.add_widget(CreatePlayerScreen(name="CurrentEventsPage"))
@@ -1525,6 +1894,8 @@ sm.add_widget(CreatePlayerScreen(name="DisplayTeams"))
 sm.add_widget(CreatePlayerScreen(name="CreateQuickEventScreen"))
 sm.add_widget(CreatePlayerScreen(name="EditQuickEventScreen"))
 sm.add_widget(CreatePlayerScreen(name="PaymentPage"))
+sm.add_widget(CreatePlayerScreen(name="ReviewPage"))
+sm.add_widget(CreatePlayerScreen(name="InviteAllPLayersScreen"))
 
 
 
@@ -1538,6 +1909,8 @@ class DemoApp(MDApp):
     showSpecificPlayerPosition = BooleanProperty(False)
     showManageQuickEvents = BooleanProperty(False)
     print("this will be run at startup")
+    TestingIndividualLogicCode.automatingdays.check_current_day_for_new_event()
+
     def send_final_email(self):
         print("in the send_final_email function")
         print("coming from the Display Teams page")
@@ -1596,7 +1969,7 @@ class DemoApp(MDApp):
         with open('myevents.json') as allcurrentevents:
             all_current_events = json.load(allcurrentevents)
             if len(all_current_events[self.current_event_identify]["Dark"]["Goalie"]) != 0:
-                self.root.ids.display_dark.add_widget(MDLabel(text=f"Dark Goalie: {len(all_current_events[self.current_event_identify]['Dark']['Goalie'])} / 1", halign='center'))
+                self.root.ids.display_dark.add_widget(OneLineListItem(text=f"Dk G: {len(all_current_events[self.current_event_identify]['Dark']['Goalie'])} / 1", bg_color=(0,0,0,.15)))
                 for single_player in all_current_events[self.current_event_identify]["Dark"]["Goalie"]:
                     with open('ContactInfo.json') as allcontactinfo:
                         all_contact_info = json.load(allcontactinfo)
@@ -1615,7 +1988,7 @@ class DemoApp(MDApp):
                             self.root.ids.display_dark.add_widget(self.player_card)
                             dark = not dark
             if len(all_current_events[self.current_event_identify]["Dark"]["Line1"]["Forward"]) != 0:
-                self.root.ids.display_dark.add_widget(MDLabel(text=f"Dark Line 1 Forwards: {len(all_current_events[self.current_event_identify]['Dark']['Line1']['Forward'])} / 3 ", halign='center'))
+                self.root.ids.display_dark.add_widget(OneLineListItem(text=f"Dk L1 F: {len(all_current_events[self.current_event_identify]['Dark']['Line1']['Forward'])} / 3 ", bg_color=(0,0,0,.15)))
                 for single_player in all_current_events[self.current_event_identify]["Dark"]["Line1"]["Forward"]:
                     print(single_player)
                     with open('ContactInfo.json') as allcontactinfo:
@@ -1635,7 +2008,7 @@ class DemoApp(MDApp):
                             self.root.ids.display_dark.add_widget(self.player_card)
                             dark = not dark
             if len(all_current_events[self.current_event_identify]["Dark"]["Line1"]["Defense"]) != 0:
-                self.root.ids.display_dark.add_widget(MDLabel(text=f"Dark Line 1 Defense: {len(all_current_events[self.current_event_identify]['Dark']['Line1']['Defense'])} / 2", halign='center'))
+                self.root.ids.display_dark.add_widget(OneLineListItem(text=f"Dk L1 D: {len(all_current_events[self.current_event_identify]['Dark']['Line1']['Defense'])} / 2", bg_color=(0,0,0,.15)))
                 for single_player in all_current_events[self.current_event_identify]["Dark"]["Line1"]["Defense"]:
                     print(single_player)
                     with open('ContactInfo.json') as allcontactinfo:
@@ -1657,7 +2030,7 @@ class DemoApp(MDApp):
 
             if len(all_current_events[self.current_event_identify]["Dark"]["Line2"]["Forward"]) != 0:
                 self.root.ids.display_dark.add_widget(
-                    MDLabel(text=f"Dark Line 2 Forwards: {len(all_current_events[self.current_event_identify]['Dark']['Line2']['Forward'])} / 3 ", halign='center'))
+                    OneLineListItem(text=f"Dk L2 F: {len(all_current_events[self.current_event_identify]['Dark']['Line2']['Forward'])} / 3 ", bg_color=(0,0,0,.15)))
                 for single_player in all_current_events[self.current_event_identify]["Dark"]["Line2"][
                     "Forward"]:
                     print(single_player)
@@ -1679,7 +2052,7 @@ class DemoApp(MDApp):
                             dark = not dark
             if len(all_current_events[self.current_event_identify]["Dark"]["Line2"]["Defense"]) != 0:
                 self.root.ids.display_dark.add_widget(
-                    MDLabel(text=f"Dark Line 2 Defense: {len(all_current_events[self.current_event_identify]['Dark']['Line2']['Defense'])} / 2", halign='center'))
+                    OneLineListItem(text=f"Dk L2 D: {len(all_current_events[self.current_event_identify]['Dark']['Line2']['Defense'])} / 2", bg_color=(0,0,0,.15)))
                 for single_player in all_current_events[self.current_event_identify]["Dark"]["Line2"][
                     "Defense"]:
                     print(single_player)
@@ -1700,7 +2073,7 @@ class DemoApp(MDApp):
                             self.root.ids.display_dark.add_widget(self.player_card)
                             dark = not dark
             if len(all_current_events[self.current_event_identify]["Light"]["Goalie"]) != 0:
-                self.root.ids.display_light.add_widget(MDLabel(text=f"Light Goalie: {len(all_current_events[self.current_event_identify]['Light']['Goalie'])} / 1", halign='center'))
+                self.root.ids.display_light.add_widget(OneLineListItem(text=f"Lt G: {len(all_current_events[self.current_event_identify]['Light']['Goalie'])} / 1", bg_color=(0,0,0,.15)))
                 for single_player in all_current_events[self.current_event_identify]["Light"]["Goalie"]:
                     with open('ContactInfo.json') as allcontactinfo:
                         all_contact_info = json.load(allcontactinfo)
@@ -1715,7 +2088,7 @@ class DemoApp(MDApp):
                             self.root.ids.display_light.add_widget(self.player_card)
                             dark = not dark
             if len(all_current_events[self.current_event_identify]["Light"]["Line1"]["Forward"]) != 0:
-                self.root.ids.display_light.add_widget(MDLabel(text=f"Light Line 1 Forwards: {len(all_current_events[self.current_event_identify]['Light']['Line1']['Forward'])} / 3", halign='center'))
+                self.root.ids.display_light.add_widget(OneLineListItem(text=f"Lt L1 F: {len(all_current_events[self.current_event_identify]['Light']['Line1']['Forward'])} / 3", bg_color=(0,0,0,.15)))
                 for single_player in all_current_events[self.current_event_identify]["Light"]["Line1"]["Forward"]:
                     print(single_player)
                     with open('ContactInfo.json') as allcontactinfo:
@@ -1733,7 +2106,7 @@ class DemoApp(MDApp):
                             self.root.ids.display_light.add_widget(self.player_card)
                             dark = not dark
             if len(all_current_events[self.current_event_identify]["Light"]["Line1"]["Defense"]) != 0:
-                self.root.ids.display_light.add_widget(MDLabel(text=f"Light Line 1 Defense: {len(all_current_events[self.current_event_identify]['Light']['Line1']['Defense'])} / 2", halign='center'))
+                self.root.ids.display_light.add_widget(OneLineListItem(text=f"Lt L1 D: {len(all_current_events[self.current_event_identify]['Light']['Line1']['Defense'])} / 2", bg_color=(0,0,0,.15)))
                 for single_player in all_current_events[self.current_event_identify]["Light"]["Line1"]["Defense"]:
                     print(single_player)
                     with open('ContactInfo.json') as allcontactinfo:
@@ -1755,7 +2128,7 @@ class DemoApp(MDApp):
 
             if len(all_current_events[self.current_event_identify]["Light"]["Line2"]["Forward"]) != 0:
                 self.root.ids.display_light.add_widget(
-                    MDLabel(text=f"Light Line 2 Forwards: {len(all_current_events[self.current_event_identify]['Light']['Line2']['Forward'])} / 3", halign='center'))
+                    OneLineListItem(text=f"Lt L2 F: {len(all_current_events[self.current_event_identify]['Light']['Line2']['Forward'])} / 3", bg_color=(0,0,0,.15)))
                 for single_player in all_current_events[self.current_event_identify]["Light"]["Line2"]["Forward"]:
                     print(single_player)
                     with open('ContactInfo.json') as allcontactinfo:
@@ -1776,7 +2149,7 @@ class DemoApp(MDApp):
                             dark = not dark
             if len(all_current_events[self.current_event_identify]["Light"]["Line2"]["Defense"]) != 0:
                 self.root.ids.display_light.add_widget(
-                    MDLabel(text=f"Light Line 2 Defense: {len(all_current_events[self.current_event_identify]['Light']['Line2']['Defense'])} / 2", halign='center'))
+                    OneLineListItem(text=f"Lt L2 D: {len(all_current_events[self.current_event_identify]['Light']['Line2']['Defense'])} / 2", bg_color=(0,0,0,.15)))
                 for single_player in all_current_events[self.current_event_identify]["Light"]["Line2"][
                     "Defense"]:
                     print(single_player)
@@ -1810,7 +2183,7 @@ class DemoApp(MDApp):
         with open('myevents.json') as allcurrentevents:
             all_current_events = json.load(allcurrentevents)
             if len(all_current_events[self.current_event_identify]["Dark"]["Goalie"]) != 0:
-                self.root.ids.organize_dark_line1.add_widget(MDLabel(text=f"Dark Goalie: {len(all_current_events[self.current_event_identify]['Dark']['Goalie'])} / 1", halign='center'))
+                self.root.ids.organize_dark_line1.add_widget(OneLineListItem(text=f"Dark Goalie: {len(all_current_events[self.current_event_identify]['Dark']['Goalie'])} / 1 ", bg_color=(0,0,0,.15)))
                 for single_player in all_current_events[self.current_event_identify]["Dark"]["Goalie"]:
                     with open('ContactInfo.json') as allcontactinfo:
                         all_contact_info = json.load(allcontactinfo)
@@ -1832,7 +2205,7 @@ class DemoApp(MDApp):
                             self.root.ids.organize_dark_line1.add_widget(self.player_card)
                             dark = not dark
             if len(all_current_events[self.current_event_identify]["Dark"]["Line1"]["Forward"]) != 0:
-                self.root.ids.organize_dark_line1.add_widget(MDLabel(text=f"Dark Line 1 Forwards: {len(all_current_events[self.current_event_identify]['Dark']['Line1']['Forward'])} / 3 ", halign='center'))
+                self.root.ids.organize_dark_line1.add_widget(OneLineListItem(text=f"Dark Line 1 Forwards: {len(all_current_events[self.current_event_identify]['Dark']['Line1']['Forward'])} / 3 ", bg_color=(0,0,0,.15)))
                 for single_player in all_current_events[self.current_event_identify]["Dark"]["Line1"]["Forward"]:
                     print(single_player)
                     with open('ContactInfo.json') as allcontactinfo:
@@ -1854,7 +2227,7 @@ class DemoApp(MDApp):
                             self.root.ids.organize_dark_line1.add_widget(self.player_card)
                             dark = not dark
             if len(all_current_events[self.current_event_identify]["Dark"]["Line1"]["Defense"]) != 0:
-                self.root.ids.organize_dark_line1.add_widget(MDLabel(text=f"Dark Line 1 Defense: {len(all_current_events[self.current_event_identify]['Dark']['Line1']['Defense'])} / 2", halign='center'))
+                self.root.ids.organize_dark_line1.add_widget(OneLineListItem(text=f"Dark Line 1 Defense: {len(all_current_events[self.current_event_identify]['Dark']['Line1']['Defense'])} / 2 ", bg_color=(0,0,0,.15)))
                 for single_player in all_current_events[self.current_event_identify]["Dark"]["Line1"]["Defense"]:
                     print(single_player)
                     with open('ContactInfo.json') as allcontactinfo:
@@ -1880,7 +2253,7 @@ class DemoApp(MDApp):
 
             if len(all_current_events[self.current_event_identify]["Dark"]["Line2"]["Forward"]) != 0:
                 self.root.ids.organize_dark_line2.add_widget(
-                    MDLabel(text=f"Dark Line 2 Forwards: {len(all_current_events[self.current_event_identify]['Dark']['Line2']['Forward'])} / 3 ", halign='center'))
+                    OneLineListItem(text=f"Dark Line 2 Forwards: {len(all_current_events[self.current_event_identify]['Dark']['Line2']['Forward'])} / 3 ", bg_color=(0,0,0,.15)))
                 for single_player in all_current_events[self.current_event_identify]["Dark"]["Line2"][
                     "Forward"]:
                     print(single_player)
@@ -1905,7 +2278,7 @@ class DemoApp(MDApp):
                             self.root.ids.organize_dark_line2.add_widget(self.player_card)
                             dark = not dark
             if len(all_current_events[self.current_event_identify]["Dark"]["Line2"]["Defense"]) != 0:
-                self.root.ids.organize_dark_line2.add_widget(MDLabel(text=f"Dark Line 2 Defense: {len(all_current_events[self.current_event_identify]['Dark']['Line2']['Defense'])} / 2", halign='center'))
+                self.root.ids.organize_dark_line2.add_widget(OneLineListItem(text=f"Dark Line 2 Defense: {len(all_current_events[self.current_event_identify]['Dark']['Line2']['Defense'])} / 2", bg_color=(0,0,0,.15)))
                 for single_player in all_current_events[self.current_event_identify]["Dark"]["Line2"][
                     "Defense"]:
                     print(single_player)
@@ -1931,8 +2304,6 @@ class DemoApp(MDApp):
                             dark = not dark
 
 
-                        # self.player_card = OrganizeD2Line(text=name, player_id=all_contact_info[single_player - 1].get("playerid"))
-                        # self.root.ids.organize_d2_event.add_widget(self.player_card)
     def change_light_assign(self):
         print("*" * 150 )
         print("now change_light_assign")
@@ -1945,7 +2316,7 @@ class DemoApp(MDApp):
         with open('myevents.json') as allcurrentevents:
             all_current_events = json.load(allcurrentevents)
             if len(all_current_events[self.current_event_identify]["Light"]["Goalie"]) != 0:
-                self.root.ids.organize_light_line1.add_widget(MDLabel(text=f"Light Goalie: {len(all_current_events[self.current_event_identify]['Light']['Goalie'])} / 1", halign='center'))
+                self.root.ids.organize_light_line1.add_widget(OneLineListItem(text=f"Light Goalie: {len(all_current_events[self.current_event_identify]['Light']['Goalie'])} / 1", bg_color=(0,0,0,.15)))
                 for single_player in all_current_events[self.current_event_identify]["Light"]["Goalie"]:
                     with open('ContactInfo.json') as allcontactinfo:
                         all_contact_info = json.load(allcontactinfo)
@@ -1968,7 +2339,7 @@ class DemoApp(MDApp):
                             self.root.ids.organize_light_line1.add_widget(self.player_card)
                             dark = not dark
             if len(all_current_events[self.current_event_identify]["Light"]["Line1"]["Forward"]) != 0:
-                self.root.ids.organize_light_line1.add_widget(MDLabel(text=f"Light Line 1 Forwards: {len(all_current_events[self.current_event_identify]['Light']['Line1']['Forward'])} / 3", halign='center'))
+                self.root.ids.organize_light_line1.add_widget(OneLineListItem(text=f"Light Line 1 Forwards: {len(all_current_events[self.current_event_identify]['Light']['Line1']['Forward'])} / 3", bg_color=(0,0,0,.15)))
                 for single_player in all_current_events[self.current_event_identify]["Light"]["Line1"]["Forward"]:
                     print(single_player)
                     with open('ContactInfo.json') as allcontactinfo:
@@ -1991,7 +2362,7 @@ class DemoApp(MDApp):
                             self.root.ids.organize_light_line1.add_widget(self.player_card)
                             dark = not dark
             if len(all_current_events[self.current_event_identify]["Light"]["Line1"]["Defense"]) != 0:
-                self.root.ids.organize_light_line1.add_widget(MDLabel(text=f"Light Line 1 Defense: {len(all_current_events[self.current_event_identify]['Light']['Line1']['Defense'])} / 2", halign='center'))
+                self.root.ids.organize_light_line1.add_widget(OneLineListItem(text=f"Light Line 1 Defense: {len(all_current_events[self.current_event_identify]['Light']['Line1']['Defense'])} / 2", bg_color=(0,0,0,.15)))
                 for single_player in all_current_events[self.current_event_identify]["Light"]["Line1"]["Defense"]:
                     print(single_player)
                     with open('ContactInfo.json') as allcontactinfo:
@@ -2018,7 +2389,7 @@ class DemoApp(MDApp):
 
             if len(all_current_events[self.current_event_identify]["Light"]["Line2"]["Forward"]) != 0:
                 self.root.ids.organize_light_line2.add_widget(
-                    MDLabel(text=f"Light Line 2 Forwards: {len(all_current_events[self.current_event_identify]['Light']['Line2']['Forward'])} / 3", halign='center'))
+                    OneLineListItem(text=f"Light Line 2 Forwards: {len(all_current_events[self.current_event_identify]['Light']['Line2']['Forward'])} / 3", bg_color=(0,0,0,.15)))
                 for single_player in all_current_events[self.current_event_identify]["Light"]["Line2"][
                     "Forward"]:
                     print(single_player)
@@ -2045,7 +2416,7 @@ class DemoApp(MDApp):
                             dark = not dark
             if len(all_current_events[self.current_event_identify]["Light"]["Line2"]["Defense"]) != 0:
                 self.root.ids.organize_light_line2.add_widget(
-                    MDLabel(text=f"Light Line 2 Defense: {len(all_current_events[self.current_event_identify]['Light']['Line2']['Defense'])} / 2", halign='center'))
+                    OneLineListItem(text=f"Light Line 2 Defense: {len(all_current_events[self.current_event_identify]['Light']['Line2']['Defense'])} / 2 ", bg_color=(0,0,0,.15)))
                 for single_player in all_current_events[self.current_event_identify]["Light"]["Line2"][
                     "Defense"]:
                     print(single_player)
@@ -2075,6 +2446,8 @@ class DemoApp(MDApp):
     def change_home_screen(self):
         print("change_home_screen module")
         self.root.ids.screen_manager.current = 'HomeScreen'
+        self.root.ids.search_fields.clear_widgets()
+        self.root.ids.create_player_fields.clear_widgets()
 
     def showSpecificEventDrawerPlayersMenuModule(self, root):
         print("*")
@@ -2082,15 +2455,15 @@ class DemoApp(MDApp):
         print("*" * 250)
         if self.showSpecificEventDrawerPlayersMenu:
             self.invite = MDRaisedButton(font_style = 'Subtitle2', text='Invite Regulars', on_press= self.inviteregularsbutton, size_hint = (1, None), padding = '10dp',   anchor_x = 'left', md_bg_color = (.87,.36,.24,1))
-            root.ids.nav_drawer3_md_list.add_widget(self.invite, 2)
+            root.ids.nav_drawer3_md_list.add_widget(self.invite, 3)
             self.invite2 = MDRaisedButton(font_style = 'Subtitle2', text='Invite Subs', on_press= self.invitesubsbutton, size_hint = (1, None), padding = '10dp',  anchor_x = 'left', md_bg_color = (.2,.53,.733,1))
-            root.ids.nav_drawer3_md_list.add_widget(self.invite2, 2)
+            root.ids.nav_drawer3_md_list.add_widget(self.invite2, 3)
             self.invite3 = MDRaisedButton(font_style = 'Subtitle2', text='Invite Individual Player', on_press= self.inviteindividualplayer, size_hint = (1, None), padding = '10dp',  anchor_x = 'left', md_bg_color = (.87,.36,.24,1))
-            root.ids.nav_drawer3_md_list.add_widget(self.invite3, 2)
+            root.ids.nav_drawer3_md_list.add_widget(self.invite3, 3)
             self.invite4 = MDRaisedButton(font_style='Subtitle2', text='Invite ALL Players',
                                           on_press=self.inviteallplayers, size_hint=(1, None), padding='10dp',
                                           anchor_x='left', md_bg_color=(.2,.53,.733,1))
-            root.ids.nav_drawer3_md_list.add_widget(self.invite4, 2)
+            root.ids.nav_drawer3_md_list.add_widget(self.invite4, 3)
 
             self.secondchild = root.ids.nav_drawer3_md_list.children
         else:
@@ -2104,7 +2477,7 @@ class DemoApp(MDApp):
 
     def display_organize_event_screen(self):
         print("*" * 250)
-        print("display_oragnize_event_screen")
+        print("display_organize_event_screen")
         print("time to display the organize event information")
         self.root.ids.organize_event_page_box_layout.clear_widgets()
         self.root.ids.organize_event_label.clear_widgets()
@@ -2118,7 +2491,7 @@ class DemoApp(MDApp):
                 all_contact_info = json.load(allcontactinfo)
                 for a in all_current_events[self.current_event_identify].get("PlayersIn"):
                     name, positionstring, randomtext = TestingIndividualLogicCode.makingtable.organize_attendee_player_card(all_current_events,all_contact_info, self.current_event_identify,a)
-                    self.player_card = OrganizePlayerToTeam(text=name, second_text=positionstring, third_text=randomtext, player_id=a)
+                    self.player_card = OrganizePlayerToTeam(text=name, second_text=positionstring, player_id=a)
                     self.root.ids.organize_event_label.add_widget(self.player_card)
 
     def add_under_player_card(self, instance):
@@ -2190,21 +2563,21 @@ class DemoApp(MDApp):
                     print("ONLY LINE 2")
                     if "F" in all_contact_info[instance.player_id - 1].get("position F D G"):
                         print("FORWARD LINE 2")
-                        self.dark_forward_line_2 = TryingButtonDark(font_style="Subtitle2", text="Dark Line2 Forward",
+                        self.dark_forward_line_2 = TryingButtonDark2(font_style="Subtitle2", text="Dark Line2 Forward",
                                                                 player_id = instance.player_id,
                                                                 on_press=self.add_dark_forward_line_2)#TRYING TO ADD instance.player_id
                         self.root.ids.organize_event_label.add_widget(self.dark_forward_line_2, self.button_index)
-                        self.light_forward_line_2 = TryingButtonLight(font_style="Subtitle2", text="Light Line2 Forward",
+                        self.light_forward_line_2 = TryingButtonLight2(font_style="Subtitle2", text="Light Line2 Forward",
                                                                 player_id = instance.player_id,
                                                                 on_press=self.add_light_forward_line_2)
                         self.root.ids.organize_event_label.add_widget(self.light_forward_line_2, self.button_index)
                     if "D" in all_contact_info[instance.player_id - 1].get("position F D G"):
                         print("Defense Line 2")
-                        self.dark_defense_line_2 = TryingButtonDark(font_style="Subtitle2", text="Dark Line2 Defense",
+                        self.dark_defense_line_2 = TryingButtonDark2(font_style="Subtitle2", text="Dark Line2 Defense",
                                                                 player_id=instance.player_id,
                                                                 on_press=self.add_dark_defense_line_2)  # TRYING TO ADD instance.player_id
                         self.root.ids.organize_event_label.add_widget(self.dark_defense_line_2, self.button_index)
-                        self.light_defense_line_2 = TryingButtonLight(font_style="Subtitle2", text="Light Line2 Defense",
+                        self.light_defense_line_2 = TryingButtonLight2(font_style="Subtitle2", text="Light Line2 Defense",
                                                                  player_id=instance.player_id,
                                                                  on_press=self.add_light_defense_line_2)
                         self.root.ids.organize_event_label.add_widget(self.light_defense_line_2, self.button_index)
@@ -2357,67 +2730,6 @@ class DemoApp(MDApp):
         self.display_organize_event_screen()
 
 
-    # def organize_event_add_to_d1(self, instance):
-    #     print("now add to dark id:organize_dark_event")
-    #     self.root.ids.organize_event_label.remove_widget(instance)
-    #     with open('myevents.json') as allcurrentevents:
-    #         all_current_events = json.load(allcurrentevents)
-    #         all_current_events[self.current_event_identify]["PlayersIn"].remove(instance.player_id)
-    #         all_current_events[self.current_event_identify]["D1"].append(instance.player_id)
-    #         with open('myevents.json', 'w') as json_file:
-    #             json.dump(all_current_events, json_file, indent=4, separators=(',', ':'))
-    #         with open('ContactInfo.json') as allcontactinfo:
-    #             all_contact_info = json.load(allcontactinfo)
-    #             name = all_contact_info[instance.player_id - 1].get("Player First")
-    #             name += " " + all_contact_info[instance.player_id - 1].get("Player Last")
-    #             self.player_card = OrganizeD1Line(text=name, player_id=instance.player_id)
-    #             self.root.ids.organize_d1_event.add_widget(self.player_card)
-    # def organize_event_add_to_d2(self, instance):
-    #     print("now add to dark id2:organize_dark_event")
-    #     self.root.ids.organize_event_label.remove_widget(instance)
-    #     with open('myevents.json') as allcurrentevents:
-    #         all_current_events = json.load(allcurrentevents)
-    #         all_current_events[self.current_event_identify]["PlayersIn"].remove(instance.player_id)
-    #         all_current_events[self.current_event_identify]["D2"].append(instance.player_id)
-    #         with open('myevents.json', 'w') as json_file:
-    #             json.dump(all_current_events, json_file, indent=4, separators=(',', ':'))
-    #         with open('ContactInfo.json') as allcontactinfo:
-    #             all_contact_info = json.load(allcontactinfo)
-    #             name = all_contact_info[instance.player_id - 1].get("Player First")
-    #             name += " " + all_contact_info[instance.player_id - 1].get("Player Last")
-    #             self.player_card = OrganizeD2Line(text=name, player_id=instance.player_id)
-    #             self.root.ids.organize_d2_event.add_widget(self.player_card)
-    # def organize_event_add_to_l1(self, instance):
-    #     print("now add to light id:organize_light_event")
-    #     self.root.ids.organize_event_label.remove_widget(instance)
-    #     with open('myevents.json') as allcurrentevents:
-    #         all_current_events = json.load(allcurrentevents)
-    #         all_current_events[self.current_event_identify]["PlayersIn"].remove(instance.player_id)
-    #         all_current_events[self.current_event_identify]["L1"].append(instance.player_id)
-    #         with open('myevents.json', 'w') as json_file:
-    #             json.dump(all_current_events, json_file, indent=4, separators=(',', ':'))
-    #         with open('ContactInfo.json') as allcontactinfo:
-    #             all_contact_info = json.load(allcontactinfo)
-    #             name = all_contact_info[instance.player_id - 1].get("Player First")
-    #             name += " " + all_contact_info[instance.player_id- 1].get("Player Last")
-    #             self.player_card = OrganizeL1Line(text=name, player_id=instance.player_id)
-    #             self.root.ids.organize_l1_event.add_widget(self.player_card)
-    # def organize_event_add_to_l2(self, instance):
-    #     print("now add to light id:organize_light_event")
-    #     self.root.ids.organize_event_label.remove_widget(instance)
-    #     with open('myevents.json') as allcurrentevents:
-    #         all_current_events = json.load(allcurrentevents)
-    #         all_current_events[self.current_event_identify]["PlayersIn"].remove(instance.player_id)
-    #         all_current_events[self.current_event_identify]["L2"].append(instance.player_id)
-    #         with open('myevents.json', 'w') as json_file:
-    #             json.dump(all_current_events, json_file, indent=4, separators=(',', ':'))
-    #         with open('ContactInfo.json') as allcontactinfo:
-    #             all_contact_info = json.load(allcontactinfo)
-    #             name = all_contact_info[instance.player_id - 1].get("Player First")
-    #             name += " " + all_contact_info[instance.player_id- 1].get("Player Last")
-    #             self.player_card = OrganizeL2Line(text=name, player_id=instance.player_id)
-    #             self.root.ids.organize_l2_event.add_widget(self.player_card)
-
     def inviteindividualplayer(self, root):
         print("*" * 250)
         print(" in the inviteindividualplayer(self, root) functin")
@@ -2486,7 +2798,109 @@ class DemoApp(MDApp):
         self.showSpecificEventDrawerPlayersMenu = not self.showSpecificEventDrawerPlayersMenu
         self.root.ids.nav_drawer3.set_state('close')
         self.root.ids.list_of_regulars_display.clear_widgets()
+        self.root.ids.email_all_players.clear_widgets()
+        self.root.ids.all_players_getting_email.clear_widgets()
+
         TestingIndividualLogicCode.testingfunctions.remove_nav_drawer_3_widgets(self)
+        self.current_event_players_invited_list_ids = []
+        self.ids_of_new_invites = []
+        self.email_new_invites = []
+        dark = True
+        labeltext = TestingIndividualLogicCode.makingtable.current_event_title_bar(self.dict_of_event)
+        self.root.ids.email_all_players.add_widget(
+            OneLineListItem(text=labeltext,
+                            bg_color=(0, 0, 0, .15)))
+        email_types = ["Regulars", "Substitute", "Open"]
+        with open('standardmessages.json') as allstandardmessages:
+            all_standard_messages = json.load(allstandardmessages)
+            print("*" * 300)
+            print(self.current_event_day)
+            specific_message = 'Reg'
+            txt = str(all_standard_messages[specific_message])
+            txt = TestingIndividualLogicCode.testingfunctions.replace_email_message(self, self.dict_of_event, txt)
+            print(txt)
+            print("*" * 300)
+            # specific_message = all_standard_messages.get(specific_message)
+            self.root.ids.all_players_quick_event_text.text = txt
+        with open('quickevents.json') as f:
+            quick_events = json.load(f)
+            for key in quick_events.keys():
+                print(key)
+                for type in email_types:
+                    title = str(type + " " + key)
+                    if type == "Regulars":
+                        self.root.ids.email_all_players.add_widget(RegularAllEmail(text=title, quick_event= title, on_press= self.findplayersinquickevent, size_hint=(1,None)))
+                    if type == "Substitute":
+                        self.root.ids.email_all_players.add_widget(SubstituteAllEmail(text=title, quick_event=title, on_press= self.findplayersinquickevent, size_hint=(1,None)))
+                    if type == "Open":
+                        self.root.ids.email_all_players.add_widget(
+                            OpenAllEmail(text=title, quick_event=title, on_press=self.findplayersinquickevent, size_hint=(1,None)))
+        self.root.ids.screen_manager.current = 'InviteAllPLayersScreen'
+
+    def findplayersinquickevent(self, instance):
+        print("---   findplayersinquickevent   function   ---")
+        print(instance.quick_event)
+        self.root.ids.all_players_getting_email.clear_widgets()
+        self.root.ids.all_players_getting_email.clear_widgets()
+        x = instance.quick_event.index(" ")
+        key = instance.quick_event[x+1:]
+        playercard = []
+        print(playercard)
+        self.current_event_players_invited_list_ids = TestingIndividualLogicCode.testingfunctions.show_all_players(self,
+                                                                                                               self.dict_of_event)
+        print(self.current_event_players_invited_list_ids)
+        print(self.ids_of_new_invites)
+        print("^"*250)
+        with open("ContactInfo.json") as file:
+            all_contacts = json.load(file)
+            for single_contact in all_contacts:
+                #print(single_contact)
+                # text = instance.quick_event.rfind("Regulars")
+                #print(text)
+                if instance.quick_event.rfind("Regulars") == 0 and single_contact[key] == "R":
+                    print("Made it into the regulars")
+                    self.ids_of_new_invites.append(single_contact["playerid"])
+                    #text = instance.quick_event.rfind("Regulars")
+                if instance.quick_event.rfind("Substitute") == 0 and single_contact[key] == "S":
+                    print("Made it into the Substitute")
+                    self.ids_of_new_invites.append(single_contact["playerid"])
+                    #text = instance.quick_event.rfind("Substitute")
+                if instance.quick_event.rfind("Open") == 0 and single_contact[key] == "":
+                    print("Made it into the Open")
+                    self.ids_of_new_invites.append(single_contact["playerid"])
+                    #text = instance.quick_event.rfind("Open")
+            for new_invite in self.ids_of_new_invites:
+                if new_invite not in self.current_event_players_invited_list_ids:
+                    print("We need to invite this player")
+                    print("+"*100)
+                    #print(all_contacts[new_invite]["Email"])
+                    self.email_new_invites.append(all_contacts[new_invite-1]["Email"])
+                    print(self.email_new_invites)
+                    playercard.append(new_invite)
+                else:
+                    print("Player is already invited")
+                    print("-"*100)
+            for a in playercard:
+                namestring, positionstring, player_id = TestingIndividualLogicCode.makingtable.organize_player_invited_player_card(all_contacts, self.dict_of_event, int(a))
+                player_card = SwipeToRemovePlayerFromAllEmail(text=namestring,
+                                                       second_text=positionstring,
+                                                       event_id=self.current_event_identify,
+                                                       player_id=player_id
+                                                       )
+                self.root.ids.all_players_getting_email.add_widget(player_card)
+        print(self.email_new_invites)
+
+
+    def remove_player_from_all_email_list(self, instance):
+        print("---   SwipeToRemovePlayerFromAllEmail just swiped")
+        print("remove_player_from_all_email_list Function   ---")
+        self.root.ids.all_players_getting_email.remove_widget(instance)
+        #need to delete player id from this list
+        #self.ids_of_new_invites
+        print(self.ids_of_new_invites)
+        self.ids_of_new_invites.remove(instance.player_id)
+        print(self.ids_of_new_invites)
+
 
     def inviteregularsbutton(self, root):
 #        self.root.ids.list_of_regulars_display.remove_widget(regular_player_card)
@@ -2565,6 +2979,49 @@ class DemoApp(MDApp):
                         self.root.ids.list_of_subs_display.add_widget(regular_player_card, 2)
         self.root.ids.screen_manager.current = 'InviteSubsScreen'
         print("Need to send email and text notification and add to INVITED list")
+
+    def allplayersinviteemail(self):
+        print("---   in the allplayersinviteemail FUNCTION   ---")
+        self.root.ids.email_all_players.clear_widgets()
+        self.root.ids.all_players_getting_email.clear_widgets()
+        print("NEED TO EMAIL THESE PLAYERS")
+        print(self.email_new_invites)
+        print("This Email Text")
+        print(self.root.ids.all_players_quick_event_text.text)
+        for singleplayer in self.email_new_invites:
+            TestingIndividualLogicCode.alerts.email_alert(singleplayer, "BAH TUESDAY HOCKEY",
+                                                      self.root.ids.all_players_quick_event_text.text)
+        self.back_to_current_event()
+        with open("myevents.json") as f:
+            all_events = json.load(f)
+            this_event = all_events[self.current_event_identify]
+            print(this_event)
+            for single_player_id in self.ids_of_new_invites:
+                if single_player_id not in this_event["PlayersInvited"]:
+                    this_event["PlayersInvited"].append(single_player_id)
+            with open('myevents.json', 'w') as file:
+                json.dump(all_events, file, indent=4, separators=(',', ':'))
+        TestingIndividualLogicCode.testingfunctions.display_selected_event(self, self.current_event_identify, MDLabel,
+                                                                           SwipeToAddPlayerToInList)
+
+        #ALSO NEED TO ALLOW CHAD TO "MASS MAKE REGULARS / SUBS" AFTER COMPLETING AN EVENT IF WANTED
+        #NEED TO ACTUALLY SEND THE EMAIL
+
+    def remove_all_from_email_list(self, instance):
+        # need to remove the regular from the email list
+        print("just swiped remove_all_from_email_list")
+        for a in self.ids_of_new_invites:
+            print(a)
+            if instance.player_id == a:
+                self.ids_of_new_invites.remove(a)
+        for a in self.current_event_regular_list:
+            print(a)
+            if instance.player_email == a:
+                self.current_event_regular_list.remove(a)
+        print(self.ids_of_new_invites)
+        print(self.current_event_regular_list)
+
+
     def inviteregularssendemail(self):
         print("***   in the inviteregularssendemail MODULE   ***")
         self.root.ids.specific_event_label.clear_widgets()
@@ -2683,6 +3140,7 @@ class DemoApp(MDApp):
                     if not(TestingIndividualLogicCode.testingfunctions.check_if_player_invited(self, all_current_events[self.current_event_identify], a)):
                         print("WE ARE UNDER THE IF NOT IN THE MAIN APP")
                         all_current_events[self.current_event_identify].get("PlayersInvited").append(a)
+                        print(self.email_dict_of_player.get("Email"))
                         TestingIndividualLogicCode.alerts.email_alert(self.email_dict_of_player.get("Email"),
                                                                      "Test Email",
                                                                       self.root.ids.quick3_event_text.text)
@@ -2762,12 +3220,9 @@ class DemoApp(MDApp):
         '''
         print("Create_event button was pressed")
         print("Create_event MODULE")
-        self.example = root.ids
-        # print(self.example)
-        # print('just printed self.example')
         self.add_event_on_submit()
         self.clear_create_event_textfields()
-        self.current_events_displayed()
+
 
     def create_quick_event(self, root):
         '''
@@ -2784,8 +3239,9 @@ class DemoApp(MDApp):
         self.add_quick_event_buttons(root)
 
     def add_quick_event_buttons(self, root):
-        print("***IN THE ADD_QUICK_EVENT_BUTTONS to add the buttons for each quick event in the json file to the CreateEventScreen into the MDlist with ID:quick_event_buttons")
+        print("***IN THE add_quick_event_buttons to add the buttons for each quick event in the json file to the CreateEventScreen into the MDlist with ID:quick_event_buttons")
         self.root.ids.grid_for_quick_event_buttons.clear_widgets()
+        dark = True
         with open('quickevents.json') as f:
             quick_events_buttons = json.load(f)
             print(quick_events_buttons.keys())
@@ -2797,11 +3253,20 @@ class DemoApp(MDApp):
                     event_id = str(key)
                     print(event_id)
                     print("WE MADE IT TO HERE TRYING TO ADD THE BUTTON")
-                    quick_event_button = QuickEventButton(font_style = "Subtitle2",
-                                                               text=event_id,
-                                                               event_id=key,
-                                                               on_press=self.quickevent)
-                    self.root.ids.grid_for_quick_event_buttons.add_widget(quick_event_button)
+                    if dark:
+                        quick_event_button = QuickEventButtonLight(font_style = "Subtitle2",
+                                                                   text=event_id,
+                                                                   event_id=key,
+                                                                   on_press=self.quickevent)
+                        self.root.ids.grid_for_quick_event_buttons.add_widget(quick_event_button)
+                        dark = not dark
+                    else:
+                        quick_event_button = QuickEventButtonDark(font_style="Subtitle2",
+                                                                   text=event_id,
+                                                                   event_id=key,
+                                                                   on_press=self.quickevent)
+                        self.root.ids.grid_for_quick_event_buttons.add_widget(quick_event_button)
+                        dark = not dark
                     print("JUST ADDED A BUTTON")
                     print("*"*200)
                     print("yes its a dict")
@@ -2846,7 +3311,7 @@ class DemoApp(MDApp):
             "Cost": self.cost,
             "TotalPlayers": self.totalplayers
         }
-        self.quick_eventid = self.location + " " + self.ftime
+        self.quick_eventid = self.day + " " + self.location + " " + self.ftime
         print(self.quick_eventid)
         quick_events[self.quick_eventid] = new_quick_event_dict
         with open('quickevents.json', 'w') as json_file:
@@ -2934,9 +3399,19 @@ class DemoApp(MDApp):
                 },
                 "Status": "Current",
             }
+        already_created = TestingIndividualLogicCode.testingfunctions.check_event_already_created(self, listobj,
+                                                                                                  new_event_dict)
         listobj[self.eventid] = new_event_dict
-        with open('myevents.json', 'w') as json_file:
-            json.dump(listobj, json_file, indent=4, separators=(',', ':'))
+
+        if already_created:
+            print("IN THE ALREADY CREATED")
+            self.root.ids.home_screen.add_widget(MDLabel(text="THIS EVENT IS ALREADY CREATED"))
+            self.root.ids.screen_manager.current = "HomeScreen"
+        else:
+            print("IN THE ELSE OF ALREADY CREATED")
+            with open('myevents.json', 'w') as json_file:
+                json.dump(listobj, json_file, indent=4, separators=(',', ':'))
+            self.current_events_displayed()
 
     def quickevent(self, instance):
         print("quickevent MODULE")
@@ -2955,6 +3430,8 @@ class DemoApp(MDApp):
                     self.root.ids.cost.text = str(listobj[instance.event_id]["Cost"])
                     self.root.ids.totalplayers.text = str(listobj[instance.event_id]["TotalPlayers"])
                     self.root.ids.day.text = str(listobj[instance.event_id]["Day"])
+
+
 
     def current_events_displayed(self):
         print("In the current_events_displayed Module")
@@ -2977,9 +3454,9 @@ class DemoApp(MDApp):
                                 + len(alleventslist[allevent]['Light']['Goalie']) \
                                 + len(alleventslist[allevent]['Light']['Line1']['Forward']) + len(alleventslist[allevent]['Light']['Line1']['Defense']) \
                                 + len(alleventslist[allevent]['Light']['Line2']['Forward']) + len(alleventslist[allevent]['Light']['Line2']['Defense'])
-                    event_card = SwipeToDeleteItem2(text2=f'{date} {day} {location} {time}',
-                                                       second_text2=f'Cost: {cost} ~ Players: {playersin}/{totalplayers}',
-                                                       third_text2= f"INV: {len(alleventslist[allevent]['PlayersInvited'])} ~ TO ASSIGN: {len(alleventslist[allevent]['PlayersIn'])}",
+                    event_card = SwipeToDeleteItem2(text2=f'{date} {day} {location} ',
+                                                       second_text2=f'{time} ~~ {cost} ~~ {playersin}/{totalplayers}',
+                                                       third_text2= f" INV: {len(alleventslist[allevent]['PlayersInvited'])} ~ ASN: {len(alleventslist[allevent]['PlayersIn'])}",
                                                         event_id2 = str(self.eventid))
 
                     self.root.ids.currentevents_md_list.add_widget(event_card)
@@ -3012,6 +3489,7 @@ class DemoApp(MDApp):
 
     def clear_specific_event(self):
         print("clear_specific_event MODULE")
+        print("called from the back_to_current_event function")
         self.root.ids.specific_event_page_box_layout.clear_widgets()
         self.root.ids.specific_event_label.clear_widgets()
 
@@ -3021,49 +3499,49 @@ class DemoApp(MDApp):
         self.root.ids.currentevents_md_list.clear_widgets()
         self.clear_specific_event()
         self.current_event_identify = instance.event_id2
-
-        with open('myevents.json') as myevents:
-            alleventslist = json.load(myevents)
-            self.dict_of_event = alleventslist[instance.event_id2]
-            self.current_event_players_invited = self.dict_of_event.get("PlayersInvited")
-            print("TRYING TO PRINT THE LIST OF CURRENT PLAYERS INVITED")
-            print(self.current_event_players_invited)
-            #print(self.dict_of_event)
-            self.current_event_title = self.dict_of_event.get("Location") + " " + self.dict_of_event.get("Time")
-            self.current_event_day = self.dict_of_event.get('Day')
-            labeltext = f" {self.dict_of_event.get('Date')}"
-            labeltext += f" {self.dict_of_event.get('Day')}"
-            labeltext += f" {self.dict_of_event.get('Location')}"
-            labeltext += f" {self.dict_of_event.get('Time')}"
-            labeltext += f"\nInvited: {len(self.dict_of_event.get('PlayersInvited'))}"
-            labeltext += f" ~ To Assign: {len(self.dict_of_event.get('PlayersIn'))}"
-            labeltext += f" ~ Goalies: {len(self.dict_of_event['Dark'].get('Goalie')) + len(self.dict_of_event['Light'].get('Goalie'))} \n" \
-                         f"Dark: {len(self.dict_of_event['Dark']['Line1'].get('Forward')) + len(self.dict_of_event['Dark']['Line1'].get('Defense')) + len(self.dict_of_event['Dark']['Line2'].get('Forward')) + len(self.dict_of_event['Dark']['Line2'].get('Defense')) }" \
-                         f" ~ Light: {len(self.dict_of_event['Light']['Line1'].get('Forward')) + len(self.dict_of_event['Light']['Line1'].get('Defense')) + len(self.dict_of_event['Light']['Line2'].get('Forward')) + len(self.dict_of_event['Light']['Line2'].get('Defense')) }"
-            specific_event_heading_label = MDLabel(text=labeltext, halign='center')
-            self.root.ids.specific_event_page_box_layout.add_widget(specific_event_heading_label)
-        with open('ContactInfo.json') as allcontactinfo:
-            all_contact_info = json.load(allcontactinfo)
-            for a in self.dict_of_event.get("PlayersInvited"):
-                print(all_contact_info[a-1])
-                namestring = "Name: "
-                namestring += f"{all_contact_info[a-1].get('Player First')}"
-                namestring += " " + f"{all_contact_info[a-1].get('Player Last')}"
-                positionstring = "Pos: "
-                positionstring += f'{all_contact_info[a-1].get("position F D G")}'
-                positionstring += "  Line: "
-                positionstring += f'{all_contact_info[a-1].get("LINE")}'
-                player_id = int(all_contact_info[a-1].get("playerid"))
-                print(namestring)
-                player_card = SwipeToAddPlayerToInList(text=namestring,
-                                                       second_text=positionstring,
-                                                       event_id=self.current_event_identify,
-                                                       player_id=player_id
-                                                       )
-                self.root.ids.specific_event_label.add_widget(player_card)
-            # for a in str(singleevent.get(["PlayersIn"])):
-            #     print(int(a))
-        self.root.ids.screen_manager.current = 'SpecificEventPage'
+        TestingIndividualLogicCode.testingfunctions.display_selected_event(self,self.current_event_identify, MDLabel, SwipeToAddPlayerToInList)
+        # with open('myevents.json') as myevents:
+        #     alleventslist = json.load(myevents)
+        #     self.dict_of_event = alleventslist[self.current_event_identify]
+        #     self.current_event_players_invited = self.dict_of_event.get("PlayersInvited")
+        #     print("TRYING TO PRINT THE LIST OF CURRENT PLAYERS INVITED")
+        #     print(self.current_event_players_invited)
+        #     #print(self.dict_of_event)
+        #     self.current_event_title = str(self.dict_of_event.get("Location") + " " + self.dict_of_event.get("Time"))
+        #     self.current_event_day = self.dict_of_event.get('Day')
+        #     labeltext = f" {self.dict_of_event.get('Date')}"
+        #     labeltext += f" {self.dict_of_event.get('Day')}"
+        #     labeltext += f" {self.dict_of_event.get('Location')}"
+        #     labeltext += f" {self.dict_of_event.get('Time')}"
+        #     labeltext += f"\nInvited: {len(self.dict_of_event.get('PlayersInvited'))}"
+        #     labeltext += f" ~ To Assign: {len(self.dict_of_event.get('PlayersIn'))}"
+        #     labeltext += f" ~ Goalies: {len(self.dict_of_event['Dark'].get('Goalie')) + len(self.dict_of_event['Light'].get('Goalie'))} \n" \
+        #                  f"Dark: {len(self.dict_of_event['Dark']['Line1'].get('Forward')) + len(self.dict_of_event['Dark']['Line1'].get('Defense')) + len(self.dict_of_event['Dark']['Line2'].get('Forward')) + len(self.dict_of_event['Dark']['Line2'].get('Defense')) }" \
+        #                  f" ~ Light: {len(self.dict_of_event['Light']['Line1'].get('Forward')) + len(self.dict_of_event['Light']['Line1'].get('Defense')) + len(self.dict_of_event['Light']['Line2'].get('Forward')) + len(self.dict_of_event['Light']['Line2'].get('Defense')) }"
+        #     specific_event_heading_label = MDLabel(text=labeltext, halign='center')
+        #     self.root.ids.specific_event_page_box_layout.add_widget(specific_event_heading_label)
+        # with open('ContactInfo.json') as allcontactinfo:
+        #     all_contact_info = json.load(allcontactinfo)
+        #     for a in self.dict_of_event.get("PlayersInvited"):
+        #         print(all_contact_info[a-1])
+        #         namestring = "Name: "
+        #         namestring += f"{all_contact_info[a-1].get('Player First')}"
+        #         namestring += " " + f"{all_contact_info[a-1].get('Player Last')}"
+        #         positionstring = "Pos: "
+        #         positionstring += f'{all_contact_info[a-1].get("position F D G")}'
+        #         positionstring += "  Line: "
+        #         positionstring += f'{all_contact_info[a-1].get("LINE")}'
+        #         player_id = int(all_contact_info[a-1].get("playerid"))
+        #         print(namestring)
+        #         player_card = SwipeToAddPlayerToInList(text=namestring,
+        #                                                second_text=positionstring,
+        #                                                event_id=self.current_event_identify,
+        #                                                player_id=player_id
+        #                                                )
+        #         self.root.ids.specific_event_label.add_widget(player_card)
+        #     # for a in str(singleevent.get(["PlayersIn"])):
+        #     #     print(int(a))
+        # self.root.ids.screen_manager.current = 'SpecificEventPage'
 
     def on_swipe_complete3(self, instance):
         print("on_swipe_complete3 MODULE")
@@ -3107,6 +3585,7 @@ class DemoApp(MDApp):
         #self.root.ids.screen_manager.current = 'InviteIndividualsScreen'
     def gotoindividualemail(self):
         print("gotoindividualemail: Now change the screen and populate the top email people and quick3_event_text")
+        self.root.ids.found_event_player_md_list.clear_widgets()
         self.root.ids.list_of_individuals_display.clear_widgets()
         TestingIndividualLogicCode.testingfunctions.remove_nav_drawer_3_widgets(self)
         with open('standardmessages.json') as allstandardmessages:
@@ -3185,11 +3664,17 @@ class DemoApp(MDApp):
 
     def load_paymentpage(self):
         print("IN THE load_paymentpage MODULE")
+        self.root.ids.players_who_need_to_pay.clear_widgets()
+        self.root.ids.player_who_need_to_pay2.clear_widgets()
         print(self.dict_of_event)
         print(self.current_event_identify)
         players_to_pay = TestingIndividualLogicCode.testingfunctions.add_player_to_payment_screen(self,self.dict_of_event)
         print(players_to_pay)
+        print()
         print("+"*200)
+        need_to_pay_label = MDLabel(text="NEED TO PAY",
+                                    halign="center",font_style="H6")
+        self.root.ids.players_who_need_to_pay.add_widget(need_to_pay_label)
         for number in players_to_pay:
             with open("ContactInfo.json") as f:
                 all_contacts = json.load(f)
@@ -3200,7 +3685,7 @@ class DemoApp(MDApp):
                             "Player Last"),
                         player_id=number)
                     self.root.ids.players_who_need_to_pay.add_widget(player_payment_card)
-                    players_to_pay.remove(number)
+                    #players_to_pay.remove(number)
         for number in players_to_pay:
             with open("ContactInfo.json") as f:
                 all_contacts = json.load(f)
@@ -3209,14 +3694,155 @@ class DemoApp(MDApp):
                     player_payment_card = SwipeToPayPlayer2(
                         text=all_contacts[number - 1].get("Player First") + " " + all_contacts[number - 1].get(
                             "Player Last"),
+                        second_text = "$" + str(all_contacts[number-1].get("Monies")) + " Money in Account",
                         player_id=number)
                     self.root.ids.players_who_need_to_pay.add_widget(player_payment_card)
-                    players_to_pay.remove(number)
+                    #players_to_pay.remove(number)
+        self.root.ids.player_who_need_to_pay2.add_widget(MDRaisedButton(text="Review Event",
+                                                                        size_hint=(1,None),
+                                                                        on_press=self.review_Event))
 
-        #if (check_if_player_invited(self, self.dict_of_event, player_id))
-        #Check all player numbers in event
-        #check if player number is in "Payment" of event dictionary
-        #if player is not "paid" display his name for the MDCarSwipe to be paid
+    def review_Event(self, root):
+        print("+++   in the review_Event Function   +++")
+        self.root.ids.review_event.clear_widgets()
+        self.root.ids.screen_manager.current = 'ReviewPage'
+        #ID for PLAYER LIST
+        #self.root.ids.review_event
+        #ID for the button
+        #self.root.ids.review_event2
+        with open("myevents.json") as f:
+            all_events = json.load(f)
+            print(all_events[self.current_event_identify])
+            dict_of_this_event = all_events[self.current_event_identify]
+            paid_players = TestingIndividualLogicCode.testingfunctions.show_paid_players(self, all_events[self.current_event_identify])
+            self.attended_players = TestingIndividualLogicCode.testingfunctions.show_all_players(self, all_events[self.current_event_identify])
+            print(paid_players)
+            print(self.attended_players)
+            for player in paid_players:
+                if player in self.attended_players:
+                    index = self.attended_players.index(player)
+                    self.attended_players.pop(index)
+            all_players = paid_players + self.attended_players
+            print(self.attended_players)
+            print("*"*250)
+            print(all_players)
+            self.root.ids.review_event.add_widget(MDRectangleFlatButton
+                                                  (text= "Total Players " + str(len(all_players)) + " / " + dict_of_this_event["TotalPlayers"],
+                                                   size_hint=(1, None),
+                                                   line_color=(0,0,0,1)))
+            self.root.ids.review_event.add_widget(MDRectangleFlatButton
+                                                  (text="Paid Players " + str(len(paid_players)) + " / " +
+                                                        dict_of_this_event["TotalPlayers"],
+                                                   size_hint=(1, None),
+                                                   line_color=(0, 0, 1, 1)))
+
+            with open("ContactInfo.json") as file:
+                all_contacts = json.load(file)
+                for player in paid_players:
+                    print(player)
+                    for contact_player in all_contacts:
+                        if contact_player["playerid"] == player:
+                            self.root.ids.review_event.add_widget(MDRectangleFlatButton
+                                                          (text= str(contact_player["Player First"] + " " + contact_player["Player Last"]),
+                                                           line_color=(0,1,0,1),
+                                                           size_hint=(1,None)))
+                self.root.ids.review_event.add_widget(MDRectangleFlatButton
+                                                      (text="Attended Players " + str(len(self.attended_players)) + " / " +
+                                                            dict_of_this_event["TotalPlayers"],
+                                                       size_hint=(1, None),
+                                                       line_color=(0, 0, 1, 1)))
+                for player in self.attended_players:
+                        for contact_player in all_contacts:
+                            if contact_player["playerid"] == player:
+                                self.root.ids.review_event.add_widget(MDRectangleFlatButton
+                                                                  (text=str(contact_player["Player First"] + " " +
+                                                                            contact_player["Player Last"]),
+                                                                   line_color=(1,0,0,1),
+                                                                   size_hint=(1,None)))
+            print(paid_players)
+            print(self.attended_players)
+            print(all_players)
+            print("%"*250)
+
+    def complete_event(self):
+        print("!!!   in the complete_event function   !!!")
+        with open("myevents.json") as f:
+            all_events = json.load(f)
+            this_event = all_events[self.current_event_identify]
+            print(this_event)
+            completed_event_key = str(this_event["Date"] + " " + this_event["Location"] + " " + this_event["Time"])
+            if (self.attended_players):
+                with open('notifications.json') as f:
+                    all_notifications = json.load(f)
+                    this_notification = {completed_event_key:self.attended_players}
+                    all_notifications.append(this_notification)
+                    with open('notifications.json', 'w') as file:
+                        json.dump(all_notifications, file, indent=4, separators=(',', ':'))
+            completed_event_value = this_event["PlayersPaid"] + self.attended_players
+            print(completed_event_key)
+            print(completed_event_value)
+            completed_event = {str(completed_event_key):completed_event_value}
+            print("%"*250)
+            print(completed_event)
+            with open('completedevents.json') as f:
+                completed_events = json.load(f)
+                completed_events.append(completed_event)
+                with open('completedevents.json', 'w') as file:
+                    json.dump(completed_events, file, indent=4, separators=(',', ':'))
+            print("%"*250)
+            del all_events[self.current_event_identify]
+            with open('myevents.json', 'w') as file:
+                json.dump(all_events, file, indent=4, separators=(',', ':'))
+        #Need to go into the NOTIFICATIONS.JSON file and pull the keys as "Heading" Cards and the values as "Swipe" Cards
+        #To delete the notification
+        #
+        # event_card = PlayerNotificationCard(text2=f'{date} {day} {location} {time}',
+        #                                 second_text2=f'Cost: {cost} ~ Players: {playersin}/{totalplayers}',
+        #                                 third_text2=f"INV: {len(alleventslist[allevent]['PlayersInvited'])} ~ TO ASSIGN: {len(alleventslist[allevent]['PlayersIn'])}",
+        #                                 event_id2=str(self.eventid))
+
+        self.root.ids.screen_manager.current = 'NotificationScreen'
+
+    def change_to_notifications(self, root):
+        print("~~~ change_to_notifications function   ~~~")
+        self.root.ids.notifications.clear_widgets()
+        with open('notifications.json') as f:
+            all_notifications = json.load(f)
+            with open('ContactInfo.json') as file:
+                all_contacts = json.load(file)
+                for this_notification in all_notifications:
+                    for key, val in this_notification.items():
+                        #self.root.ids.notifications.add_widget(PlayerNotificationCard(text2=str(key)))
+                        for single_player in val:
+                            this_contact = all_contacts[single_player - 1]
+                            self.root.ids.notifications.add_widget(
+                                PlayerNotificationCard(text2=str(this_contact["Player First"] + " " + this_contact["Player Last"]),
+                                                       second_text2=str(key),
+                                                       third_text2="$" + str(this_contact["Monies"]),
+                                                       player_id=single_player))
+        self.root.ids.screen_manager.current = 'NotificationScreen'
+
+    def remove_player_from_notification(self, instance):
+        print("~~~   remove_player_from_notification function   ~~~")
+        self.root.ids.notifications.remove_widget(instance)
+        index=0
+        with open("notifications.json") as f:
+            all_notifications = json.load(f)
+            for this_notification in all_notifications:
+                print(this_notification)
+                index += 1
+                for key, val in this_notification.items():
+                    if key == instance.second_text2:
+                        for player in val:
+                            print(player)
+                            print(type(player))
+                            if player == instance.player_id:
+                                val.remove(player)
+                                if len(val) == 0:
+                                    all_notifications.pop(index-1)
+                                with open('notifications.json', 'w') as file:
+                                    json.dump(all_notifications, file, indent=4, separators=(',', ':'))
+
     def player_paid(self, instance):
         #add the players number to the "Payment" section of the event dictionary
         print("The player has paid for this event")
@@ -3250,12 +3876,24 @@ class DemoApp(MDApp):
         self.showManageQuickEvents = False
         #self.root.ids.nav_drawer.set_state('close')
         self.root.ids.screen_manager.current = 'EditQuickEventScreen'
+        dark = True
         with open("quickevents.json") as f:
             all_dict_quick_events = json.load(f)
             for key, val in all_dict_quick_events.items():
                 if isinstance(val, dict):
-                    self.quick_event_panel = QuickEventButton(text=key,event_id=str(key), on_press=self.deleteQuickEvent)
-                    self.root.ids.edit_quick_event_layout.add_widget(self.quick_event_panel)
+                    if dark:
+                        self.quick_event_panel = QuickEventButtonLight(text=key,event_id=str(key), on_press=self.deleteQuickEvent)
+                        self.root.ids.edit_quick_event_layout.add_widget(self.quick_event_panel)
+                        dark = not dark
+                    else:
+                        self.quick_event_panel = QuickEventButtonDark(text=key, event_id=str(key),
+                                                                       on_press=self.deleteQuickEvent)
+                        self.root.ids.edit_quick_event_layout.add_widget(self.quick_event_panel)
+                        dark = not dark
+
+
+    def change_to_event_home_screen(self):
+        self.root.ids.screen_manager.current = "SpecificEventPage"
 
     def deleteQuickEvent(self, instance):
         print("%%% in the deleteQuickEvent Module")
@@ -3275,12 +3913,21 @@ class DemoApp(MDApp):
         TestingIndividualLogicCode.testingfunctions.closeLeftDrawerQuickButtons(self)
         self.showManageQuickEvents = False
         self.root.ids.screen_manager.current = 'EditQuickEventScreen'
+        dark = True
         with open("quickevents.json") as f:
             all_dict_quick_events = json.load(f)
             for key, val in all_dict_quick_events.items():
                 if isinstance(val, dict):
-                    self.quick_event_panel = QuickEventButton(text=key,event_id=str(key), on_press=self.editQuickEvent)
-                    self.root.ids.edit_quick_event_layout.add_widget(self.quick_event_panel)
+                    if dark:
+                        self.quick_event_panel = QuickEventButtonLight(text=key,event_id=str(key), on_press=self.editQuickEvent)
+                        self.root.ids.edit_quick_event_layout.add_widget(self.quick_event_panel)
+                        dark = not dark
+                    else:
+                        self.quick_event_panel = QuickEventButtonDark(text=key, event_id=str(key),
+                                                                       on_press=self.editQuickEvent)
+                        self.root.ids.edit_quick_event_layout.add_widget(self.quick_event_panel)
+                        dark = not dark
+        self.root.ids.edit_quick_event_layout.add_widget(MDSeparator(color=(0,0,0,1), size_hint=(.8,None)))
         self.root.ids.edit_quick_event_layout2.add_widget(MDFillRoundFlatButton(text="Submit",on_press=self.saveTheQuickEvents))
         #self.root.ids.edit_quick_event_layout.add_widget()
 
@@ -3291,13 +3938,13 @@ class DemoApp(MDApp):
         self.showManageQuickEvents = False
         self.root.ids.nav_drawer.set_state('close')
         delete_range = 0
-        for child in self.root.ids.left_md_list.children[:]:
-            if isinstance(child, QuickEventButton):
+        for child in self.root.ids.edit_quick_event_layout.children[:]:
+            if isinstance(child, QuickEventTextField):
                 print("***")
                 print(child)
                 delete_range += 1
-        for child in self.root.ids.left_md_list.children[:delete_range]:
-            self.root.ids.left_md_list.remove_widget(child)
+        for child in self.root.ids.edit_quick_event_layout.children[:delete_range]:
+            self.root.ids.edit_quick_event_layout.remove_widget(child)
         self.event_id = instance.event_id
         self.quick_event_text_field_id = []
         #need to open the dictionary and add the MDTextfields with info and ids etc.
@@ -3386,15 +4033,7 @@ class DemoApp(MDApp):
         self.current_events_displayed()
         self.root.ids.nav_drawer2.set_state('close')
         print("Just printed ids")
-        # self.root.ids.right_md_list.remove_widget(self.button)
-        # self.root.ids.right_md_list.remove_widget(self.button2)
-        # self.root.ids.showRightDrawerEventsMenu = not self.root.showRightDrawerEventsMenu
-        #
-        # event_card = SwipeToDeleteItem(text=f'Date: {date} Time: {time}',
-        #                                             second_text=f'Location: {location}',
-        #                                             third_text=f'Cost: {cost} Players: 0/{totalplayers}')
-        # root.ids.md_list.add_widget(event_card)
-        # id = currentevents_md_list
+
 
     def showcompletedevent(self, root):
         print("showcompletedevent MODULE")
@@ -3443,35 +4082,53 @@ class DemoApp(MDApp):
         print("gotosearchplayers MODULE")
         self.root.ids.left_md_list.remove_widget(self.playerbutton)
         self.root.ids.left_md_list.remove_widget(self.playerbutton2)
+        self.root.ids.found_event_player_md_list.clear_widgets()
         self.showLeftDrawerPlayersMenu = not self.showLeftDrawerPlayersMenu
         print("in the search players module")
-        for md_text_field in self.root.ids.search_fields.children:
-            md_text_field.text = ""
+        with open('ContactInfo.json') as f:
+            all_contacts = json.load(f)
+            for key, val in all_contacts[0].items():
+                print(key, val)
+                if str(key) != "playerid":
+                    create_player_textfields = QuickEventTextField(id=str(key), hint_text=str(key))
+                    self.root.ids.search_fields.add_widget(create_player_textfields)
+
         self.root.ids.screen_manager.current = 'SearchPlayerScreen'
         self.root.ids.nav_drawer.set_state('close')
 
     def searchplayers(self):
         print("searchplayers MODULE")
-        searchplayerlist = ["Player First", "Player Last", "Cell Number", "Email", "position F D G", "LINE"]
+        self.root.ids.found_player_md_list.clear_widgets()
+        #searchplayerlist = ["Player First", "Player Last", "Cell Number", "Email", "position F D G", "LINE"]
         print("start criteria seach and display player cards")
-        textfields = [md_text_field.text for md_text_field in self.root.ids.search_fields.children]
-        print(textfields)
-        searchdictionary = dict(zip(searchplayerlist,reversed(textfields)))
+        #textfields = [md_text_field.text for md_text_field in self.root.ids.search_fields.children]
+        searchdictionary = {}
+        for child in self.root.ids.search_fields.children[:]:
+            print(child.id)
+            print(child.text)
+            searchdictionary[child.id] = str(child.text.upper())
+        # print(textfields)
+        # searchdictionary = dict(zip(searchplayerlist,reversed(textfields)))
         print(searchdictionary)
         print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ just printed searchdictionary")
         with open('ContactInfo.json') as contactinfo:
             allcontactinfo = json.load(contactinfo)
             print(allcontactinfo)
-            for singlekey in searchdictionary:
+            for key, val in searchdictionary.items():
+                print(key, val)
+                print(type(key))
+                print(type(val))
                 for singlecontact in allcontactinfo:
-                    if singlekey != "position F D G" and singlecontact.get(singlekey) != "" and singlecontact.get(singlekey) == searchdictionary.get(singlekey):
+                    print(":"*250)
+                    print(singlecontact[key])
+                    if key != "position F D G" and key != "Monies" and singlecontact[key] != "" and singlecontact[key].upper() == val:
                             #singlecontact.get(singlekey).find(searchdictionary.get(singlekey)) != -1:
                         print("IM IN HERE")
                         playerfirst = singlecontact['Player First']
                         playerlast = singlecontact['Player Last']
                         playercell = singlecontact['Cell Number']
                         playeremail = singlecontact['Email']
-                        searchhit = singlecontact[str(singlekey)]
+                        searchhit = singlecontact[str(key)]
                         player_card = SwipeToDeletePlayerCard(text3=f'SEARCH: {searchhit}',
                                                               second_text3=f'{playerfirst} {playerlast}',
                                                               third_text3=f'{playercell} {playeremail}',
@@ -3480,8 +4137,8 @@ class DemoApp(MDApp):
                         self.root.ids.found_player_md_list.add_widget(player_card)
                     # print(singlecontact.get(singlekey))
                     # print("just printed the singlecontact.get(singlekey))")
-                    if singlekey == "position F D G" and searchdictionary.get(singlekey) != "":
-                        a = singlecontact.get(singlekey).find(searchdictionary.get(singlekey))
+                    if key == "position F D G" and val != "":
+                        a = singlecontact.get(str(key)).find(val)
                         if a != -1:
                             print(a)
                             print("Made it into here")
@@ -3489,14 +4146,27 @@ class DemoApp(MDApp):
                             playerlast = singlecontact['Player Last']
                             playercell = singlecontact['Cell Number']
                             playeremail = singlecontact['Email']
-                            searchhit = singlecontact[str(singlekey)]
+                            searchhit = singlecontact[str(key)]
                             player_card = SwipeToDeletePlayerCard(text3=f'SEARCH: {searchhit}',
                                                                   second_text3=f'{playerfirst} {playerlast}',
                                                                   third_text3=f'{playercell} {playeremail}',
                                                                   search_player_id=str(singlecontact['playerid']),
                                                                   )
                             self.root.ids.found_player_md_list.add_widget(player_card)
-
+                    if key == "Monies" and singlecontact["Monies"] != 0 and val != "":
+                        print("Made it into here")
+                        playerfirst = singlecontact['Player First']
+                        playerlast = singlecontact['Player Last']
+                        playercell = singlecontact['Cell Number']
+                        playeremail = singlecontact['Email']
+                        searchhit = singlecontact[str(key)]
+                        player_card = SwipeToDeletePlayerCard(text3=f'SEARCH: {searchhit}',
+                                                              second_text3=f'{playerfirst} {playerlast}',
+                                                              third_text3=f'{playercell} {playeremail}',
+                                                              search_player_id=str(singlecontact['playerid']),
+                                                              )
+                        self.root.ids.found_player_md_list.add_widget(player_card)
+        self.root.ids.search_fields.clear_widgets()
         self.root.ids.screen_manager.current = 'FoundPlayerScreen'
 
     def saveeditfromsearchplayer(self):
@@ -3522,8 +4192,8 @@ class DemoApp(MDApp):
             self.allcontactinfo[self.index_of_player] = insertdictionary
             with open('ContactInfo.json', 'w') as json_file:
                 json.dump(self.allcontactinfo, json_file, indent=4, separators=(',', ':'))
-        for empty_search_field in self.root.ids.search_fields.children:
-            empty_search_field.text = ""
+        # for empty_search_field in self.root.ids.search_fields.children:
+        #     empty_search_field.text = ""
         self.change_home_screen()
 
     def clear_search_text_fields(self):
@@ -3535,25 +4205,37 @@ class DemoApp(MDApp):
         self.root.ids.left_md_list.remove_widget(self.playerbutton)
         self.root.ids.left_md_list.remove_widget(self.playerbutton2)
         self.showLeftDrawerPlayersMenu = not self.showLeftDrawerPlayersMenu
-        for md_text_field in self.root.ids.create_player_fields.children:
-            md_text_field.text = ""
+        with open('ContactInfo.json') as f:
+            all_contacts = json.load(f)
+            for key, val in all_contacts[0].items():
+                print(key, val)
+                if str(key) != "playerid":
+                    #TestingIndividualLogicCode.testingfunctions.add_with_path_and_class(self, self.root.ids.create_player_fields, QuickEventTextField(id=str(key), hint_text=str(key)))
+                    create_player_textfields = QuickEventTextField(id=str(key), hint_text=str(key))
+                    self.root.ids.create_player_fields.add_widget(create_player_textfields)
+        # for md_text_field in self.root.ids.create_player_fields.children:
+        #     md_text_field.text = ""
         self.root.ids.screen_manager.current = 'CreatePlayerScreen'
         self.root.ids.nav_drawer.set_state('close')
 
+#COMEHERE
     def save_create_player(self, root):
         print("we just came from the CreatePlayerScreen")
         print("just clicked the CREATE PLAYER button")
         print("in the save_create_player module")
-        foundplayerlist = ["Player First", "Player Last", "Cell Number", "Email",
-                           "position F D G", "LINE", "Tuesday", "Friday", "Sunday", "Monies", "Out", "Suspended"]
-        md_text_fields2 = [md_text_field.text for md_text_field in self.root.ids.create_player_fields.children]
-        insertdictionary = dict(zip(foundplayerlist, reversed(md_text_fields2)))
+        insertdictionary = {}
+        saveplayer = False
+        # for child in self.root.ids.create_player_fields.children[:]:
+        #     print(child.id)
+        #     print(child.text)
+        #     insertdictionary[str(child.id)] = str(child.text.upper())
+        insertdictionary, saveplayer = TestingIndividualLogicCode.testingfunctions.check_create_player_text_fields(self, insertdictionary, saveplayer)
+        print(insertdictionary)
+        print(saveplayer)
         try:
             insertdictionary["Monies"] = int(insertdictionary["Monies"])
         except:
             insertdictionary['Monies'] = 0
-        for a in md_text_fields2:
-            print(a)
         with open("ContactInfo.json") as allcontactinfo:
             self.all_contact_info = json.load(allcontactinfo)
             player_id = int(len(self.all_contact_info)) + 1
@@ -3564,8 +4246,10 @@ class DemoApp(MDApp):
 
             with open('ContactInfo.json', 'w') as json_file:
                 json.dump(self.all_contact_info, json_file, indent=4, separators=(',', ':'))
-        for md_text_field in self.root.ids.create_player_fields.children:
-            md_text_field.text = ""
+        self.root.ids.create_player_fields.clear_widgets()
+        # for md_text_field in self.root.ids.create_player_fields.children:
+        #     md_text_field.text = ""
+
         self.root.ids.screen_manager.current = "HomeScreen"
     def just_testing(self):
         TestingIndividualLogicCode.makingtable.testing_key_word_args("testing", "self", "printing")
@@ -3578,6 +4262,7 @@ class DemoApp(MDApp):
     def build(self):
         screen = Builder.load_string(navigation_helper)
         return screen
+
 
 
 DemoApp().run()
