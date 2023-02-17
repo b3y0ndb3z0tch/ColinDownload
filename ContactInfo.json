@@ -1267,12 +1267,12 @@
         "Email":"Adamwilliams86@yahoo.com",
         "position F D G":"F D",
         "LINE":"1",
-        "Monies":970,
-        "Out":"",
-        "Suspended":"",
-        "KROC 09:00 PM":"S",
-        "POWAY 09:45 PM":"S",
-        "UTC 10:30 PM":"S"
+        "Tuesday":"970",
+        "Friday":"",
+        "Sunday":"",
+        "Monies":0,
+        "Out":"S",
+        "Suspended":"S"
     },
     {
         "playerid":86,
