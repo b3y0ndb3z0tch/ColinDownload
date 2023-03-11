@@ -57,6 +57,61 @@ Window.size = (300, 500)
 
 
 navigation_helper = """
+
+<CompletedEvents>:
+    line_color: 
+    size_hint_y: None
+    height: content.height*1.5
+    on_swipe_complete: app.on_swipe_completeevents(root)
+    # padding: '8dp'
+    # spacing: '20dp'
+    MDCardSwipeLayerBox:
+        # Content under the card.
+        md_bg_color: 0,0,0,.2
+
+    MDCardSwipeFrontBox:
+        MDBoxLayout:
+            orientation: 'vertical'
+            md_bg_color: .8,.3,.2,1
+            MDBoxLayout:
+                orientation: 'vertical'
+                md_bg_color: .2,.53,.733,1 #blue
+                #md_bg_color: .8,.3,.2,1 #orange
+                size_hint:(1,.1)
+            MDSeparator:
+                color: 1,1,1,1
+                size_hint:(1,.08)
+            # MDBoxLayout:
+            #     orientation: 'vertical'
+            #     #md_bg_color: .2,.53,.733,1 #blue
+            #     md_bg_color: .8,.3,.2,1 #orange
+            # # Content of card.
+            MDAnchorLayout:
+                anchor_x: 'center'
+                anchor_y: 'center'
+                ThreeLineListItem:
+                    id: content
+                    pos_hint: {"center_x":.5, "center_y":.5}
+                    text: root.text2
+                    secondary_text: root.second_text2
+                    tertiary_text: root.third_text2
+                    event_id2: root.event_id2
+                    _no_ripple_effect: True
+                    on_release: 
+                        print(root.third_text2)
+                        print(root.event_id2)
+            MDSeparator:
+                color: 1,1,1,1
+                size_hint:(1,.05)
+            MDBoxLayout:
+                orientation: 'vertical'
+                md_bg_color: .2,.53,.733,1 #blue
+                #md_bg_color: .8,.3,.2,1 #orange
+                size_hint:(1,.1)
+            MDSeparator:
+                color: 1,1,1,1
+                size_hint:(1,.1)
+                
 <SwipeToDeleteItem2>:
     line_color: 
     size_hint_y: None
@@ -1647,6 +1702,17 @@ class SwipeToDeleteItem2(MDCardSwipe):
     type_swipe = 'auto'
     anchor = 'left'
     _no_ripple_effect = True
+
+class CompletedEvents(MDCardSwipe):
+    text2 = StringProperty()
+    second_text2 = StringProperty()
+    third_text2 = StringProperty()
+    event_id2 = StringProperty()
+    orientation: 'vertical'
+    type_swipe = 'auto'
+    anchor = 'left'
+    _no_ripple_effect = True
+
 
 class PlayerNotificationCard(MDCardSwipe):
     text2 = StringProperty()
@@ -3542,6 +3608,8 @@ class DemoApp(MDApp):
         #     # for a in str(singleevent.get(["PlayersIn"])):
         #     #     print(int(a))
         # self.root.ids.screen_manager.current = 'SpecificEventPage'
+    def on_swipe_completeevents(self, instance):
+        print("Need to pull up the events details")
 
     def on_swipe_complete3(self, instance):
         print("on_swipe_complete3 MODULE")
@@ -4050,7 +4118,11 @@ class DemoApp(MDApp):
                 for key, val in singleevent.items():
                     print(key)
                     print(val)
-
+                    event_card = CompletedEvents(
+                        text2 = str(key),
+                        second_text2 = str(val)
+                    )
+                    self.root.ids.completed_md_list.add_widget(event_card)
     def clear_current_events(self):
         print("clear_current_events MODULE")
         self.root.ids.currentevents_md_list.clear_widgets()
