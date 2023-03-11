@@ -649,7 +649,7 @@ MDScreen:
                         elevation: 2
                         pos_hint: {"top": 1}
                         left_action_items: [['menu', lambda x: nav_drawer.set_state('open')]]
-                        right_action_items: [['face-profile', lambda x: nav_drawer2.set_state('open')]]
+                        right_action_items: [['menu', lambda x: nav_drawer2.set_state('open')]]
                     BoxLayout:
                         orientation: 'vertical'
                         id: home_screen
@@ -662,7 +662,7 @@ MDScreen:
                         elevation: 2
                         pos_hint: {"top": 1}
                         left_action_items: [['menu', lambda x: nav_drawer.set_state('open')]]
-                        right_action_items: [['face-profile', lambda x: nav_drawer2.set_state('open')]]
+                        right_action_items: [['menu', lambda x: nav_drawer2.set_state('open')]]
                     BoxLayout:
                         orientation: 'vertical'
                         ScrollView:
@@ -682,7 +682,7 @@ MDScreen:
                         title: "Create Event"
                         elevation: 2
                         left_action_items: [['menu', lambda x: nav_drawer.set_state('open')]]
-                        right_action_items: [['face-profile', lambda x: nav_drawer2.set_state('open')]]
+                        right_action_items: [['menu', lambda x: nav_drawer2.set_state('open')]]
                     MDSeparator:
                     MDBoxLayout:
                         id: quick_button_layout
@@ -763,7 +763,7 @@ MDScreen:
                         elevation: 2
                         pos_hint: {"top": 1}
                         left_action_items: [['menu', lambda x: nav_drawer.set_state('open')]]
-                        right_action_items: [['face-profile', lambda x: nav_drawer2.set_state('open')]]
+                        right_action_items: [['menu', lambda x: nav_drawer2.set_state('open')]]
                     ScrollView:
                         scroll_timeout: 100
                         padding: [12,5,12,15]
@@ -833,7 +833,7 @@ MDScreen:
                         elevation: 2
                         pos_hint: {"top": 1}
                         left_action_items: [['menu', lambda x: nav_drawer.set_state('open')]]
-                        right_action_items: [['face-profile', lambda x: nav_drawer2.set_state('open')]]
+                        right_action_items: [['menu', lambda x: nav_drawer2.set_state('open')]]
                     ScrollView:
                         scroll_timeout: 100
                         MDList:
@@ -891,7 +891,7 @@ MDScreen:
                         title: "Quick Event"
                         elevation: 2
                         left_action_items: [['menu', lambda x: nav_drawer.set_state('open')]]
-                        right_action_items: [['face-profile', lambda x: nav_drawer2.set_state('open')]]
+                        right_action_items: [['menu', lambda x: nav_drawer2.set_state('open')]]
                     MDSeparator:
                     BoxLayout:
                         orientation: 'vertical'
@@ -943,7 +943,7 @@ MDScreen:
                         title: "Edit Qck Event"
                         elevation: 2
                         left_action_items: [['menu', lambda x: nav_drawer.set_state('open')]]
-                        right_action_items: [['face-profile', lambda x: nav_drawer2.set_state('open')]]
+                        right_action_items: [['menu', lambda x: nav_drawer2.set_state('open')]]
                     MDBoxLayout:
                         orientation: 'vertical'
                         #md_bg_color: 0,0,0,.1
@@ -990,7 +990,7 @@ MDScreen:
                             [
                             ['account-alert', lambda x: app.display_assigned_dark()],
                             ['account-alert-outline', lambda x: app.change_light_assign()],
-                            ['face-profile', lambda x: nav_drawer3.set_state('open')]
+                            ['menu', lambda x: nav_drawer3.set_state('open')]
                             ]
                     MDBoxLayout:
                         orientation: 'vertical'
@@ -1029,7 +1029,7 @@ MDScreen:
                             [
                             ['account-switch-outline', lambda x: app.display_teams()],
                             ['account-alert-outline', lambda x: app.change_light_assign()],
-                            ['face-profile', lambda x: nav_drawer3.set_state('open')]
+                            ['menu', lambda x: nav_drawer3.set_state('open')]
                             ]                           
                     MDBoxLayout:   
                         orientation: 'vertical'
@@ -1068,7 +1068,7 @@ MDScreen:
                             [
                             ['account-switch-outline', lambda x: app.display_teams()],
                             ['account-alert', lambda x: app.display_assigned_dark()],
-                            ['face-profile', lambda x: nav_drawer3.set_state('open')]
+                            ['menu', lambda x: nav_drawer3.set_state('open')]
                             ]                           
                     MDBoxLayout:   
                         orientation: 'vertical' 
@@ -1106,7 +1106,7 @@ MDScreen:
                         right_action_items: 
                             [
                             ['email-edit-outline', lambda x: app.send_final_email()], #in the send_final_email function
-                            ['face-profile', lambda x: nav_drawer3.set_state('open')] 
+                            ['menu', lambda x: nav_drawer3.set_state('open')] 
                             ]                           
                     MDBoxLayout:
                         padding: [5,5,5,5]
@@ -1136,7 +1136,7 @@ MDScreen:
                         elevation: 2
                         pos_hint: {"top": 1}
                         left_action_items: [['home-export-outline', lambda x: app.change_to_event_home_screen()]]
-                        right_action_items: [['face-profile', lambda x: nav_drawer3.set_state('open')]]
+                        right_action_items: [['menu', lambda x: nav_drawer3.set_state('open')]]
                     MDBoxLayout:
                         orientation: 'vertical'
                         ScrollView:
@@ -1170,7 +1170,7 @@ MDScreen:
                         elevation: 2
                         pos_hint: {"top": 1}
                         left_action_items: [['home-export-outline', lambda x: app.change_to_event_home_screen()]]
-                        right_action_items: [['face-profile', lambda x: nav_drawer3.set_state('open')]]
+                        right_action_items: [['menu', lambda x: nav_drawer3.set_state('open')]]
                     MDBoxLayout:
                         orientation: 'vertical'
                         MDScrollView:
@@ -1217,7 +1217,7 @@ MDScreen:
                         elevation: 2
                         pos_hint: {"top": 1}
                         left_action_items: [['home-export-outline', lambda x: app.change_to_event_home_screen()]]
-                        right_action_items: [['face-profile', lambda x: nav_drawer3.set_state('open')]]
+                        right_action_items: [['menu', lambda x: nav_drawer3.set_state('open')]]
                     MDBoxLayout:
                         orientation: 'vertical'
                         ScrollView:
@@ -1329,7 +1329,7 @@ MDScreen:
                         elevation: 2
                         pos_hint: {"top": 1}
                         left_action_items: [['home-export-outline', lambda x: app.change_to_event_home_screen()]]
-                        right_action_items: [['face-profile', lambda x: nav_drawer3.set_state('open')]]
+                        right_action_items: [['menu', lambda x: nav_drawer3.set_state('open')]]
                     MDBoxLayout:
                         orientation: 'vertical'
                         ScrollView:
@@ -1371,7 +1371,7 @@ MDScreen:
                             [
                             ['account-alert', lambda x: app.display_assigned_dark()],
                             ['account-alert-outline', lambda x: app.change_light_assign()],
-                            ['face-profile', lambda x: nav_drawer3.set_state('open')]
+                            ['menu', lambda x: nav_drawer3.set_state('open')]
                             ]
                     MDBoxLayout:
                         orientation: 'vertical'
@@ -1410,7 +1410,7 @@ MDScreen:
                             [
                             ['account-alert', lambda x: app.display_assigned_dark()],
                             ['account-alert-outline', lambda x: app.change_light_assign()],
-                            ['face-profile', lambda x: nav_drawer3.set_state('open')]
+                            ['menu', lambda x: nav_drawer3.set_state('open')]
                             ]
                     ScrollView:
                         scroll_timeout: 100
@@ -1456,7 +1456,7 @@ MDScreen:
                         elevation: 2
                         pos_hint: {"top": 1}
                         left_action_items: [['menu', lambda x: nav_drawer.set_state('open')]]
-                        right_action_items: [['face-profile', lambda x: nav_drawer2.set_state('open')]]
+                        right_action_items: [['menu', lambda x: nav_drawer2.set_state('open')]]
                     Widget:
                     ScrollView:
                         scroll_timeout: 100
@@ -4041,6 +4041,15 @@ class DemoApp(MDApp):
         self.root.ids.right_md_list.remove_widget(self.button2)
         self.showRightDrawerEventsMenu = not self.showRightDrawerEventsMenu
         print("showcompletedevent pressed also")
+        print("NEED TO CHANGE SCREEN TO COMPLETED EVENTS")
+        self.root.ids.screen_manager.current = "CompletedEventsPage"
+        with open("completedevents.json") as completedevents:
+            allcompletedevents = json.load(completedevents)
+            for singleevent in allcompletedevents:
+                print(singleevent)
+                for key, val in singleevent.items():
+                    print(key)
+                    print(val)
 
     def clear_current_events(self):
         print("clear_current_events MODULE")
